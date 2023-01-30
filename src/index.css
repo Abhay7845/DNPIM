@@ -1,0 +1,29 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Newsreader:wght@200&display=swap"); */
+
+* {
+}
+
+html,
+body {
+  max-width: 100%;
+  max-height: 100%;
+  overflow-x: hidden;
+}
+body {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+/* img {
+  pointer-events: none;
+} */
+
+/* body {
+  font-family: "Newsreader", serif;
+  background-repeat: no-repeat;
+  background-image: url("../images/back.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+} */

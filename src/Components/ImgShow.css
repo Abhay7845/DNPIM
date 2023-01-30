@@ -1,0 +1,24 @@
+/* .image_show {
+  background-color: aqua;
+  width: 25rem;
+  height: 20rem;
+  display: flex;
+}
+.item_code_show {
+  flex: 100%;
+} */
+
+/* .image_data_show {
+  width: 40rem;
+} */
+.img_show {
+  /* margin: 5% 7%; */
+  /* background-color: wheat; */
+}
+
+.large_img {
+  /* padding-left: 10%; */
+}
+.small_img{
+  width:100%;
+}
