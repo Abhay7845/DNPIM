@@ -1,14 +1,5 @@
-import {
-  Container,
-  FormControl,
-  Grid,
-  makeStyles,
-  Paper,
-  Typography,
-  CssBaseline,
-  Divider,
-} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { Container, Grid, Typography, CssBaseline } from "@material-ui/core";
 import ImgShow from "../Components/ImgShow";
 import LowerHeader from "../Components/LowerHeader";
 import ProductDetailsTabular from "../Components/ProductDetailsTabular";
@@ -18,9 +9,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { Button } from "@material-ui/core";
 import StaticTabularInformation from "../Components/StaticTabularInformation";
 import { StaticTabularConsumerBase } from "../Components/StaticTabularInformation";
-import NpimDataDisplay, {
-  IndentProductInsertL3,
-} from "../Components/NpimDataDisplay";
+import NpimDataDisplay from "../Components/NpimDataDisplay";
 import { useParams } from "react-router-dom";
 import Loading from "../Components/Loading";
 import axios from "axios";
@@ -32,73 +21,7 @@ import {
   SmallDataTable,
 } from "../Components/ComponentForL3";
 import Error from "../Components/Notification";
-
-const useStyles = makeStyles({
-  root: {
-    // flexGrow: 1,
-    // maxWidth: "100%",
-    margin: "0%",
-    padding: "0%",
-    // fontFamily: 'Hanalei Fill',
-  },
-  imgShow: {
-    // padding: "2%",
-    margin: "4%",
-    minWidth: "40vw",
-    maxWidth: "100vw",
-  },
-  productInfo: {
-    marginTop: "3%",
-    //minHeight: "78vh",
-    //maxHeight:"100vh"
-  },
-  hidden: {
-    display: "none",
-  },
-  show: {
-    display: "block",
-  },
-  headingColor: {
-    backgroundColor: "#c4c4c0",
-    fontWeight: "bolder",
-  },
-  heightCss: {
-    minHeight: "50vh",
-  },
-  heightOuter: {
-    minHeight: "78vh",
-    maxHeight: "100vh",
-    // backgroundColor: "red"
-  },
-  buttonSpacing: {
-    marginTop: "3%",
-  },
-  btn: {
-    fontWeight: 500,
-    fontSize: "14px",
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "2px",
-    padding: "5px",
-  },
-
-  btnSub: {
-    fontWeight: 500,
-    fontSize: "14px",
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "2px",
-    padding: "5px",
-    backgroundColor: "black",
-    color: "white",
-  },
-  haddingCss: {
-    fontWeight: "bolder",
-    fontStretch: "normal",
-    fontSize: "16px",
-    lineHeight: "normal",
-    fontFamily: "Raleway, sans - serif",
-    letterSpacing: "2px",
-  },
-});
+import { useStyles } from "../Style/IndentL3";
 
 const IndentL3 = () => {
   const { storeCode, rsoName } = useParams();
@@ -965,7 +888,7 @@ const IndentL3 = () => {
             alertPopupStatus.mode ? closeHandlerForRest() : closeHandler();
           }}
         />
-        <Grid container className={classes.main}>
+        <Grid container>
           <Grid item xs={12}>
             <UpperHeader
               itemCode={feedShowState.itemCode}
@@ -991,234 +914,168 @@ const IndentL3 = () => {
             className="section-details row"
             style={{ visibility: "visible" }}
           >
-            <Grid item xs={12} sm={5} style={{ paddingTop: "0.4%" }}>
-              <Paper className={classes.heightOuter}>
-                <div className={classes.imgShow}>
-                  {feedShowState.itemCode ? (
-                    <ImgShow
-                      itemCode={feedShowState.itemCode}
-                      imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
-                      videoLink={feedShowState.videoLink || ""}
-                      //imgLink={img}
-                    />
-                  ) : null}
-                </div>
-              </Paper>
+            <Grid item xs={12} sm={5}>
+              <div className="my-4 mx-2">
+                {feedShowState.itemCode ? (
+                  <ImgShow
+                    itemCode={feedShowState.itemCode}
+                    imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
+                    videoLink={feedShowState.videoLink || ""}
+                    //imgLink={img}
+                  />
+                ) : null}
+              </div>
             </Grid>
-            <Grid item xs={12} sm={7} style={{ paddingTop: "0.4%" }}>
-              <Paper className={classes.heightOuter}>
-                <div className={classes.productInfo}>
-                  <Grid container spacing={0}>
-                    <Grid item xs={12} sm={12}>
-                      <Typography
-                        className={classes.headingColor}
-                        align="center"
-                      >
-                        {feedShowState.itemCode}
-                      </Typography>
-                    </Grid>
-
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      style={{
-                        borderStyle: "solid",
-                        borderColor: "#f5f5f0",
-                        borderWidth: "1px",
-                      }}
-                    >
-                      {/* <Paper className={classes.heightCss}> */}
-                      <Typography className={classes.haddingCss} align="center">
-                        Product Specification
-                      </Typography>
-                      {feedShowState.adVariant ? (
-                        // <Skeleton variant="text"  >AD-Variant</Skeleton>
-
-                        <BlinkingComponent
-                          color="red"
-                          text="AD-Variant"
-                          fontSize={15}
+            <Grid item xs={12} sm={7}>
+              <div className="my-4">
+                <Grid container>
+                  <Grid item xs={12} sm={12}>
+                    <Typography className={classes.headingColor} align="center">
+                      {feedShowState.itemCode}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography className="text-center my-2">
+                      <b>Product Specification</b>
+                    </Typography>
+                    {feedShowState.adVariant ? (
+                      <BlinkingComponent
+                        color="red"
+                        text="AD-Variant"
+                        fontSize={15}
+                      />
+                    ) : null}
+                    <ProductDetailsTabular information={feedShowState} />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography className="text-center my-2">
+                      <b>Indent Details</b>
+                    </Typography>
+                    {feedShowState.btqCount ? (
+                      <BlinkingComponent
+                        color="red"
+                        text={` ${feedShowState.btqCount}  Btqs Indented `}
+                        fontSize={15}
+                      />
+                    ) : null}
+                    <br />
+                    <Grid container spacing={1}>
+                      {digit ? (
+                        <DisplayValidationComponent
+                          digit={feedShowState.itemCode[6]}
+                          cond={stoneQualityCheck(feedShowState)}
+                          // cond={false}
+                          // sizeOptionList={sizeOption}
+                          itemCode={feedShowState.itemCode}
+                          stoneOptionList={stoneOptionsData(feedShowState)}
+                          setType2option={["Need-Chain", "Need-Dori"]}
+                          findingsOption={[feedShowState.findings || ""]}
+                          setSelectOptions={setSelectState}
+                          tegOfItemOption={createTegOfItems(feedShowState)}
+                          allDataChangeHandler={allDataChangeHandler}
+                          sizeUomQuantityResHandler={sizeUomQuantityResHandler}
+                          sizeQuantityResHandler={sizeQuantityResHandler}
+                          stoneQualityResHandler={stoneQualityResHandler}
+                          tegQuantityResHandler={tegQuantityResHandler}
+                          typeSet2ResHandler={typeSet2ResHandler}
+                          quantityResHandler={quantityResHandler}
+                          findingsResHandler={findingsResHandler}
+                          tegSelectionResHandler={tegSelectionResHandler}
+                          setSelectResHandler={tegQuantityResHandler}
+                          allDataFromValidation={allDataFromValidation}
+                          feedShowState={feedShowState}
                         />
-                      ) : null}
-                      <ProductDetailsTabular information={feedShowState} />
-                      {/* </Paper> */}
+                      ) : (
+                        ""
+                      )}
                     </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      style={{
-                        borderStyle: "solid",
-                        borderColor: "#f5f5f0",
-                        borderWidth: "1px",
-                      }}
-                    >
-                      {/* <Paper className={classes.heightCss}> */}
-                      <div>
-                        <Typography
-                          className={classes.haddingCss}
-                          align="center"
+                    {SmallDataTable(feedShowState)}
+                    <div>
+                      {feedShowState.consumerBase ===
+                        "solitarie".toUpperCase() && (
+                        <a
+                          href="https://tanishqsolitaires.titanjew.in/SolitairePortal/Home/Login"
+                          target="iframe_a"
                         >
-                          Indent Details
-                        </Typography>
-
-                        {feedShowState.btqCount ? (
-                          <BlinkingComponent
-                            color="red"
-                            text={` ${feedShowState.btqCount}  Btqs Indented `}
-                            fontSize={15}
-                          />
-                        ) : null}
-                        <br />
-                        {console.log(digit, "digitdigitdigitdigitdigit")}
-                        {/* <Container> */}
-                        <Grid container spacing={1}>
-                          {digit ? (
-                            <DisplayValidationComponent
-                              digit={feedShowState.itemCode[6]}
-                              // digit="4"
-                              cond={stoneQualityCheck(feedShowState)}
-                              // cond={false}
-                              // sizeOptionList={sizeOption}
-                              itemCode={feedShowState.itemCode}
-                              stoneOptionList={stoneOptionsData(feedShowState)}
-                              setType2option={["Need-Chain", "Need-Dori"]}
-                              findingsOption={[feedShowState.findings || ""]}
-                              setSelectOptions={setSelectState}
-                              tegOfItemOption={createTegOfItems(feedShowState)}
-                              allDataChangeHandler={allDataChangeHandler}
-                              sizeUomQuantityResHandler={
-                                sizeUomQuantityResHandler
-                              }
-                              sizeQuantityResHandler={sizeQuantityResHandler}
-                              stoneQualityResHandler={stoneQualityResHandler}
-                              tegQuantityResHandler={tegQuantityResHandler}
-                              typeSet2ResHandler={typeSet2ResHandler}
-                              quantityResHandler={quantityResHandler}
-                              findingsResHandler={findingsResHandler}
-                              tegSelectionResHandler={tegSelectionResHandler}
-                              setSelectResHandler={tegQuantityResHandler}
-                              allDataFromValidation={allDataFromValidation}
-                              feedShowState={feedShowState}
-                            />
-                          ) : (
-                            ""
-                          )}
-                        </Grid>
-
-                        {SmallDataTable(feedShowState)}
-
-                        {/* </Container> */}
-                      </div>
-                      <div>
-                        {feedShowState.consumerBase ===
-                          "solitarie".toUpperCase() && (
-                          <a
-                            href="https://tanishqsolitaires.titanjew.in/SolitairePortal/Home/Login"
-                            target="iframe_a"
-                          >
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              className="mt-3"
-                            >
-                              Book Now
-                            </Button>
-                          </a>
-                        )}
-                        {/* <iframe
-                            src=""
-                            name="iframe_a"
-                            height="300px"
-                            width="100%"
-                            title="Iframe Example"
-                          ></iframe> */}
-                        {/* <p><a href="https://www.w3schools.com"  active target="iframe_a">W3Schools.com</a></p> */}
-                      </div>
-                      {/* </Paper> */}
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                      {stoneQualityCheck(feedShowState) ? (
-                        // <Container>
-                        <StaticTabularInformation
-                          si2Gh={feedShowState.si2Gh}
-                          vsGh={feedShowState.vsGh}
-                          vvs1={feedShowState.vvs1}
-                          i2Gh={feedShowState.i2Gh}
-                          si2Ij={feedShowState.si2Ij}
-                          consumerBase={false}
-                        />
-                      ) : (
-                        // </Container>
-                        ""
-                      )}
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                      {CheckConsumerBase(feedShowState) ? (
-                        // <Container>
-                        <StaticTabularConsumerBase />
-                      ) : (
-                        // </Container>
-                        ""
-                      )}
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={12}
-                      className={classes.buttonSpacing}
-                    >
-                      {/* <Paper> */}
-
-                      <Grid container spacing={2}>
-                        <Grid item xs={12} sm={4}>
                           <Button
-                            className={classes.btn}
-                            onClick={() => {
-                              onClickNextPreBtnHandler("pre");
-                            }}
-                            startIcon={<ArrowBackIosIcon />}
-                            variant="outlined"
-                            fullWidth
-                          >
-                            Previous
-                          </Button>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                          <Button
-                            className={classes.btnSub}
-                            onClick={() => {
-                              setTimeout(() => {
-                                onClickSubmitBtnHandler();
-                              }, 1000);
-                            }}
                             variant="contained"
-                            fullWidth
-                            //disabled={feedShowState.consumerBase==="KIDS"?true:false}
+                            color="primary"
+                            className="mt-3"
                           >
-                            Submit
+                            Book Now
                           </Button>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                          <Button
-                            className={classes.btn}
-                            onClick={() => {
-                              onClickNextPreBtnHandler("next");
-                            }}
-                            endIcon={<ArrowForwardIosIcon />}
-                            variant="outlined"
-                            fullWidth
-                          >
-                            Next
-                          </Button>
-                        </Grid>
+                        </a>
+                      )}
+                    </div>
+                  </Grid>
+                  <Grid item xs={12} sm={12}>
+                    {stoneQualityCheck(feedShowState) ? (
+                      <StaticTabularInformation
+                        si2Gh={feedShowState.si2Gh}
+                        vsGh={feedShowState.vsGh}
+                        vvs1={feedShowState.vvs1}
+                        i2Gh={feedShowState.i2Gh}
+                        si2Ij={feedShowState.si2Ij}
+                        consumerBase={false}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </Grid>
+                  <Grid item xs={12} sm={12}>
+                    {CheckConsumerBase(feedShowState) ? (
+                      <StaticTabularConsumerBase />
+                    ) : (
+                      ""
+                    )}
+                  </Grid>
+                  <Grid item xs={12} sm={12} className={classes.buttonSpacing}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} sm={4}>
+                        <Button
+                          className={classes.btn}
+                          onClick={() => {
+                            onClickNextPreBtnHandler("pre");
+                          }}
+                          startIcon={<ArrowBackIosIcon />}
+                          variant="outlined"
+                          fullWidth
+                        >
+                          Previous
+                        </Button>
                       </Grid>
-                      {/* </Paper> */}
+                      <Grid item xs={12} sm={4}>
+                        <Button
+                          className={classes.btnSub}
+                          onClick={() => {
+                            setTimeout(() => {
+                              onClickSubmitBtnHandler();
+                            }, 1000);
+                          }}
+                          variant="contained"
+                          fullWidth
+                          //disabled={feedShowState.consumerBase==="KIDS"?true:false}
+                        >
+                          Submit
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
+                        <Button
+                          className={classes.btn}
+                          onClick={() => {
+                            onClickNextPreBtnHandler("next");
+                          }}
+                          endIcon={<ArrowForwardIosIcon />}
+                          variant="outlined"
+                          fullWidth
+                        >
+                          Next
+                        </Button>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </div>
-              </Paper>
+                </Grid>
+              </div>
             </Grid>
           </div>
         </Grid>

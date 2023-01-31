@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import BackgroundAttachment from "../images/back.jpg";
+import BackgroundAttachment from "../images/LoginBg.jpg";
 
 const useStyles = makeStyles({
   root: {

@@ -1057,7 +1057,6 @@ function ProductDetailsTabularL3(props) {
 
   return (
     <>
-      {/* <Paper> */}
       <div>
         <Typography className={classes.haddingCss} align="center">
           Product Specification
@@ -1179,8 +1178,6 @@ function ProductDetailsTabularL3(props) {
           ) : null}
         </tbody>
       </table>
-
-      {/* </Paper> */}
     </>
   );
 }
@@ -1192,38 +1189,107 @@ function SmallDataTable(props) {
     if (digit == "2" || digit == "N") {
       if (props.childNodesE || props.childNodesN) {
         return (
-          <Paper elevation={0}>
-            <Table size="small" aria-label="a dense table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography variant="body1">Category</Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography variant="body1">Wt</Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography variant="body1">UCP</Typography>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow key={1}>
-                  <TableCell align="left">Necklace</TableCell>
-                  <TableCell align="left">{props.stdWtN}</TableCell>
-                  <TableCell align="left">{props.stdUcpN}</TableCell>
-                </TableRow>
-                <TableRow key={2}>
-                  <TableCell align="left">Ear Ring</TableCell>
-                  <TableCell align="left">{props.stdWtE}</TableCell>
-                  <TableCell align="left">{props.stdUcpE}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </Paper>
+          <>
+            <table
+              className="table table-bordered my-3"
+              style={{ marginLeft: "0px" }}
+            >
+              <thead>
+                <tr>
+                  <th scope="col">CATEGORY</th>
+                  <th scope="col">StdWt</th>
+                  <th scope="col">UCP</th>
+                </tr>
+              </thead>
+              <tbody>
+                {digit === "5" || digit === "6" || digit === "7" ? (
+                  <>
+                    {!props.stdUcpH ? (
+                      <tr>
+                        <td>OTHER</td>
+                        <td>{props.stdWtO}</td>
+                        <td>{props.stdUcpO}</td>
+                      </tr>
+                    ) : (
+                      <tr>
+                        <td>HARAM</td>
+                        <td>{props.stdWtH}</td>
+                        <td>{props.stdUcpH}</td>
+                      </tr>
+                    )}
+                  </>
+                ) : (
+                  ""
+                )}
+                <tr>
+                  <td>EAR RING</td>
+                  <td>{props.stdWtE}</td>
+                  <td>{props.stdUcpE}</td>
+                </tr>
+                {digit === "0" ? (
+                  <tr>
+                    <td>CHAIN WITH PENDANT</td>
+                    <td>{props.stdWtN}</td>
+                    <td>{props.stdUcpN}</td>
+                  </tr>
+                ) : (
+                  <tr>
+                    <td>
+                      {digit === "1" || digit === "2"
+                        ? "NECKWEAR OR PENDENT"
+                        : "NECKWEAR"}
+                    </td>
+                    <td>{props.stdWtN}</td>
+                    <td>{props.stdUcpN}</td>
+                  </tr>
+                )}
+                {digit === "3" ||
+                digit === "4" ||
+                digit === "5" ||
+                digit === "6" ||
+                digit === "7" ? (
+                  <tr>
+                    <td>BANGLE</td>
+                    <td>{props.stdWtV}</td>
+                    <td>{props.stdUcpV}</td>
+                  </tr>
+                ) : (
+                  ""
+                )}
+
+                {digit === "4" ||
+                digit === "5" ||
+                digit === "6" ||
+                digit === "7" ? (
+                  <tr>
+                    <td>TIKKA</td>
+                    <td>{props.stdWtK}</td>
+                    <td>{props.stdUcpK}</td>
+                  </tr>
+                ) : (
+                  ""
+                )}
+                {digit === "6" || digit === "7" ? (
+                  <tr>
+                    <td>FINGER RING</td>
+                    <td>{props.stdWtF}</td>
+                    <td>{props.stdUcpF}</td>
+                  </tr>
+                ) : (
+                  ""
+                )}
+                {/* {digit === "7" ? (
+                  <tr>
+                    <td>OTHERS</td>
+                    <td>{props.stdWtO}</td>
+                    <td>{props.stdUcpO}</td>
+                  </tr>
+                ) : (
+                  ""
+                )} */}
+              </tbody>
+            </table>
+          </>
         );
       } else {
         return null;
@@ -1235,7 +1301,6 @@ function SmallDataTable(props) {
 }
 
 function DynamicMultiSelectAndInput(props) {
-  // const {lableName, options} = props
   const classes = useStyles();
   const [sizeRow, setSizeRow] = useState();
 
@@ -1250,16 +1315,6 @@ function DynamicMultiSelectAndInput(props) {
         );
       });
   }, [props.optionsList]);
-
-  // if (props.optionsList)
-  //         (setImmediate(() => { setSizeRow(props.optionsList.reduce((total, value) => ({ ...total, [value[1]]: false }), {})) }))
-
-  // (setImmediate(() => { setSizeRow(props.optionsList.reduce((total, value) => ({ ...total, [value[1]]: false }), {})) }))
-
-  // const resetSelectField = (props) => {
-  //     const { lableName } = props
-  //     multiselectRef.current.resetSelectedValues()
-  // }
 
   let setData = props.optionsList.reduce(
     (total, value) => ({ ...total, [value]: false }),
@@ -1321,8 +1376,7 @@ function DynamicMultiSelectAndInput(props) {
     <>
       <div className={classes.drop_multi}>
         <Typography align="center" color="primary">
-          {" "}
-          {props.lableName}{" "}
+          {props.lableName}
         </Typography>
         <Multiselect
           options={options}
@@ -1330,13 +1384,9 @@ function DynamicMultiSelectAndInput(props) {
           onSelect={onInternalSelectChange}
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
-          // style={cssdata}
-          // selectedValues={[]}
           closeOnSelect={true}
-          // selectionLimit={3}
           placeholder="Choose Options"
           disablePreSelectedValues={true}
-          // ref={multiselectRef}
         />
         <table style={{ width: "100%", padding: 1, margin: 0 }}>
           <tbody>
@@ -1355,7 +1405,6 @@ function DynamicMultiSelectAndInput(props) {
                   </Typography>
                 </td>
                 <td>
-                  {" "}
                   <input
                     min="0"
                     type="number"
