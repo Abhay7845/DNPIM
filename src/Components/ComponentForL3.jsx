@@ -28,7 +28,7 @@ import React, { useEffect, useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import SingleImgCreator from "./SingleImgCreator";
 import Blink from "react-blink-text";
-import './LowerHeader.css'
+import "../Style/CssStyle/LowerHeader.css";
 
 const useStyles = makeStyles({
   drop_multi: {
@@ -89,7 +89,7 @@ const useStyles = makeStyles({
     textAlign: "left",
   },
 });
-let specialLabelValue
+let specialLabelValue;
 function DataGridReport(props) {
   const classes = useStyles();
 
@@ -604,7 +604,7 @@ function MultiSelectDropDownForAll(props) {
 //FINDINGS//
 function DropDownMaterialUI(props) {
   const classes = useStyles();
-  const {lableName, onChangeHandler, optionsList, valueData } = props;
+  const { lableName, onChangeHandler, optionsList, valueData } = props;
 
   const genrateOptions = (dropList) => {
     let optionItems = dropList.map((option) => (
@@ -619,7 +619,7 @@ function DropDownMaterialUI(props) {
   return (
     <>
       {/* <Typography> {lableName}</Typography> */}
-      
+
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined-label">
           {lableName}
@@ -632,7 +632,6 @@ function DropDownMaterialUI(props) {
           autoWidth={true}
           onChange={onChangeHandler}
           // value={valueData}
-        
         >
           <MenuItem value="">
             <em>None</em>
@@ -685,15 +684,27 @@ function InputFieldMaterialUI(props) {
       <div className={classes.inputField}>
         {/* <Typography align="center" color="primary">{lableName}</Typography> */}
         <div>
-          <lable htmlFor="indqty" style={{fontSize:15}}>
-          Indent Quantity
+          <lable htmlFor="indqty" style={{ fontSize: 15 }}>
+            Indent Quantity
           </lable>
           <div id="indqty">
-          <OTPInput inputClassName="otp" value={allDataFromValidation?.quantityRes} onChange={(valuee)=>{
-            onChangeHandler(valuee)
-          }} autoFocus OTPLength={1} otpType="number" disabled={false} />
+            <OTPInput
+              inputClassName="otp"
+              value={allDataFromValidation?.quantityRes}
+              onChange={(valuee) => {
+                onChangeHandler(valuee);
+              }}
+              autoFocus
+              OTPLength={1}
+              otpType="number"
+              disabled={false}
+            />
           </div>
-          {<p style={{color:"red"}}>{showhelper == 0 ? "" : "Please enter a valid quantity"}</p>}
+          {
+            <p style={{ color: "red" }}>
+              {showhelper == 0 ? "" : "Please enter a valid quantity"}
+            </p>
+          }
         </div>
         {/* <TextField
           id="outlined-search"
@@ -748,10 +759,10 @@ function MultiSelectAndInput(props) {
     X: false,
     Y: false,
     Z: false,
-    2:false,
-    4:false,
-    6:false,
-    8:false,
+    2: false,
+    4: false,
+    6: false,
+    8: false,
     Single_Tag: false,
     Separate_Tag: false,
     Only_EAR_RING: false,
@@ -949,7 +960,7 @@ function MultiSelectAndInput(props) {
   const onInternalSelectChange = (selectedList, selectedItem) => {
     console.log("selected item for Add", selectedItem.lableValue);
     enableRows(selectedItem.lableValue, true);
-    specialLabelValue=selectedItem.lableValue
+    specialLabelValue = selectedItem.lableValue;
   };
 
   const onInternalRemoveChange = (selectedList, removedItem) => {
@@ -1125,7 +1136,9 @@ function ProductDetailsTabularL3(props) {
               <th className={classes.hadding}>Ind-Category</th>
               <td>-</td>
               <td className={classes.rowData}>
-                {props.information.indCategory==="Single_Teg"?"Single_Tag":props.information.indCategory}
+                {props.information.indCategory === "Single_Teg"
+                  ? "Single_Tag"
+                  : props.information.indCategory}
               </td>
             </tr>
           ) : null}

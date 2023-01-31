@@ -13,6 +13,7 @@ lower_header_show ul {
   padding: 0%;
   margin-bottom: 15%;
 }
+
 /* li {
   text-align: center;
   flex: auto;
@@ -21,10 +22,12 @@ lower_header_show ul {
 .search_bar_btn {
   color: blanchedalmond;
 }
+
 .onclick_search_bar_btn {
   color: aqua;
 }
-.otp{
+
+.otp {
   width: 100% !important;
   margin: 3px !important;
   text-align: left !important;

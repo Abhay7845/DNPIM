@@ -4,12 +4,14 @@
   width: 95%;
   text-align: left;
 }
+
 .searchBox {
   border: none;
   font-size: 16px;
   min-height: 25px;
   width: 300px;
 }
+
 .optionContainer.li {
   text-align: left;
 }
