@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./FeedbacL1AndL2.css";
+import "../Style/CssStyle/FeedbackL1AndL2.css";
 import UpperHeader from "../Components/UpperHeader";
 import LowerHeader from "../Components/LowerHeader";
 import MuliSelectDropdownField from "../Components/MuliSelectDropdownField";
