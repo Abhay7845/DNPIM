@@ -19,8 +19,6 @@ import {
   Button,
   Container,
   Typography,
-  Drawer,
-  Divider,
   CssBaseline,
 } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -29,9 +27,7 @@ import { useParams } from "react-router";
 import HostManager from "../HostManager/HostManager";
 import Loading from "../Components/Loading";
 import StaticTabularInformation from "../Components/StaticTabularInformation";
-import StatusTabular from "../Components/StatusTabular";
 import WarningPopup from "../Components/WarningPopup";
-import ImgShowForFeedBack from "../Components/FeedbackComponentForL1AndL2";
 import ImgShow from "../Components/ImgShow";
 import AlertPopup from "../Components/AlertPopup";
 
@@ -62,14 +58,11 @@ const useStyles = makeStyles({
     maxWidth: "22rem",
     height: "55vh",
     margin: "5%",
-    /* background-color: rgb(189, 173, 153); */
   },
 
   img_show: {
     width: "22vw",
     height: "50vh",
-    /* margin: 2%; */
-    /* background-color: wheat; */
   },
 
   img_info_show: {
@@ -100,7 +93,6 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontSize: "18px",
     fontStretch: "normal",
-    // lineHeight: 5.4,
     fontFamily: "Raleway, sans-serif",
     letterSpacing: "5px",
     textAlign: "left",
@@ -109,7 +101,6 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontFamily: "Playfair Display,seri",
     fontSize: "18px",
-    // lineHeight: '20px',
     letterSpacing: "1px",
     textAlign: "left",
   },
@@ -140,7 +131,7 @@ const useStyles = makeStyles({
   },
 });
 
-const FeedbacL1AndL2 = () => {
+const FeedbackL1AndL2 = () => {
   const classes = useStyles();
   const { storeCode, rsoName } = useParams();
 
@@ -181,11 +172,7 @@ const FeedbacL1AndL2 = () => {
       icon: "ReportIcon",
     },
   ];
-  // const navBarList = [
-  //     { id: 1, name: "Home", link: `/feedbackL1andL2/${storeCode}/${rsoName}`, icon: "HomeIcon" },
-  //     // { id: 2, name: "Status", link: "/status", icon: "EqualizerIcon" },
-  //     { id: 3, name: "Report", link: `/reportL1andL2/${storeCode}/${rsoName}`, icon: "ReportIcon" },
-  // ];
+
   const handleChange = (event) => {
     setSwitchData(!switchData);
     console.log(switchData);
@@ -216,7 +203,6 @@ const FeedbacL1AndL2 = () => {
               });
             });
           } else if (responce.data.code === "1003") {
-            // document.getElementById("result").style.visibility = "hidden";
             setAlertPopupStatus({
               status: true,
               main: responce.data.value,
@@ -776,4 +762,4 @@ const FeedbacL1AndL2 = () => {
     </React.Fragment>
   );
 };
-export default FeedbacL1AndL2;
+export default FeedbackL1AndL2;

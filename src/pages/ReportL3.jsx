@@ -15,7 +15,7 @@ import AlertPopup from "../Components/AlertPopup";
 import { ProductDetailsTabularL3 } from "../Components/ComponentForL3";
 import DisplayValidationComponent from "../Components/DisplayValidationForL3";
 import ImgShow from "../Components/ImgShow";
-import LazyLoadindDataGrid from "../Components/LazyLoadingDataGrid";
+import LazyLoadingDataGrid from "../Components/LazyLoadingDataGrid";
 import Loading from "../Components/Loading";
 import Error from "../Components/Notification";
 import ReportsAppBar from "../Components/ReportsAppBar";
@@ -1057,7 +1057,7 @@ const ReportL3 = () => {
           ) : null}
           <Grid item xs={12} sm={12} fullWidth>
             {rows.length > 0 && col.length > 0 ? (
-              <LazyLoadindDataGrid
+              <LazyLoadingDataGrid
                 col={col}
                 rows={rows}
                 autoHeight={true}

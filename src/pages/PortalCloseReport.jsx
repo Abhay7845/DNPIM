@@ -2,12 +2,12 @@ import { Grid, Container, Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import LazyLoadindDataGrid from "../Components/LazyLoadingDataGrid";
+import LazyLoadingDataGrid from "../Components/LazyLoadingDataGrid";
 import Loading from "../Components/Loading";
 import UpperHeader from "../Components/UpperHeader";
 import HostManager from "../HostManager/HostManager";
 
-export default function PortelCloseReport(props) {
+export default function PortalCloseReport(props) {
   const { storeCode, rsoName, level } = useParams();
   const [report, setReport] = useState({
     col: [],
@@ -68,7 +68,7 @@ export default function PortelCloseReport(props) {
           <Container maxWidth="xl">
             <Paper>
               {report.rows.length > 0 && report.col.length > 0 ? (
-                <LazyLoadindDataGrid
+                <LazyLoadingDataGrid
                   col={report.col}
                   rows={report.rows}
                   autoHeight={true}

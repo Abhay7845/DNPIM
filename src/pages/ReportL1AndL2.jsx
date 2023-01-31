@@ -1,21 +1,18 @@
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   makeStyles,
-  Typography,
-  Button,
   Toolbar,
   IconButton,
   AppBar,
   Drawer,
-  Paper,
   FormGroup,
   FormControlLabel,
   Switch,
 } from "@material-ui/core";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import DropdownField from "../Components/DropdownField";
-import TableConponent from "../Components/TableConponent";
+import TableComponent from "../Components/TableComponent";
 import MenuIcon from "@material-ui/icons/Menu";
 import UpperHeader from "../Components/UpperHeader";
 import SideAppBar from "../Components/SideAppBar";
@@ -55,37 +52,26 @@ const useStyles = makeStyles({
 
 const ReportL1AndL2 = (props) => {
   const { storeCode, rsoName } = useParams();
-
   const classes = useStyles();
-
   const [loading, setLoading] = useState(false);
-
   const [report, setReport] = useState([]);
-  const [coloum, setColoum] = useState([]);
+  const [colum, setColumn] = useState([]);
   const [barOpener, setBarOpener] = useState(false);
-
   const [editState, setEditState] = useState(false);
-
   const [productInfo, setProductInfo] = useState(NpimDataDisplay);
-
-  const [selectReportList, setSelectReportList] = useState([
-    "yet to submit",
-    "submitted",
-  ]);
-
-  // , "groupwise", "consumerbase", "collection", "category"
   const [selectReport, setSelectReport] = useState("yet to submit");
-  const [showinfo, setShowinfo] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const [switchEnable, setSwitchEnable] = useState(true);
   const [statusData, setStatusData] = useState({});
-  const [statusCloserOpner, setstatusCloserOpner] = useState(false);
+  const [statusCloserOpener, setStatusCloserOpener] = useState(false);
+  const selectReportList = ["yet to submit", "submitted"];
 
   useEffect(() => {
     setImmediate(() => {
       setLoading(true);
     });
 
-    // Rename: Scanned to "submitted" Unscanned to "Yet to Submit" in Reports page for L1 / L2
+    // Rename: Scanned to "submitted" Un scanned to "Yet to Submit" in Reports page for L1 / L2
 
     setTimeout(() => {
       let reportUrl = "/npim/unscanned/report/L1/";
@@ -115,23 +101,19 @@ const ReportL1AndL2 = (props) => {
           break;
       }
 
-      // axios.get(`${HostManager.mainHost}/npim/unscanned/report/L1/${storeCode}`)
-      // axios.get(`http://localhost:8585/NPIM/npim/unscanned/report/L1/${storeCode}`)
       axios.get(`${HostManager.mainHost}${reportUrl}${storeCode}`).then(
         (response) => {
           if (response.data.code === "1000") {
             let data = response.data;
             setReport(data.value);
-            setColoum(data.coloum);
-            console.log(data);
+            setColumn(data.coloum);
           } else {
             console.log(response.data.value);
             alert(response.data.value);
           }
         },
         (error) => {
-          console.log(error);
-          alert(error);
+          console.log("error==>", error);
         }
       );
 
@@ -140,18 +122,17 @@ const ReportL1AndL2 = (props) => {
           console.log(response);
 
           if (response.data.code === "1001") {
-            // alert(response.data.value);
+            console.log("response.data.value==>", response.data.value);
           } else {
             setStatusData(response.data);
           }
         },
         (error) => {
-          console.log(error);
-          alert(error);
+          console.log("error==>", error);
         }
       );
 
-      setShowinfo(false);
+      setShowInfo(false);
       setImmediate(() => {
         setLoading(false);
       });
@@ -165,7 +146,6 @@ const ReportL1AndL2 = (props) => {
       link: `/feedbackL1andL2/${storeCode}/${rsoName}`,
       icon: "HomeIcon",
     },
-    // { id: 2, name: "Status", link: "/status", icon: "EqualizerIcon" },
     {
       id: 3,
       name: "Report",
@@ -187,19 +167,19 @@ const ReportL1AndL2 = (props) => {
     setBarOpener(!barOpener);
   };
 
-  const getProdoctData = (data) => {
+  const getProductData = (data) => {
     scrollTop();
     console.log(data);
     setProductInfo(data);
-    setShowinfo(true);
+    setShowInfo(true);
     setSwitchEnable(false);
   };
 
   const statusOpener = (event) => {
-    setstatusCloserOpner(!statusCloserOpner);
+    setStatusCloserOpener(!statusCloserOpener);
   };
 
-  const getResponceFormChild = (input) => {
+  const getResponseFormChild = (input) => {
     setImmediate(() => {
       setLoading(true);
     });
@@ -243,14 +223,9 @@ const ReportL1AndL2 = (props) => {
           .post(`${HostManager.mainHost}/npim/insert/responses`, productInfo)
           .then((responce) => {
             console.log(responce.data);
-            // if (responce.data.code === "1001") {
-            //     alert(responce.data.value)
-            // } else {
-            // setProductInfo(responce.data.value);
-            setSelectReport(selectReport);
-            setShowinfo(false);
 
-            // }
+            setSelectReport(selectReport);
+            setShowInfo(false);
           })
           .catch((error) => {
             console.log(error);
@@ -279,18 +254,11 @@ const ReportL1AndL2 = (props) => {
         <SideAppBar navBarList={navBarList} statusOpener={statusOpener} />
       </Drawer>
 
-      <Drawer anchor="top" open={statusCloserOpner} onClose={statusOpener}>
+      <Drawer anchor="top" open={statusCloserOpener} onClose={statusOpener}>
         <StatusTabular statusData={statusData} />
       </Drawer>
 
-      <Grid
-        container
-        spacing={3}
-
-        // direction="column"
-        // justify="flex-start"
-        // alignItems="center"
-      >
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <UpperHeader storeCode={storeCode} />
           <Loading flag={loading} />
@@ -327,8 +295,8 @@ const ReportL1AndL2 = (props) => {
                       <FormControlLabel
                         control={
                           <Switch
-                            checked={showinfo}
-                            onChange={() => setShowinfo(!showinfo)}
+                            checked={showInfo}
+                            onChange={() => setShowInfo(!showInfo)}
                             name="feedbackSwitch"
                             color="secondary"
                             disabled={switchEnable}
@@ -344,28 +312,28 @@ const ReportL1AndL2 = (props) => {
           </div>
         </Grid>
 
-        <Grid item xs={12} className={showinfo ? classes.show : classes.hidden}>
-          {report.length > 0 && coloum.length > 0 ? (
+        <Grid item xs={12} className={showInfo ? classes.show : classes.hidden}>
+          {report.length > 0 && colum.length > 0 ? (
             <ProductInfo
               productInfo={productInfo}
-              getResponceFormChild={getResponceFormChild}
-              showinfo={showinfo}
+              getResponceFormChild={getResponseFormChild}
+              showinfo={showInfo}
             />
           ) : (
             "NO DATA"
           )}
         </Grid>
         <Grid item xs={12}>
-          {report.length > 0 && coloum.length > 0 ? (
-            <TableConponent
+          {report.length > 0 && colum.length > 0 ? (
+            <TableComponent
               report={report}
-              coloum={coloum}
+              coloum={colum}
               reportType={selectReport}
-              getProdoctData={getProdoctData}
+              getProdoctData={getProductData}
               reportName={selectReport}
             />
           ) : (
-            " no daata "
+            "no data"
           )}
         </Grid>
       </Grid>

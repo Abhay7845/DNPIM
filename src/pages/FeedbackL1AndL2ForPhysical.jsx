@@ -15,136 +15,26 @@ import {
   Button,
   Container,
   Typography,
-  Drawer,
-  Divider,
   CssBaseline,
 } from "@material-ui/core";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useParams } from "react-router";
 import HostManager from "../HostManager/HostManager";
 import Loading from "../Components/Loading";
 import StaticTabularInformation from "../Components/StaticTabularInformation";
-import StatusTabular from "../Components/StatusTabular";
 import WarningPopup from "../Components/WarningPopup";
-import ImgShowForFeedBack from "../Components/FeedbackComponentForL1AndL2";
 import ImgShow from "../Components/ImgShow";
 import AlertPopup from "../Components/AlertPopup";
+import { useStyles } from "../Style/FeedBackL1AndL2ForPhysical";
 
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-  feedbackSwitch: {
-    justifyContent: "center",
-  },
-  btnGroup: {
-    minWidth: "100%",
-  },
-  hidden: {
-    display: "none",
-  },
-  show: {
-    display: "block",
-  },
-  btnGroupContaincer: {
-    paddingTop: "13%",
-  },
-
-  image_data_show: {
-    maxWidth: "25rem",
-  },
-  card: {
-    maxWidth: "22rem",
-    height: "55vh",
-    margin: "5%",
-    /* background-color: rgb(189, 173, 153); */
-  },
-
-  img_show: {
-    width: "22wh",
-    height: "50vh",
-    /* margin: 2%; */
-    /* background-color: wheat; */
-  },
-
-  img_info_show: {
-    padding: "2 %",
-  },
-  product_disc_show: {
-    marginTop: "2 %",
-  },
-  feedback_show: {
-    marginTop: "2 %",
-  },
-
-  pro_info: {
-    marginTop: "8%",
-    height: "20rem",
-  },
-  feed_info: {
-    marginTop: "8%",
-    height: "20rem",
-  },
-  headingColor: {
-    backgroundColor: "#c4c4c0",
-    fontWeight: "bolder",
-  },
-
-  hadding: {
-    fontWeight: 500,
-    fontSize: "18px",
-    fontStretch: "normal",
-    // lineHeight: 5.4,
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "5px",
-    textAlign: "left",
-  },
-  rowData: {
-    fontWeight: 500,
-    fontFamily: "Playfair Display,seri",
-    fontSize: "18px",
-    // lineHeight: '20px',
-    letterSpacing: "1px",
-    textAlign: "left",
-  },
-  headingCss: {
-    fontWeight: "bolder",
-    fontStretch: "normal",
-    fontSize: "16px",
-    lineHeight: "normal",
-    fontFamily: "Raleway, sans - serif",
-    letterSpacing: "2px",
-  },
-  btn: {
-    fontWeight: 500,
-    fontSize: "14px",
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "2px",
-    padding: "5px",
-  },
-
-  btnSub: {
-    fontWeight: 500,
-    fontSize: "14px",
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "2px",
-    padding: "5px",
-    backgroundColor: "black",
-    color: "white",
-  },
-});
-
-const FeedbacL1AndL2ForPhysical = () => {
+const FeedbackL1AndL2ForPhysical = () => {
   const classes = useStyles();
   const { storeCode, rsoName } = useParams();
-
   const [feedShowState, setFeedShowState] = useState(NpimDataDisplay);
   const [multiSelectDrop, setMultiSelectDrop] = useState([]);
   const [loading, setLoading] = useState(false);
   const [switchData, setSwitchData] = useState(true);
   const [resetDrop, SetResetDrop] = useState(true);
-  const [warningPopupState, setWarningPopupState] = useState(false);
+  const warningPopupState = false;
 
   const [alertPopupStatus, setAlertPopupStatus] = useState({
     status: false,
@@ -165,7 +55,7 @@ const FeedbacL1AndL2ForPhysical = () => {
     {
       id: 1,
       name: "Home",
-      link: `/FeedbacL1AndL2ForPhysical/${storeCode}/${rsoName}`,
+      link: `/FeedbackL1AndL2ForPhysical/${storeCode}/${rsoName}`,
       icon: "HomeIcon",
     },
     {
@@ -175,11 +65,7 @@ const FeedbacL1AndL2ForPhysical = () => {
       icon: "ReportIcon",
     },
   ];
-  // const navBarList = [
-  //     { id: 1, name: "Home", link: `/feedbackL1andL2/${storeCode}/${rsoName}`, icon: "HomeIcon" },
-  //     // { id: 2, name: "Status", link: "/status", icon: "EqualizerIcon" },
-  //     { id: 3, name: "Report", link: `/reportL1andL2/${storeCode}/${rsoName}`, icon: "ReportIcon" },
-  // ];
+
   const handleChange = (event) => {
     setSwitchData(!switchData);
 
@@ -197,11 +83,10 @@ const FeedbacL1AndL2ForPhysical = () => {
           `${HostManager.mainHost}/npim/get/product/details`,
           productDetails
         )
-        .then((responce) => {
-          console.log(responce.data);
+        .then((response) => {
           let mailSms = "";
 
-          if (responce.data.code === "1001") {
+          if (response.data.code === "1001") {
             if (
               productDetails.collection == "ALL" ||
               productDetails.consumerBase == "ALL" ||
@@ -218,7 +103,7 @@ const FeedbacL1AndL2ForPhysical = () => {
             ) {
               mailSms = "No more data available for the selected category.";
             } else {
-              mailSms = responce.data.value;
+              mailSms = response.data.value;
             }
 
             setImmediate(() => {
@@ -230,29 +115,23 @@ const FeedbacL1AndL2ForPhysical = () => {
               });
             });
           } else {
-            setFeedShowState(responce.data.value);
+            setFeedShowState(response.data.value);
           }
         })
         .catch((error) => {
           console.log(error);
-          alert(error);
         });
 
       axios.get(`${HostManager.mainHost}/npim/status/L1/${storeCode}`).then(
         (response) => {
-          // console.log(response);
-
           if (response.data.code === "1001") {
-            // alert(response.data.value);
-
-            console.log();
+            console.log(response.data.value);
           } else {
             setStatusData(response.data);
           }
         },
         (error) => {
           console.log(error);
-          // alert(error);
         }
       );
 
@@ -649,7 +528,7 @@ const FeedbacL1AndL2ForPhysical = () => {
                     ""
                   )}
                   <div className="row-cols-1 btn_feed_show">
-                    <Container className={classes.btnGroupContaincer}>
+                    <Container className={classes.btnGroupContainer}>
                       <Grid container alignItems="center" justify="center">
                         <Button
                           className={classes.btnSub}
@@ -671,4 +550,4 @@ const FeedbacL1AndL2ForPhysical = () => {
     </React.Fragment>
   );
 };
-export default FeedbacL1AndL2ForPhysical;
+export default FeedbackL1AndL2ForPhysical;
