@@ -3,11 +3,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import LazyLoadindDataGrid from "../Components/LazyLoadindDataGrid";
-import LazyLoadindDataGridForClosedPortel from "../Components/LazyLoadindDataGridForClosedPortel";
 import Loading from "../Components/Loading";
 import UpperHeader from "../Components/UpperHeader";
 import HostManager from "../HostManager/HostManager";
-import UrlManager from "../HostManager/UrlManager";
 
 export default function PortelCloseReport(props) {
   const { storeCode, rsoName, level } = useParams();
@@ -75,12 +73,9 @@ export default function PortelCloseReport(props) {
                   rows={report.rows}
                   autoHeight={true}
                   autoPageSize={true}
-                  // reportLable={reportLable}
-                  // rowDataHandler={rowDataHandler}
                 />
               ) : (
                 <Typography align="center" variant="h5" color="secondary">
-                  {" "}
                   No Data Found...!
                 </Typography>
               )}

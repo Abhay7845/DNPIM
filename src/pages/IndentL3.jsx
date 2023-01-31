@@ -927,7 +927,7 @@ const IndentL3 = () => {
                         // sizeOptionList={sizeOption}
                         itemCode={feedShowState.itemCode}
                         stoneOptionList={stoneOptionsData(feedShowState)}
-                        setType2option={["Need-Chain", "Need-Dori"]}
+                        setType2option={["Chain", "Dori"]}
                         findingsOption={[feedShowState.findings || ""]}
                         setSelectOptions={setSelectState}
                         tegOfItemOption={createTegOfItems(feedShowState)}

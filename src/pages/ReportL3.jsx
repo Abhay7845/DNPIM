@@ -142,8 +142,8 @@ const ReportL3 = () => {
       case "Item_Wise_Report":
         urlReport = `${UrlManager.itemWiseReportL3}${storeCode}`;
         break;
-      case "ConsumerBase":
-        urlReport = `${UrlManager.SummaryReportL3}${storeCode}/ConsumerBase`;
+      case "NeedSate":
+        urlReport = `${UrlManager.SummaryReportL3}${storeCode}/NeedSate`;
         break;
       case "Collection":
         urlReport = `${UrlManager.SummaryReportL3}${storeCode}/Collection`;
@@ -238,7 +238,6 @@ const ReportL3 = () => {
       link: `/indentL3/${storeCode}/${rsoName}`,
       icon: "HomeIcon",
     },
-    // { id: 1, name: "Favorite", link: `/favoriteL3/${storeCode}`, icon: "StarsIcon" },
     {
       id: 3,
       name: "Report",
@@ -248,7 +247,6 @@ const ReportL3 = () => {
   ];
 
   function extraCalls(itemcode) {
-    // axios.get(`https://tanishqdigitalnpim.titan.in:8443/Npim/getSize/${dataRowInformation.itemCode}`)
     axios
       .get(
         `https://tanishqdigitalnpim.titan.in:8443/Npim/getSize/502783VWQR1A02`
@@ -258,7 +256,6 @@ const ReportL3 = () => {
         (response) => {
           // data = response.data.data;
           // console.log(data);
-
           setImmediate(() => {
             setSizeOption(response.data.data);
           });
@@ -902,7 +899,7 @@ const ReportL3 = () => {
               reportDropHandler={reportDropHandler}
               reporOptions={[
                 "Item_Wise_Report",
-                "ConsumerBase",
+                "NeedSate",
                 "Collection",
                 "ItGroup",
                 "Category",
@@ -967,7 +964,7 @@ const ReportL3 = () => {
                                     stoneOptionList={stoneOptionsData(
                                       dataRowInformation
                                     )}
-                                    setType2option={["Need-Chain", "Need-Dori"]}
+                                    setType2option={["Chain", "Dori"]}
                                     findingsOption={[
                                       dataRowInformation.findings || "",
                                     ]}
