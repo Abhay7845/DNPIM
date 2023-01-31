@@ -27,13 +27,11 @@ import axios from "axios";
 import HostManager from "../HostManager/HostManager";
 import DisplayValidationComponent from "../Components/DisplayValidationForL3";
 import AlertPopup from "../Components/AlertPopup";
-import Skeleton from "@material-ui/lab/Skeleton";
 import {
   BlinkingComponent,
   SmallDataTable,
 } from "../Components/ComponentForL3";
-import { TramRounded } from "@material-ui/icons";
-import Error from "../Components/Notifications";
+import Error from "../Components/Notification";
 
 const useStyles = makeStyles({
   root: {
