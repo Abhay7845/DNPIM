@@ -1047,14 +1047,9 @@ const IndentL3 = () => {
                       <Grid item xs={12} sm={4}>
                         <Button
                           className={classes.btnSub}
-                          onClick={() => {
-                            setTimeout(() => {
-                              onClickSubmitBtnHandler();
-                            }, 1000);
-                          }}
+                          onClick={onClickSubmitBtnHandler}
                           variant="contained"
                           fullWidth
-                          //disabled={feedShowState.consumerBase==="KIDS"?true:false}
                         >
                           Submit
                         </Button>

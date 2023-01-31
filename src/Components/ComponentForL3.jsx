@@ -660,11 +660,8 @@ function InputFieldMaterialUI(props) {
     "allDataFromValidation allDataFromValidation form component L3"
   );
   console.log(valueName, "valueName");
-  const [showhelper, setHelper] = useState(0);
+  const [showHelper, setHelper] = useState(0);
 
-  // if(allDataFromValidation.quantityRes.length>1||allDataFromValidation.quantityRes===0){
-  //     setHelper(1)
-  // }
   useEffect(() => {
     if (allDataFromValidation.quantityRes !== "") {
       if (
@@ -682,50 +679,22 @@ function InputFieldMaterialUI(props) {
   return (
     <>
       <div className={classes.inputField}>
-        {/* <Typography align="center" color="primary">{lableName}</Typography> */}
-        <div>
-          <lable htmlFor="indqty" style={{ fontSize: 15 }}>
-            Indent Quantity
-          </lable>
-          <div id="indqty">
-            <OTPInput
-              inputClassName="otp"
-              value={allDataFromValidation?.quantityRes}
-              onChange={(valuee) => {
-                onChangeHandler(valuee);
-              }}
-              autoFocus
-              OTPLength={1}
-              otpType="number"
-              disabled={false}
-            />
-          </div>
-          {
-            <p style={{ color: "red" }}>
-              {showhelper == 0 ? "" : "Please enter a valid quantity"}
-            </p>
-          }
-        </div>
-        {/* <TextField
-          id="outlined-search"
-          label="Indent Quantity"
-          type={typeName}
-          variant="outlined"
-          onChange={onChangeHandler}
-          value={valueName}
-          fullWidth={true}
-          InputProps={{ inputProps: { min: 1, max: 5, maxlength: "1" } }}
-          helperText={showhelper == 0 ? "" : "Please enter a valid quantity"}
-          onKeyPress={(event) => {
-            if (event?.key === "-") {
-              event.preventDefault();
-              setHelper(1);
-            } else {
-              setHelper(0);
-            }
+        <b>Indent Quantity</b>
+        <OTPInput
+          inputClassName="otp"
+          value={allDataFromValidation?.quantityRes}
+          onChange={(value) => {
+            onChangeHandler(value);
           }}
-          error={showhelper == 0 ? false : true}
-        /> */}
+          autoFocus
+          OTPLength={1}
+          otpType="number"
+        />
+        {
+          <p className="text-danger">
+            {showHelper == 0 ? "" : "Please enter a valid quantity"}
+          </p>
+        }
       </div>
     </>
   );
@@ -1143,7 +1112,7 @@ function ProductDetailsTabularL3(props) {
           ) : null}
           {props.information.colourWt ? (
             <tr>
-              <th className={classes.hadding}>Metal Colour</th>
+              <th className={classes.hadding}>Metal Color</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.colourWt}</td>
             </tr>

@@ -13,8 +13,9 @@ export const useStyles = makeStyles({
     display: "block",
   },
   headingColor: {
-    backgroundColor: "#c4c4c0",
+    backgroundColor: "#832729",
     fontWeight: "bolder",
+    color: "#ffff",
   },
   heightCss: {
     minHeight: "50vh",
@@ -37,11 +38,9 @@ export const useStyles = makeStyles({
   btnSub: {
     fontWeight: 500,
     fontSize: "14px",
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "2px",
     padding: "5px",
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: "#832729",
+    color: "#ffff",
   },
   hadingCss: {
     fontWeight: "bolder",
