@@ -3,11 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import InputField from "../Components/InputField";
 import PersonIcon from "@material-ui/icons/Person";
 import PublicIcon from "@material-ui/icons/Public";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import Logo from "../images/Tanishq_Logo.png";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import Logo from "../images/Tanishq_Logo1.png";
 import axios from "axios";
-import BackgroundAttachment from "../images/back.jpg";
-import { Button, Container, makeStyles, Typography } from "@material-ui/core";
+import { Button, Container, Typography } from "@material-ui/core";
 import { useHistory } from "react-router";
 import HostManager from "../HostManager/HostManager";
 import Dialog from "@material-ui/core/Dialog";
@@ -15,48 +15,27 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
-const useStyles = makeStyles({
-  root: {
-    width: "100wh",
-    height: "100vh",
-    backgroundRepeat: "no-repeat",
-    backgroundImage: "url(" + BackgroundAttachment + ")",
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    backgroundAttachment: "fixed",
-  },
-
-  containerStyle: {
-    paddingTop: "10%",
-  },
-
-  submitBtn: {
-    // width: "50%",
-    width: "100%",
-
-    backgroundColor: "#ffd54f",
-  },
-});
+import useStyles from "../Style/Login";
 
 const Login = () => {
-  const history = useHistory();
-
   const classes = useStyles();
+  const history = useHistory();
   const [errorSms, setErrorSms] = useState("");
-  const [loginData, setLoglinData] = useState({
+  const [ValidUser, setValidUser] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [loginData, setLoginData] = useState({
     uname: "",
     pwd: "",
     rso: "",
   });
   const [flag, setFlag] = useState(false);
-
+  console.log(ValidUser);
   const [level, setLevel] = useState("");
   const OnChangeInput = (event) => {
     const { name, value } = event.target;
 
     setImmediate(() => {
-      setLoglinData(function (preData) {
+      setLoginData(function (preData) {
         switch (name) {
           case "uname":
             return {
@@ -73,6 +52,8 @@ const Login = () => {
               ...preData,
               [name]: value,
             };
+          default:
+            break;
         }
       });
     });
@@ -80,93 +61,92 @@ const Login = () => {
 
   const fieldValidator = (fieldValue, fieldName) => {
     if (fieldValue === "") {
-      setErrorSms(`${fieldName} is Required...!`);
+      setErrorSms(`${fieldName} is required`);
       return undefined;
     } else {
       return fieldValue;
     }
   };
   const OnClickHandler = (inputFrom) => {
-    console.log("Data is Tha data in the data ", inputFrom);
-
     let inputData = {
-      userID: fieldValidator(loginData.uname, "USERNAME"),
-      password: fieldValidator(loginData.pwd, "PASSWORD"),
-      region: fieldValidator(loginData.rso, "RSO NAME"),
+      userID: fieldValidator(loginData.uname, "Useranme"),
+      password: fieldValidator(loginData.pwd, "Password"),
+      region: fieldValidator(loginData.rso, "RSO name"),
       role: "",
       status: "",
       validInvalid: "",
     };
 
     if (inputData.userID && inputData.password && inputData.region) {
-      // axios.post("http://localhost:8585/NPIM/npim/user/login", inputData).
       axios
         .post(`${HostManager.mainHost}/npim/user/login`, inputData)
-        .then((responce) => {
-          console.log(responce.data.value.role);
+        .then((response) => {
+          setValidUser(false);
+          localStorage.setItem("store_value", response.data.value.role);
+          localStorage.setItem("store_code", response.data.value.userID);
           setImmediate(() => {
-            setLevel(responce.data.value.role);
+            setLevel(response.data.value.role);
           });
 
-          if (responce.data.value.status === "open") {
-            localStorage.setItem("store_value", responce.data.value.role);
+          if (response.data.value.status === "open") {
             if (inputFrom === "DNPIM") {
               if (
-                responce.data.value.role === "L1" ||
-                responce.data.value.role === "L2"
+                response.data.value.role === "L1" ||
+                response.data.value.role === "L2"
               ) {
                 history.push(
-                  `/feedbackL1andL2/${responce.data.value.userID}/${loginData.rso}`
+                  `/feedbackL1andL2/${response.data.value.userID}/${loginData.rso}`
                 );
-              } else if (responce.data.value.role === "L3") {
+              } else if (response.data.value.role === "L3") {
                 history.push(
-                  `/indentL3/${responce.data.value.userID}/${loginData.rso}`
+                  `/indentL3/${response.data.value.userID}/${loginData.rso}`
                 );
-              } else if (responce.data.value.role === "Admin") {
+              } else if (response.data.value.role === "Admin") {
                 history.push(
-                  `/AdminHome/${responce.data.value.userID}/${loginData.rso}`
+                  `/AdminHome/${response.data.value.userID}/${loginData.rso}`
                 );
               }
             } else if (inputFrom === "PNPIM") {
               if (
-                responce.data.value.role === "L1" ||
-                responce.data.value.role === "L2"
+                response.data.value.role === "L1" ||
+                response.data.value.role === "L2"
               ) {
                 history.push(
-                  `/FeedbacL1AndL2ForPhysical/${responce.data.value.userID}/${loginData.rso}`
+                  `/FeedbackL1AndL2/${response.data.value.userID}/${loginData.rso}`
                 );
-              } else if (responce.data.value.role === "L3") {
+              } else if (response.data.value.role === "L3") {
                 history.push(
-                  `/indentL3/kkk/${responce.data.value.userID}/${loginData.rso}`
+                  `/indentL3/${response.data.value.userID}/${loginData.rso}`
                 );
-              } else if (responce.data.value.role === "Admin") {
+              } else if (response.data.value.role === "Admin") {
                 history.push(
-                  `/AdminHome/jkk/${responce.data.value.userID}/${loginData.rso}`
+                  `/AdminHome/${response.data.value.userID}/${loginData.rso}`
                 );
               }
             }
-          } else if (responce.data.value.status === "close") {
+          } else if (response.data.value.status === "close") {
             setImmediate(() => {
               setFlag(true);
             });
           }
         })
         .catch((error) => {
-          //console.log(error.status);
-          setErrorSms(`Wrong Combination of User Id and Password...!`);
+          console.log("error from login page==>", error);
+          setValidUser(true);
+          setErrorSms("Please Enter Valid Username and Password!");
           // switch (error.response.status) {
-          //     case 401:
-          //         setErrorSms(`Wrong Combination of User Id and Password...!`)
-          //         break;
-          //     case 500:
-          //         alert(error.status, error);
-          //         break;
-          //     case 400:
-          //         alert(error.status, error);
-          //         break;
-          //     default:
-          //         alert(error);
-          //         break;
+          //   case 401:
+          //     setValidUser(true)
+          //     break;
+          //   case 500:
+          //     alert(error.status, error);
+          //     break;
+          //   case 400:
+          //     alert(error.status, error);
+          //     break;
+          //   default:
+          //     alert(error);
+          //     break;
           // }
         });
     }
@@ -183,6 +163,10 @@ const Login = () => {
     );
   };
 
+  // SHOW AND HIDE PASSWORD
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
   return (
     <React.Fragment>
       <div>
@@ -194,7 +178,6 @@ const Login = () => {
         >
           <DialogTitle id="alert-dialog-title">
             <Typography variant="h6" color="secondary" align="center">
-              {" "}
               NPIM Portel Closed...!
             </Typography>
           </DialogTitle>
@@ -229,19 +212,19 @@ const Login = () => {
           align="center"
           className={classes.containerStyle}
         >
-          <div className="card border" style={{ width: "30%", height: "25%" }}>
+          <div className="card">
             <div className="card-body ">
               <div className="text-center mb-2  ">
                 <img
                   src={Logo}
                   className="rounded"
-                  alt="not Loded"
+                  alt="not Loaded"
                   width="80"
                   height="60"
                 />
               </div>
               <div className="text-sm-center">
-                <span style={{ color: "red" }}>
+                <span className=" mb-3 text-danger">
                   {errorSms !== "" ? errorSms : null}
                 </span>
               </div>
@@ -249,40 +232,44 @@ const Login = () => {
                 value={loginData.uname}
                 name="uname"
                 lableName={<PersonIcon />}
-                placeholderName="Enter Username "
+                placeholderName="Enter Username"
                 onHendler={OnChangeInput}
                 type="text"
               />
               <InputField
                 value={loginData.pwd}
                 name="pwd"
-                lableName={<VpnKeyIcon />}
+                lableName={
+                  passwordShown === false ? (
+                    <VisibilityOffIcon
+                      onClick={togglePassword}
+                      style={{ cursor: "pointer" }}
+                    />
+                  ) : (
+                    <VisibilityIcon
+                      onClick={togglePassword}
+                      style={{ cursor: "pointer" }}
+                    />
+                  )
+                }
                 placeholderName="Enter Password "
                 onHendler={OnChangeInput}
-                type="password"
+                type={passwordShown ? "text" : "password"}
               />
-
               <InputField
                 value={loginData.rso}
                 name="rso"
                 lableName={<PublicIcon />}
-                placeholderName="Enter RSO "
+                placeholderName="Enter RSO"
                 onHendler={OnChangeInput}
                 type="text"
               />
-
-              {/* <Button className={classes.submitBtn} variant="contained" onClick={() => OnClickHandler("DNPIM")}>
-                            Digital NPIM
-                        </Button>
-                        <Button className={classes.submitBtn} variant="contained" onClick={() => OnClickHandler("PNPIM")}>
-                            Physical NPIM
-                        </Button> */}
               <Button
                 className={classes.submitBtn}
                 variant="contained"
-                onClick={() => OnClickHandler("DNPIM")}
+                onClick={() => OnClickHandler("PNPIM")}
               >
-                Submit
+                LOGIN
               </Button>
             </div>
           </div>
