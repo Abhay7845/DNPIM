@@ -2,7 +2,7 @@ import { Grid, Container, Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import LazyLoadindDataGrid from "../Components/LazyLoadindDataGrid";
+import LazyLoadindDataGrid from "../Components/LazyLoadingDataGrid";
 import Loading from "../Components/Loading";
 import UpperHeader from "../Components/UpperHeader";
 import HostManager from "../HostManager/HostManager";

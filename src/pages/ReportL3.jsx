@@ -15,7 +15,7 @@ import AlertPopup from "../Components/AlertPopup";
 import { ProductDetailsTabularL3 } from "../Components/ComponentForL3";
 import DisplayValidationComponent from "../Components/DisplayValidationForL3";
 import ImgShow from "../Components/ImgShow";
-import LazyLoadindDataGrid from "../Components/LazyLoadindDataGrid";
+import LazyLoadindDataGrid from "../Components/LazyLoadingDataGrid";
 import Loading from "../Components/Loading";
 import Error from "../Components/Notification";
 import ReportsAppBar from "../Components/ReportsAppBar";
