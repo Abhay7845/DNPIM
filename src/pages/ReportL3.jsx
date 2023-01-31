@@ -103,76 +103,13 @@ const ReportL3 = () => {
     //     setLoading(true);
     //     setShowInfo(false)
     // });
-    console.log("dropdown data in the  : ", input);
-    // DisplayValidationRunner()
-    // let urlReport;
-
-    // switch (input) {
-    //     case "Item_Wise_Report":
-
-    //         urlReport = `${UrlManager.itemWiseReportL3}${storeCode}`;
-    //         break;
-    //     case "ConsumerBase":
-
-    //         urlReport = `${UrlManager.SummaryReportL3}${storeCode}/ConsumerBase`;
-    //         break;
-    //     case "Collection":
-
-    //         urlReport = `${UrlManager.SummaryReportL3}${storeCode}/Collection`;
-    //         break;
-    //     case "ItGroup":
-
-    //         urlReport = `${UrlManager.SummaryReportL3}${storeCode}/ItGroup`;
-    //         break;
-    //     case "Category":
-
-    //         urlReport = `${UrlManager.SummaryReportL3}${storeCode}/Category`;
-    //         break;
-    //     case "Cancel_Item_List":
-
-    //         urlReport = `${UrlManager.canceledItemReportL3}${storeCode}`;
-    //         break;
-
-    //     default:
-    //         urlReport = urlReport = `${UrlManager.itemWiseReportL3}${storeCode}`;
-    //         break;
-    // }
-
-    // axios.get(urlReport)
-    //     .then((response) => {
-
-    //         console.log(response);
-
-    //         setImmediate(() => {
-    //             if (response.data.code === "1000") {
-    //                 setCol(response.data.coloum);
-    //                 setRows(response.data.value);
-    //                 setSwitchEnable(true)
-    //             } else {
-    //                 setCol(response.data.coloum);
-    //                 setRows([]);
-    //                 setSwitchEnable(true)
-    //             }
-
-    //         });
-    //     }, (error) => {
-    //         console.log(error);
-    //         setCol([]);
-    //         setRows([]);
-    //         setSwitchEnable(true)
-    //         alert(error);
-
-    //     });
-    // setImmediate(() => {
-    //     setLoading(false);
-    // });
   };
-  const [popupopen, setpopupopen] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(false);
   const handelOpen = () => {
-    setpopupopen(true);
+    setPopupOpen(true);
   };
   const handelClose = () => {
-    setpopupopen(false);
+    setPopupOpen(false);
   };
   const handelYes = async () => {
     const confirmURL = `https://tanishqdigitalnpim.titan.in:8443/PNPIM/NPIML3//npim/item/wise/rpt/edr/L3/${storeCode}`;
@@ -180,7 +117,7 @@ const ReportL3 = () => {
       const response = await axios.post(confirmURL, rows);
       console.log(response, "yes response");
       if (response.status === 200) {
-        setpopupopen(false);
+        setPopupOpen(false);
         console.log(response.data, "on YEs");
         //setSuccessCount(response.data)
       } else {
@@ -271,7 +208,7 @@ const ReportL3 = () => {
         setLoading(false);
       });
     }, 3000);
-  }, [statusCloserOpner, reportLabel, modification, popupopen]);
+  }, [statusCloserOpner, reportLabel, modification, popupOpen]);
   // showInfo
   useEffect(async () => {
     if (dataRowInformation.itemCode !== "") {
@@ -288,7 +225,7 @@ const ReportL3 = () => {
         }
       } catch (err) {
         setSizeState([]);
-        console.log(err.message, "frorm display validation");
+        console.log(err.message, "form display validation");
       }
     } else {
       setSizeState([]);
@@ -403,7 +340,7 @@ const ReportL3 = () => {
         digitt === "E" ||
         digitt === "N"
       ) {
-        //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DTAA IN DROPDOWN
+        //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
 
         createTegOfItems(dataRowInformation)
           ? (tegQuantity = true)
@@ -470,19 +407,19 @@ const ReportL3 = () => {
     const result = Object.keys(data).filter(
       (eachKey) => data[eachKey] === true
     );
-    for (let keyy of result) {
-      console.log(keyy, "resultt");
-      for (let resultkey of Object.keys(allDataFromValidation)) {
+    for (let key of result) {
+      console.log(key, "result");
+      for (let resultKey of Object.keys(allDataFromValidation)) {
         if (
-          keyy === resultkey &&
-          allDataFromValidation[resultkey].length === 0
+          key === resultKey &&
+          allDataFromValidation[resultKey].length === 0
         ) {
           msg = {
             ...msg,
             status: false,
             message: `${result.join("/")} is required`,
           };
-          console.log(allDataFromValidation[resultkey].length, "length");
+          console.log(allDataFromValidation[resultKey].length, "length");
         }
       }
     }
@@ -552,9 +489,9 @@ const ReportL3 = () => {
             `${HostManager.mainHostL3}/npim/update/responses/from/L3`,
             inputData
           )
-          .then((responce) => {
-            console.log(responce.data);
-            alert(responce.data.value);
+          .then((response) => {
+            console.log(response.data);
+            alert(response.data.value);
             setImmediate(() => {
               setShowInfo(false);
               setModification(!modification);
@@ -564,15 +501,14 @@ const ReportL3 = () => {
             });
           })
           .catch((error) => {
-            console.log(error);
-            alert(error);
+            console.log("error==>", error);
           });
 
         reportDropHandler(reportLabel);
       }, 1500);
     }
 
-    console.log("all data change ahandler data aia ", allDataFromValidation);
+    console.log("all data change data aia ", allDataFromValidation);
 
     setImmediate(() => {
       setLoading(false);
@@ -613,18 +549,17 @@ const ReportL3 = () => {
     setTimeout(() => {
       axios
         .post(`${HostManager.mainHostL3}/npim/update/responses`, inputData)
-        .then((responce) => {
-          console.log(responce.data);
+        .then((response) => {
+          console.log(response.data);
 
-          alert(responce.data.value);
+          alert(response.data.value);
           setImmediate(() => {
             setShowInfo(false);
             setModification(!modification);
           });
         })
         .catch((error) => {
-          console.log(error);
-          alert(error);
+          console.log("error==>", error);
         });
       setImmediate(() => {
         setLoading(false);
@@ -708,7 +643,7 @@ const ReportL3 = () => {
   }
 
   function createTegOfItems(inputObj) {
-    let tegOfItems = ["Single_Tag", "Separate_Tag"]; //separate_Tag
+    let tegOfItems = ["Single_Tag", "Separate_Tag"];
     if (inputObj.childNodesE || inputObj.childNodesN) {
       if (inputObj.childNodesE)
         tegOfItems[1 + tegOfItems.length] = "Only_EAR_RING";
@@ -720,18 +655,6 @@ const ReportL3 = () => {
     }
     return tegOfItems;
   }
-
-  // function createTegOfItems(inputObj) {
-  //     let tegOfItems = ["Single_Tag", "Separate_Tag"];  //separate_Tag
-  //     if (inputObj.childNodesE || inputObj.childNodesN) {
-
-  //         (inputObj.childNodesE) ? tegOfItems[1 + tegOfItems.length] = "Only_EAR_RING" : "";
-  //         (inputObj.childNodesN) ? tegOfItems[1 + tegOfItems.length] = "Only_NECKWEAR_OR_PENDANT" : "";
-  //     } else {
-  //         return false;
-  //     }
-  //     return tegOfItems;
-  // }
 
   function stoneOptionsData(inputObj) {
     let stoneOptionList = [];
@@ -755,20 +678,8 @@ const ReportL3 = () => {
     if (inputObj.stdUCP) {
       stoneOptionList[1 + stoneOptionList.length] = `stdUCP-${inputObj.stdUCP}`;
     }
-    // setImmediate(() => { setStoneOption(stoneOptionList) });
     return stoneOptionList;
   }
-
-  // function allDataChangeHandler(allValidationInput) {
-  //     console.log("All Data input  From  ", allValidationInput);
-
-  //     setImmediate(() => {
-  //         setAllDataFromValidation(allValidationInput)
-  //     });
-
-  //     console.log("All Data validation From  ", allDataFromValidation);
-
-  // }
 
   function sizeUomQuantityResHandler(sizeUomQuantityData) {
     setImmediate(() => {
@@ -867,16 +778,12 @@ const ReportL3 = () => {
         findingsRes: findingsData.target.value,
       });
     });
-    // getAll("findingsRes", findingsData.target.value)
   }
 
   const getAll = (name, value) => {
     allDataFromValidation[name] = value;
 
     setAllDataFromValidation();
-
-    // const [allDataFromValidation, setAllDataFromValidation] = useState({
-
     console.log("data form the get all method   :", allDataFromValidation);
     console.log("name : ", name, "value : ", value);
   };
@@ -932,219 +839,6 @@ const ReportL3 = () => {
     }
   }
 
-  // function displayPresentValidation(input) {
-
-  //     if (seventhDigits === "B" || seventhDigits === "C" || seventhDigits === "F" || seventhDigits === "R" ||
-  //         seventhDigits === "V" || seventhDigits === "W" || seventhDigits === "Y") {
-
-  //         let sizeUomQuantity, sizeQuantity, stoneQuality;
-
-  //         sizeUomQuantity = allDataFromValidation.sizeUomQuantityRes;
-  //         sizeQuantity = allDataFromValidation.sizeQuantityRes;
-  //         stoneQuality = allDataFromValidation.stoneQualityRes;
-
-  //         if (seventhDigits === "V" && !stoneQualityCheck(dataRowInformation)) {
-
-  //             if (sizeUomQuantity.length > 0) {
-
-  //                 for (const element of sizeUomQuantity) {
-  //                     let condData = (element.size && (element.uom8 || element.uom6 || element.uom4 ||
-  //                         element.uom2 || element.uom1)) ? console.log("fine") : element.size;
-
-  //                     if (condData) {
-  //                         return {
-  //                             alert: "indent Quantity Required for size: " + condData,
-  //                             status: false
-  //                         }
-  //                     }
-  //                 }
-
-  //                 let dataRes = {
-  //                     status: true,
-  //                     alert: "sucess",
-  //                     data: 0
-  //                 };
-
-  //                 return dataRes;
-
-  //             } else {
-  //                 return {
-  //                     alert: "indent Quantity Required ",
-  //                     status: false
-  //                 }
-  //             }
-
-  //         } else if ((seventhDigits === "V" || seventhDigits === "C" || seventhDigits === "F"
-  //             || seventhDigits === "Y" || seventhDigits === "B") && stoneQualityCheck(dataRowInformation)) {
-
-  //             if (sizeQuantity.length > 0 && stoneQualityCheck(dataRowInformation)) {
-
-  //                 for (const element of sizeQuantity) {
-  //                     let condData = (element.size && element.quantity) ? console.log("fine") : element.size;
-
-  //                     if (condData) {
-  //                         return {
-  //                             alert: "indent Quantity Required for size: " + condData,
-  //                             status: false
-  //                         }
-  //                     }
-
-  //                 }
-
-  //                 if (!stoneQuality) {
-
-  //                     let dataRes = {
-  //                         status: true,
-  //                         alert: "sucess",
-  //                         data: input
-  //                     };
-
-  //                     return dataRes;
-  //                     // {
-  //                     //     alert: "indent Stone Quality Required  ",
-  //                     //     status: false
-  //                     // }
-  //                 }
-
-  //             } else {
-  //                 return {
-  //                     alert: "indent Quantity Require ",
-  //                     status: false
-  //                 }
-  //             }
-
-  //         } else if ((digit === "C" || digit === "F" || digit === "Y" || digit === "B") && !stoneQualityCheck(dataRowInformation)) {
-
-  //             if (sizeQuantity.length > 0 && !stoneQualityCheck(dataRowInformation)) {
-
-  //                 for (const element of sizeQuantity) {
-  //                     let condData = (element.size && element.quantity) ? console.log("fine") : element.size;
-
-  //                     if (condData) {
-  //                         return {
-  //                             alert: "indent Quantity Required for size: " + condData,
-  //                             status: false
-  //                         }
-  //                     }
-
-  //                 }
-
-  //             } else {
-  //                 return {
-  //                     alert: "indent Quantity Require ",
-  //                     status: false
-  //                 }
-  //             }
-
-  //         }
-
-  //     } else if (seventhDigits === "E" || seventhDigits === "N" || seventhDigits === "P" || seventhDigits === "2" ||
-  //         seventhDigits === "3" || seventhDigits === "0" || seventhDigits === "1" || seventhDigits === "4" || seventhDigits === "5" || seventhDigits === "6" || seventhDigits === "7") {
-
-  //         let tegQuantity, TypeSet2, Quantity, stoneQuality;
-
-  //         tegQuantity = allDataFromValidation.tegQuantityRes;
-  //         TypeSet2 = allDataFromValidation.typeSet2Res;
-  //         Quantity = allDataFromValidation.quantityRes;
-  //         stoneQuality = allDataFromValidation.stoneQualityRes;
-
-  //         if (seventhDigits === "0" || seventhDigits === "1" || seventhDigits === "2" || seventhDigits === "3" ||
-  //             seventhDigits === "P" || seventhDigits === "E" || seventhDigits === "N" || seventhDigits === "4" || seventhDigits === "5" || seventhDigits === "6" || seventhDigits === "7") {
-
-  //             //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DTAA IN DROPDOWN
-
-  //             // (tegOfItemOption) ? tegQuantity = true : Quantity = true;
-
-  //             if (tegQuantity.length > 0) {
-
-  //                 for (const element of tegQuantity) {
-  //                     let condData = (element.tag && element.quantity) ? console.log("fine") : element.tag;
-
-  //                     if (condData) {
-  //                         return {
-  //                             alert: "indent Quantity Required for teg: " + condData,
-  //                             status: false
-  //                         }
-  //                     }
-  //                 }
-
-  //             } else if (!Quantity) {
-  //                 return {
-  //                     alert: "indent Quantity Required  ",
-  //                     status: false
-  //                 }
-  //             }
-  //             if (!stoneQuality) {
-
-  //                 let dataRes = {
-  //                     status: true,
-  //                     alert: "sucess",
-  //                     data: input
-  //                 };
-
-  //                 return dataRes;
-  //                 // {
-  //                 //     alert: "indent Stone Quality Required  ",
-  //                 //     status: false
-  //                 // }
-  //             }
-
-  //         }
-
-  //         if ((seventhDigits === "N" || seventhDigits === "E" || seventhDigits === "2") && !stoneQualityCheck(dataRowInformation)) {
-  //             if (!TypeSet2) {
-  //                 return {
-  //                     alert: "indent TypeSet2 Required  ",
-  //                     status: false
-  //                 }
-  //             }
-  //         }
-
-  //     } else {
-
-  //         let findings, stoneQuality, Quantity;
-  //         findings = allDataFromValidation.findingsRes;
-  //         stoneQuality = allDataFromValidation.stoneQualityRes;
-  //         Quantity = allDataFromValidation.quantityRes;
-
-  //         if (seventhDigits === "S" || seventhDigits === "D" || seventhDigits === "J") {
-  //             if (!findings) {
-  //                 return {
-  //                     alert: "indent Findings Required  ",
-  //                     status: false
-  //                 }
-  //             }
-  //         }
-  //         if (!Quantity) {
-  //             return {
-  //                 alert: "indent Quantity Required  ",
-  //                 status: false
-  //             }
-  //         }
-  //         if (!stoneQuality) {
-
-  //             let dataRes = {
-  //                 status: true,
-  //                 alert: "sucess",
-  //                 data: input
-  //             };
-
-  //             return dataRes;
-  //             // {
-  //             //     alert: "indent Stone Quality Required  ",
-  //             //     status: false
-  //             // }
-  //         }
-
-  //     }
-
-  //     return {
-  //         alert: "sucess  ",
-  //         status: true
-  //     }
-
-  // }
-
   function DisplayValidationRunner() {
     setImmediate(() => {
       setDigit(false);
@@ -1176,7 +870,6 @@ const ReportL3 = () => {
   return (
     <>
       <CssBaseline />
-
       <AlertPopup
         status={alertPopupStatus.status}
         mainLable={alertPopupStatus.main}
@@ -1197,19 +890,13 @@ const ReportL3 = () => {
       >
         <SideAppBar navBarList={navBarList} statusOpener={statusOpener} />
       </Drawer>
-
       <Drawer anchor="top" open={statusCloserOpner} onClose={statusOpener}>
         <StatusTabular statusData={statusData} />
       </Drawer>
-
       <Container className={classes.root} maxWidth="xl">
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <UpperHeader
-              // itemCode={dataRowInformation.itemCode}
-              storeCode={storeCode}
-              // storeCode
-            />
+            <UpperHeader storeCode={storeCode} />
             <Loading flag={loading} />
             <ReportsAppBar
               reportDropHandler={reportDropHandler}
@@ -1255,15 +942,11 @@ const ReportL3 = () => {
                           </Typography>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                          {/* <Paper> */}
                           <ProductDetailsTabularL3
                             information={dataRowInformation}
                           />
-                          {/* </Paper> */}
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                          {/* <Paper> */}
-
                           <div>
                             <Typography
                               className={classes.haddingCss}
@@ -1320,7 +1003,6 @@ const ReportL3 = () => {
                               </Grid>
                             </Container>
                           </div>
-                          {/* </Paper> */}
                         </Grid>
                         <Grid item xs={12}>
                           {stoneQualityCheck(dataRowInformation) ? (
@@ -1338,7 +1020,6 @@ const ReportL3 = () => {
                           )}
                         </Grid>
                         <Grid item xs={12}>
-                          {/* <Paper> */}
                           <Container>
                             <Grid container spacing={4}>
                               {reportLabel !== "Cancel_Item_List" ? (
@@ -1369,7 +1050,6 @@ const ReportL3 = () => {
                               </Grid>
                             </Grid>
                           </Container>
-                          {/* </Paper> */}
                         </Grid>
                       </Grid>
                     </div>
@@ -1379,9 +1059,6 @@ const ReportL3 = () => {
             </Grid>
           ) : null}
           <Grid item xs={12} sm={12} fullWidth>
-            {/* <Container maxWidth="xl"  > */}
-            {/* <Paper> */}
-
             {rows.length > 0 && col.length > 0 ? (
               <LazyLoadindDataGrid
                 col={col}
@@ -1393,16 +1070,13 @@ const ReportL3 = () => {
                 handelOpen={handelOpen}
                 handelClose={handelClose}
                 handelYes={handelYes}
-                popupopen={popupopen}
+                popupopen={popupOpen}
               />
             ) : (
               <Typography align="center" variant="h5" color="secondary">
-                {" "}
                 No Data Found...!
               </Typography>
             )}
-            {/* </Paper> */}
-            {/* </Container> */}
           </Grid>
         </Grid>
       </Container>
