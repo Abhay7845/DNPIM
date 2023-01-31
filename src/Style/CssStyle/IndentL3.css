@@ -1,0 +1,40 @@
+.productsDetailsStyle {
+    margin-top: 3%;
+}
+
+@media screen and (max-width:960px) {
+    .productsDetailsStyle {
+        margin-top: 10%;
+    }
+}
+
+@media screen and (max-width:577px) {
+    .productsDetailsStyle {
+        margin-top: 25%;
+    }
+}
+
+
+@media screen and (max-width:410px) {
+    .productsDetailsStyle {
+        margin-top: 35%;
+    }
+}
+
+@media screen and (max-width:375px) {
+    .productsDetailsStyle {
+        margin-top: 45%;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .productsDetailsStyle {
+        margin-top: 65%;
+    }
+}
+
+@media screen and (max-width:599px) {
+    .ProductDataDetails {
+        margin-top: 3%;
+    }
+}

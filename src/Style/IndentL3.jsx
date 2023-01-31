@@ -26,6 +26,7 @@ export const useStyles = makeStyles({
   },
   buttonSpacing: {
     marginTop: "3%",
+    padding: "2%",
   },
   btn: {
     fontWeight: 500,

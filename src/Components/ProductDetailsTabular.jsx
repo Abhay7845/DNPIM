@@ -4,7 +4,7 @@ const ProductDetailsTabular = (props) => {
   console.log("props==>", props);
   return (
     <>
-      <table className="w-100">
+      <table className="w-100 mx-1">
         <tbody>
           <tr>
             <th>COLLECTION</th>

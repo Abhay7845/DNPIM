@@ -1159,95 +1159,96 @@ function SmallDataTable(props) {
       if (props.childNodesE || props.childNodesN) {
         return (
           <>
-            <table
-              className="table table-bordered my-3"
-              style={{ marginLeft: "0px" }}
-            >
-              <thead>
-                <tr>
-                  <th scope="col">CATEGORY</th>
-                  <th scope="col">StdWt</th>
-                  <th scope="col">UCP</th>
-                </tr>
-              </thead>
-              <tbody>
-                {digit === "5" || digit === "6" || digit === "7" ? (
-                  <>
-                    {!props.stdUcpH ? (
-                      <tr>
-                        <td>OTHER</td>
-                        <td>{props.stdWtO}</td>
-                        <td>{props.stdUcpO}</td>
-                      </tr>
-                    ) : (
-                      <tr>
-                        <td>HARAM</td>
-                        <td>{props.stdWtH}</td>
-                        <td>{props.stdUcpH}</td>
-                      </tr>
-                    )}
-                  </>
-                ) : (
-                  ""
-                )}
-                <tr>
-                  <td>EAR RING</td>
-                  <td>{props.stdWtE}</td>
-                  <td>{props.stdUcpE}</td>
-                </tr>
-                {digit === "0" ? (
+            <div className="table-responsive">
+              <table
+                className="table table-bordered my-3"
+                style={{ marginLeft: "0px" }}
+              >
+                <thead>
                   <tr>
-                    <td>CHAIN WITH PENDANT</td>
-                    <td>{props.stdWtN}</td>
-                    <td>{props.stdUcpN}</td>
+                    <th scope="col">CATEGORY</th>
+                    <th scope="col">StdWt</th>
+                    <th scope="col">UCP</th>
                   </tr>
-                ) : (
+                </thead>
+                <tbody>
+                  {digit === "5" || digit === "6" || digit === "7" ? (
+                    <>
+                      {!props.stdUcpH ? (
+                        <tr>
+                          <td>OTHER</td>
+                          <td>{props.stdWtO}</td>
+                          <td>{props.stdUcpO}</td>
+                        </tr>
+                      ) : (
+                        <tr>
+                          <td>HARAM</td>
+                          <td>{props.stdWtH}</td>
+                          <td>{props.stdUcpH}</td>
+                        </tr>
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                   <tr>
-                    <td>
-                      {digit === "1" || digit === "2"
-                        ? "NECKWEAR OR PENDENT"
-                        : "NECKWEAR"}
-                    </td>
-                    <td>{props.stdWtN}</td>
-                    <td>{props.stdUcpN}</td>
+                    <td>EAR RING</td>
+                    <td>{props.stdWtE}</td>
+                    <td>{props.stdUcpE}</td>
                   </tr>
-                )}
-                {digit === "3" ||
-                digit === "4" ||
-                digit === "5" ||
-                digit === "6" ||
-                digit === "7" ? (
-                  <tr>
-                    <td>BANGLE</td>
-                    <td>{props.stdWtV}</td>
-                    <td>{props.stdUcpV}</td>
-                  </tr>
-                ) : (
-                  ""
-                )}
+                  {digit === "0" ? (
+                    <tr>
+                      <td>CHAIN WITH PENDANT</td>
+                      <td>{props.stdWtN}</td>
+                      <td>{props.stdUcpN}</td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td>
+                        {digit === "1" || digit === "2"
+                          ? "NECKWEAR OR PENDENT"
+                          : "NECKWEAR"}
+                      </td>
+                      <td>{props.stdWtN}</td>
+                      <td>{props.stdUcpN}</td>
+                    </tr>
+                  )}
+                  {digit === "3" ||
+                  digit === "4" ||
+                  digit === "5" ||
+                  digit === "6" ||
+                  digit === "7" ? (
+                    <tr>
+                      <td>BANGLE</td>
+                      <td>{props.stdWtV}</td>
+                      <td>{props.stdUcpV}</td>
+                    </tr>
+                  ) : (
+                    ""
+                  )}
 
-                {digit === "4" ||
-                digit === "5" ||
-                digit === "6" ||
-                digit === "7" ? (
-                  <tr>
-                    <td>TIKKA</td>
-                    <td>{props.stdWtK}</td>
-                    <td>{props.stdUcpK}</td>
-                  </tr>
-                ) : (
-                  ""
-                )}
-                {digit === "6" || digit === "7" ? (
-                  <tr>
-                    <td>FINGER RING</td>
-                    <td>{props.stdWtF}</td>
-                    <td>{props.stdUcpF}</td>
-                  </tr>
-                ) : (
-                  ""
-                )}
-                {/* {digit === "7" ? (
+                  {digit === "4" ||
+                  digit === "5" ||
+                  digit === "6" ||
+                  digit === "7" ? (
+                    <tr>
+                      <td>TIKKA</td>
+                      <td>{props.stdWtK}</td>
+                      <td>{props.stdUcpK}</td>
+                    </tr>
+                  ) : (
+                    ""
+                  )}
+                  {digit === "6" || digit === "7" ? (
+                    <tr>
+                      <td>FINGER RING</td>
+                      <td>{props.stdWtF}</td>
+                      <td>{props.stdUcpF}</td>
+                    </tr>
+                  ) : (
+                    ""
+                  )}
+                  {/* {digit === "7" ? (
                   <tr>
                     <td>OTHERS</td>
                     <td>{props.stdWtO}</td>
@@ -1256,8 +1257,9 @@ function SmallDataTable(props) {
                 ) : (
                   ""
                 )} */}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </>
         );
       } else {

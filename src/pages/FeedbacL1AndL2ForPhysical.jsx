@@ -452,7 +452,7 @@ const FeedbacL1AndL2ForPhysical = () => {
         </Grid>
         <div className="section-details">
           <Grid item xs={12}>
-            <div className="container-fluid   " style={{ marginTop: "1%" }}>
+            <div className="container-fluid" style={{ marginTop: "1%" }}>
               <div className="row">
                 <div className="col-md-5 border">
                   <div className="img_info_show ">
@@ -464,7 +464,7 @@ const FeedbacL1AndL2ForPhysical = () => {
                         videoLink={feedShowState.videoLink}
                       />
                     ) : (
-                      "Loding Images... "
+                      "Loading Images... "
                     )}
                   </div>
                 </div>

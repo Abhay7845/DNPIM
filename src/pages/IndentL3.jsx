@@ -22,6 +22,7 @@ import {
 } from "../Components/ComponentForL3";
 import Error from "../Components/Notification";
 import { useStyles } from "../Style/IndentL3";
+import "../Style/CssStyle/IndentL3.css";
 
 const IndentL3 = () => {
   const { storeCode, rsoName } = useParams();
@@ -148,9 +149,6 @@ const IndentL3 = () => {
       setSizeState([]);
     }
   }, [feedShowState.itemCode]);
-  // let digit = feedShowState.itemCode[6];
-
-  // console.log("data of seven data is the data ", digit);
 
   const navBarList = [
     {
@@ -159,7 +157,6 @@ const IndentL3 = () => {
       link: `/indentL3/${storeCode}/${rsoName}`,
       icon: "HomeIcon",
     },
-    // { id: 1, name: "Favorite", link: `/favoriteL3/${storeCode}`, icon: "StarsIcon" },
     {
       id: 3,
       name: "Report",
@@ -247,7 +244,7 @@ const IndentL3 = () => {
         digit === "E" ||
         digit === "N"
       ) {
-        //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DTAA IN DROPDOWN
+        //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
 
         createTegOfItems(feedShowState)
           ? (tegQuantity = true)
@@ -273,13 +270,7 @@ const IndentL3 = () => {
         Quantity = false;
         // stoneQuality = false;
       }
-      // if (
-      //   feedShowState.category === "SET2" &&
-      //   showfindings[0]?.size === "Only_EAR_RING"
-      // ) {
-      //   console.log(showfindings, "showw");
-      //   findings=true
-      // }
+
       return (data = {
         tagSelect: tegSelect ? true : false,
         setSelect: setSelect && setSelectState[0] ? true : false,
@@ -313,19 +304,19 @@ const IndentL3 = () => {
     const result = Object.keys(data).filter(
       (eachKey) => data[eachKey] === true
     );
-    for (let keyy of result) {
-      console.log(keyy, "resultt");
-      for (let resultkey of Object.keys(allDataFromValidation)) {
+    for (let key of result) {
+      console.log(key, "result");
+      for (let resultKey of Object.keys(allDataFromValidation)) {
         if (
-          keyy === resultkey &&
-          allDataFromValidation[resultkey].length === 0
+          key === resultKey &&
+          allDataFromValidation[resultKey].length === 0
         ) {
           msg = {
             ...msg,
             status: false,
             message: `${result.join("/")} is required`,
           };
-          console.log(allDataFromValidation[resultkey].length, "length");
+          console.log(allDataFromValidation[resultKey].length, "length");
         }
       }
     }
@@ -675,28 +666,12 @@ const IndentL3 = () => {
     return tegOfItems;
   }
 
-  // function createTegOfItems(inputObj) {
-  //     let tegOfItems = ["Single_Tag", "Separate_Tag"];  //separate_Tag
-  //     if (inputObj.childNodesE || inputObj.childNodesN) {
-
-  //         (inputObj.childNodesE) ? tegOfItems[1 + tegOfItems.length] = "Only_EAR_RING" : "";
-  //         (inputObj.childNodesN) ? tegOfItems[1 + tegOfItems.length] = "Only_NECKWEAR_OR_PENDANT" : "";
-
-  //         // (inputObj.childNodesE) ? tegOfItems[1 + tegOfItems.length] = "Only_EAR_RING" : "";
-  //         // (inputObj.childNodesN) ? tegOfItems[1 + tegOfItems.length] = "Only_NECKWEAR_OR_PENDANT" : "";
-  //     } else {
-  //         return false;
-  //     }
-  //     return tegOfItems;
-  // }
-
   function allDataChangeHandler(allValidationInput) {
     console.log("All Data input  From  ", allValidationInput);
 
     setImmediate(() => {
       setAllDataFromValidation(allValidationInput);
     });
-
     console.log("All Data validation From  ", allDataFromValidation);
   }
 
@@ -862,16 +837,8 @@ const IndentL3 = () => {
         findingsRes: allDataFromValidation.findingsRes,
       });
     });
-
     // getAll("tegQuantityRes", tegQuantityData)
   }
-
-  // const getAll = (name, value) => {
-  //     allDataFromValidation[name] = value;
-
-  //     console.log("data form the get all method   :", allDataFromValidation);
-  //     console.log("name : ", name, "value : ", value);
-  // }
 
   return (
     <>
@@ -879,7 +846,6 @@ const IndentL3 = () => {
       <Container maxWidth="xl" className={classes.root}>
         <AlertPopup
           status={alertPopupStatus.status}
-          // status={true}
           mainLable={alertPopupStatus.main}
           containLable={alertPopupStatus.contain}
           procideHandler=""
@@ -909,168 +875,160 @@ const IndentL3 = () => {
               "Loading...!"
             )}
           </Grid>
-          <div
-            id="result"
-            className="section-details row"
-            style={{ visibility: "visible" }}
-          >
+          <div className="row mx-2 productsDetailsStyle">
             <Grid item xs={12} sm={5}>
-              <div className="my-4 mx-2">
-                {feedShowState.itemCode ? (
-                  <ImgShow
-                    itemCode={feedShowState.itemCode}
-                    imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
-                    videoLink={feedShowState.videoLink || ""}
-                    //imgLink={img}
-                  />
-                ) : null}
-              </div>
+              {feedShowState.itemCode ? (
+                <ImgShow
+                  itemCode={feedShowState.itemCode}
+                  imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
+                  videoLink={feedShowState.videoLink || ""}
+                  //imgLink={img}
+                />
+              ) : null}
             </Grid>
             <Grid item xs={12} sm={7}>
-              <div className="my-4">
-                <Grid container>
-                  <Grid item xs={12} sm={12}>
-                    <Typography className={classes.headingColor} align="center">
-                      {feedShowState.itemCode}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography className="text-center my-2">
-                      <b>Product Specification</b>
-                    </Typography>
-                    {feedShowState.adVariant ? (
-                      <BlinkingComponent
-                        color="red"
-                        text="AD-Variant"
-                        fontSize={15}
-                      />
-                    ) : null}
-                    <ProductDetailsTabular information={feedShowState} />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography className="text-center my-2">
-                      <b>Indent Details</b>
-                    </Typography>
-                    {feedShowState.btqCount ? (
-                      <BlinkingComponent
-                        color="red"
-                        text={` ${feedShowState.btqCount}  Btqs Indented `}
-                        fontSize={15}
-                      />
-                    ) : null}
-                    <br />
-                    <Grid container spacing={1}>
-                      {digit ? (
-                        <DisplayValidationComponent
-                          digit={feedShowState.itemCode[6]}
-                          cond={stoneQualityCheck(feedShowState)}
-                          // cond={false}
-                          // sizeOptionList={sizeOption}
-                          itemCode={feedShowState.itemCode}
-                          stoneOptionList={stoneOptionsData(feedShowState)}
-                          setType2option={["Need-Chain", "Need-Dori"]}
-                          findingsOption={[feedShowState.findings || ""]}
-                          setSelectOptions={setSelectState}
-                          tegOfItemOption={createTegOfItems(feedShowState)}
-                          allDataChangeHandler={allDataChangeHandler}
-                          sizeUomQuantityResHandler={sizeUomQuantityResHandler}
-                          sizeQuantityResHandler={sizeQuantityResHandler}
-                          stoneQualityResHandler={stoneQualityResHandler}
-                          tegQuantityResHandler={tegQuantityResHandler}
-                          typeSet2ResHandler={typeSet2ResHandler}
-                          quantityResHandler={quantityResHandler}
-                          findingsResHandler={findingsResHandler}
-                          tegSelectionResHandler={tegSelectionResHandler}
-                          setSelectResHandler={tegQuantityResHandler}
-                          allDataFromValidation={allDataFromValidation}
-                          feedShowState={feedShowState}
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </Grid>
-                    {SmallDataTable(feedShowState)}
-                    <div>
-                      {feedShowState.consumerBase ===
-                        "solitarie".toUpperCase() && (
-                        <a
-                          href="https://tanishqsolitaires.titanjew.in/SolitairePortal/Home/Login"
-                          target="iframe_a"
-                        >
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className="mt-3"
-                          >
-                            Book Now
-                          </Button>
-                        </a>
-                      )}
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={12}>
-                    {stoneQualityCheck(feedShowState) ? (
-                      <StaticTabularInformation
-                        si2Gh={feedShowState.si2Gh}
-                        vsGh={feedShowState.vsGh}
-                        vvs1={feedShowState.vvs1}
-                        i2Gh={feedShowState.i2Gh}
-                        si2Ij={feedShowState.si2Ij}
-                        consumerBase={false}
+              <Grid container className="ProductDataDetails">
+                <Grid item xs={12} sm={12} className="mx-1">
+                  <Typography className={classes.headingColor} align="center">
+                    {feedShowState.itemCode}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography className="text-center my-2">
+                    <b>Product Specification</b>
+                  </Typography>
+                  {feedShowState.adVariant ? (
+                    <BlinkingComponent
+                      color="red"
+                      text="AD-Variant"
+                      fontSize={15}
+                    />
+                  ) : null}
+                  <ProductDetailsTabular information={feedShowState} />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Typography className="text-center my-2">
+                    <b>Indent Details</b>
+                  </Typography>
+                  {feedShowState.btqCount ? (
+                    <BlinkingComponent
+                      color="red"
+                      text={` ${feedShowState.btqCount}  Btqs Indented `}
+                      fontSize={15}
+                    />
+                  ) : null}
+                  <br />
+                  <Grid container spacing={1}>
+                    {digit ? (
+                      <DisplayValidationComponent
+                        digit={feedShowState.itemCode[6]}
+                        cond={stoneQualityCheck(feedShowState)}
+                        // cond={false}
+                        // sizeOptionList={sizeOption}
+                        itemCode={feedShowState.itemCode}
+                        stoneOptionList={stoneOptionsData(feedShowState)}
+                        setType2option={["Need-Chain", "Need-Dori"]}
+                        findingsOption={[feedShowState.findings || ""]}
+                        setSelectOptions={setSelectState}
+                        tegOfItemOption={createTegOfItems(feedShowState)}
+                        allDataChangeHandler={allDataChangeHandler}
+                        sizeUomQuantityResHandler={sizeUomQuantityResHandler}
+                        sizeQuantityResHandler={sizeQuantityResHandler}
+                        stoneQualityResHandler={stoneQualityResHandler}
+                        tegQuantityResHandler={tegQuantityResHandler}
+                        typeSet2ResHandler={typeSet2ResHandler}
+                        quantityResHandler={quantityResHandler}
+                        findingsResHandler={findingsResHandler}
+                        tegSelectionResHandler={tegSelectionResHandler}
+                        setSelectResHandler={tegQuantityResHandler}
+                        allDataFromValidation={allDataFromValidation}
+                        feedShowState={feedShowState}
                       />
                     ) : (
                       ""
                     )}
                   </Grid>
-                  <Grid item xs={12} sm={12}>
-                    {CheckConsumerBase(feedShowState) ? (
-                      <StaticTabularConsumerBase />
-                    ) : (
-                      ""
-                    )}
-                  </Grid>
-                  <Grid item xs={12} sm={12} className={classes.buttonSpacing}>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} sm={4}>
+                  {SmallDataTable(feedShowState)}
+                  <div>
+                    {feedShowState.consumerBase ===
+                      "solitarie".toUpperCase() && (
+                      <a
+                        href="https://tanishqsolitaires.titanjew.in/SolitairePortal/Home/Login"
+                        target="iframe_a"
+                      >
                         <Button
-                          className={classes.btn}
-                          onClick={() => {
-                            onClickNextPreBtnHandler("pre");
-                          }}
-                          startIcon={<ArrowBackIosIcon />}
-                          variant="outlined"
-                          fullWidth
-                        >
-                          Previous
-                        </Button>
-                      </Grid>
-                      <Grid item xs={12} sm={4}>
-                        <Button
-                          className={classes.btnSub}
-                          onClick={onClickSubmitBtnHandler}
                           variant="contained"
-                          fullWidth
+                          color="primary"
+                          className="mt-3"
                         >
-                          Submit
+                          Book Now
                         </Button>
-                      </Grid>
-                      <Grid item xs={12} sm={4}>
-                        <Button
-                          className={classes.btn}
-                          onClick={() => {
-                            onClickNextPreBtnHandler("next");
-                          }}
-                          endIcon={<ArrowForwardIosIcon />}
-                          variant="outlined"
-                          fullWidth
-                        >
-                          Next
-                        </Button>
-                      </Grid>
+                      </a>
+                    )}
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={12} className="mx-1">
+                  {stoneQualityCheck(feedShowState) ? (
+                    <StaticTabularInformation
+                      si2Gh={feedShowState.si2Gh}
+                      vsGh={feedShowState.vsGh}
+                      vvs1={feedShowState.vvs1}
+                      i2Gh={feedShowState.i2Gh}
+                      si2Ij={feedShowState.si2Ij}
+                      consumerBase={false}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </Grid>
+                <Grid item xs={12} sm={12}>
+                  {CheckConsumerBase(feedShowState) ? (
+                    <StaticTabularConsumerBase />
+                  ) : (
+                    ""
+                  )}
+                </Grid>
+                <Grid item xs={12} sm={12} className={classes.buttonSpacing}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={4}>
+                      <Button
+                        className={classes.btn}
+                        onClick={() => {
+                          onClickNextPreBtnHandler("pre");
+                        }}
+                        startIcon={<ArrowBackIosIcon />}
+                        variant="outlined"
+                        fullWidth
+                      >
+                        Previous
+                      </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <Button
+                        className={classes.btnSub}
+                        onClick={onClickSubmitBtnHandler}
+                        variant="contained"
+                        fullWidth
+                      >
+                        Submit
+                      </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <Button
+                        className={classes.btn}
+                        onClick={() => {
+                          onClickNextPreBtnHandler("next");
+                        }}
+                        endIcon={<ArrowForwardIosIcon />}
+                        variant="outlined"
+                        fullWidth
+                      >
+                        Next
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>
-              </div>
+              </Grid>
             </Grid>
           </div>
         </Grid>
