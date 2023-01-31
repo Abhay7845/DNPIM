@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -9,7 +10,6 @@ import {
   Drawer,
 } from "@material-ui/core";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AlertPopup from "../Components/AlertPopup";
 import { ProductDetailsTabularL3 } from "../Components/ComponentForL3";
@@ -65,7 +65,6 @@ const useStyle = makeStyles({
 
 const ReportL3 = () => {
   const { storeCode, rsoName } = useParams();
-  // const storeCode = "NAT1"
   const classes = useStyle();
   const [col, setCol] = useState([]);
   const [rows, setRows] = useState([]);
@@ -73,7 +72,7 @@ const ReportL3 = () => {
   const [barOpener, setBarOpener] = useState(false);
   const [statusCloserOpner, setStatusCloserOpner] = useState(false);
   const [statusData, setStatusData] = useState();
-  const [reportLable, setReportLable] = useState("Item_Wise_Report");
+  const [reportLabel, setReportLabel] = useState("Item_Wise_Report");
   const [dataRowInformation, setDataRowInformation] = useState({});
   const [showInfo, setShowInfo] = useState(false);
   const [digit, setDigit] = useState(false);
@@ -87,15 +86,6 @@ const ReportL3 = () => {
     contain: "",
   });
   const [SizeState, setSizeState] = useState([]);
-  // let allDataFromValidation = {
-  //     sizeUomQuantityRes: [],
-  //     sizeQuantityRes: [],
-  //     stoneQualityRes: "",
-  //     tegQuantityRes: [],
-  //     typeSet2Res: "",
-  //     quantityRes: "",
-  //     findingsRes: "",
-  // };
 
   const [allDataFromValidation, setAllDataFromValidation] = useState({
     sizeUomQuantityRes: [],
@@ -108,7 +98,7 @@ const ReportL3 = () => {
   });
   const reportDropHandler = (input) => {
     console.log(input, "input");
-    setReportLable(input);
+    setReportLabel(input);
     // setImmediate(() => {
     //     setLoading(true);
     //     setShowInfo(false)
@@ -201,17 +191,17 @@ const ReportL3 = () => {
     }
   };
   let seventhDigits;
-  console.log(reportLable, "alert reportLable");
+  console.log(reportLabel, "alert reportLabel");
   useEffect(() => {
     setImmediate(() => {
       setLoading(true);
     });
 
     let urlReport;
-    console.log(reportLable, "reportLable from Switch");
+    console.log(reportLabel, "reportLabel from Switch");
     console.log(urlReport, "urlReport from Switch");
 
-    switch (reportLable) {
+    switch (reportLabel) {
       case "Item_Wise_Report":
         urlReport = `${UrlManager.itemWiseReportL3}${storeCode}`;
         break;
@@ -281,7 +271,7 @@ const ReportL3 = () => {
         setLoading(false);
       });
     }, 3000);
-  }, [statusCloserOpner, reportLable, modification, popupopen]);
+  }, [statusCloserOpner, reportLabel, modification, popupopen]);
   // showInfo
   useEffect(async () => {
     if (dataRowInformation.itemCode !== "") {
@@ -578,7 +568,7 @@ const ReportL3 = () => {
             alert(error);
           });
 
-        reportDropHandler(reportLable);
+        reportDropHandler(reportLabel);
       }, 1500);
     }
 
@@ -640,7 +630,7 @@ const ReportL3 = () => {
         setLoading(false);
       });
 
-      reportDropHandler(reportLable);
+      reportDropHandler(reportLabel);
     }, 1500);
 
     setImmediate(() => {
@@ -1351,7 +1341,7 @@ const ReportL3 = () => {
                           {/* <Paper> */}
                           <Container>
                             <Grid container spacing={4}>
-                              {reportLable !== "Cancel_Item_List" ? (
+                              {reportLabel !== "Cancel_Item_List" ? (
                                 <Grid item xs={12} sm={6}>
                                   <Button
                                     variant="outlined"
@@ -1366,7 +1356,7 @@ const ReportL3 = () => {
                               <Grid
                                 item
                                 xs={12}
-                                sm={reportLable !== "Cancel_Item_List" ? 6 : 12}
+                                sm={reportLabel !== "Cancel_Item_List" ? 6 : 12}
                               >
                                 <Button
                                   variant="outlined"
@@ -1398,7 +1388,7 @@ const ReportL3 = () => {
                 rows={rows}
                 autoHeight={true}
                 autoPageSize={true}
-                reportLable={reportLable}
+                reportLable={reportLabel}
                 rowDataHandler={rowDataHandler}
                 handelOpen={handelOpen}
                 handelClose={handelClose}

@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
   makeStyles,
-  Paper,
   Typography,
   Button,
   Accordion,
@@ -11,21 +11,16 @@ import {
   Drawer,
 } from "@material-ui/core";
 import { CssBaseline } from "@material-ui/core";
-import React, { useState } from "react";
 import Loading from "../Components/Loading";
 import ReportsAppBar from "../Components/ReportsAppBar";
 import UpperHeader from "../Components/UpperHeader";
 import AddSharpIcon from "@material-ui/icons/AddSharp";
-import RemoveIcon from "@material-ui/icons/Remove";
 import {
   MultiSelectFroAdmin,
-  SelectOfMUI,
   TextFieldOfMUI,
 } from "../Components/ComponentFroAdmin";
 import SaveIcon from "@material-ui/icons/Save";
 import SendIcon from "@material-ui/icons/Send";
-import { EventAvailable, TramRounded } from "@material-ui/icons";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
@@ -53,8 +48,6 @@ function SendStoreReportAdmin(props) {
     to: "",
     cc: "",
   });
-  // const storeCode = "NAt1";
-  // const rsoName = "NAt1";
   const [alertState, setAlertState] = useState({
     alertFlag1: false,
     alertFlag2: false,
@@ -122,7 +115,7 @@ function SendStoreReportAdmin(props) {
           )
           .then((responce) => {
             console.log(responce.data);
-            if (responce.data.code == 1000) {
+            if (responce.data.code === 1000) {
               setImmediate(() => {
                 setAlertState({
                   alertFlag1: true,
@@ -159,7 +152,7 @@ function SendStoreReportAdmin(props) {
             )
             .then((responce) => {
               console.log(responce.data);
-              if (responce.data.code == 1000) {
+              if (responce.data.code === 1000) {
                 let notSent = responce.data.notSent[0]
                   ? `But fro this stores not send mail plz check mail content and mail Ids ${responce.data.notSent}`
                   : "";
@@ -211,7 +204,7 @@ function SendStoreReportAdmin(props) {
             })
             .then((responce) => {
               console.log(responce.data);
-              if (responce.data.code == 1000) {
+              if (responce.data.code === 1000) {
                 setImmediate(() => {
                   setAlertState({
                     alertFlag1: false,
@@ -259,7 +252,7 @@ function SendStoreReportAdmin(props) {
           (response) => {
             console.log(response.data);
 
-            if (response.data.code == 1000) {
+            if (response.data.code === 1000) {
               let dada = [];
               setImmediate(() => {
                 setStoreList(response.data.value);
@@ -303,7 +296,7 @@ function SendStoreReportAdmin(props) {
     let resData = [];
 
     for (const key in inputCc) {
-      if (key == "strCode" || key == "storeMailId") {
+      if (key === "strCode" || key === "storeMailId") {
         continue;
       }
       if (inputCc[key]) {
