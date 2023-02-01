@@ -14,10 +14,6 @@ lower_header_show ul {
   margin-bottom: 15%;
 }
 
-/* li {
-  text-align: center;
-  flex: auto;
-} */
 
 .search_bar_btn {
   color: blanchedalmond;
@@ -37,7 +33,6 @@ lower_header_show ul {
 
 .dropDownStyle {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 95%;
   padding-top: 1%;
 }

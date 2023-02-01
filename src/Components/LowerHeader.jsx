@@ -26,9 +26,7 @@ const useStyles = makeStyles({
   menuButton: {
     marginRight: "2%",
   },
-  searchButton: {
-    marginTop: "-12px",
-  },
+
   title: {
     flexGrow: 1,
   },
@@ -226,92 +224,69 @@ const LowerHeader = (props) => {
                 </IconButton>
                 <div className="dropDownStyle">
                   {!props.phyNpim ? (
-                    <div>
-                      <DropdownField
-                        name="collection"
-                        value={dropState.collection}
-                        lableName="Collection"
-                        bigSmall={true}
-                        dropList={dropValueForCollectionState}
-                        myChangeHandler={onchangeHandler}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  {!props.phyNpim ? (
-                    <div className="mx-1">
-                      <DropdownField
-                        name="consumerBase"
-                        value={dropState.consumerBase}
-                        lableName="NeedSate"
-                        bigSmall={true}
-                        dropList={dropValueForNeedState}
-                        myChangeHandler={onchangeHandler}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  {!props.phyNpim ? (
-                    <div>
-                      <DropdownField
-                        name="groupData"
-                        value={dropState.groupData}
-                        lableName="Group"
-                        bigSmall={true}
-                        dropList={dropValueForGroupState}
-                        myChangeHandler={onchangeHandler}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  {!props.phyNpim ? (
-                    <div className="mx-1">
-                      <DropdownField
-                        name="category"
-                        value={dropState.category}
-                        lableName="Category"
-                        bigSmall={true}
-                        dropList={dropValueForCategoryState}
-                        myChangeHandler={onchangeHandler}
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  {props.phyNpim ? (
-                    <div>
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="start"
-                        maxWidth="xs"
-                        justify="start"
-                      >
-                        <TextField
-                          name="phyData"
-                          placeholder="Enter 14 digit Item Code"
+                    <div className="row">
+                      <div className="col">
+                        <DropdownField
+                          name="collection"
+                          value={dropState.collection}
+                          lableName="Collection"
+                          bigSmall={true}
+                          dropList={dropValueForCollectionState}
+                          myChangeHandler={onchangeHandler}
                         />
-                      </Grid>
+                      </div>
+                      <div className="col">
+                        <DropdownField
+                          name="consumerBase"
+                          value={dropState.consumerBase}
+                          lableName="NeedSate"
+                          bigSmall={true}
+                          dropList={dropValueForNeedState}
+                          myChangeHandler={onchangeHandler}
+                        />
+                      </div>
+                      <div className="col">
+                        <DropdownField
+                          name="groupData"
+                          value={dropState.groupData}
+                          lableName="Group"
+                          bigSmall={true}
+                          dropList={dropValueForGroupState}
+                          myChangeHandler={onchangeHandler}
+                        />
+                      </div>
+                      <div className="col">
+                        <DropdownField
+                          name="category"
+                          value={dropState.category}
+                          lableName="Category"
+                          bigSmall={true}
+                          dropList={dropValueForCategoryState}
+                          myChangeHandler={onchangeHandler}
+                        />
+                      </div>
                     </div>
                   ) : (
-                    ""
-                  )}
-                  {!props.phyNpim ? (
-                    <div className={classes.searchButton}>
-                      <IconButton
-                        onClick={mySearchClickHandler}
-                        edge="end"
-                        color="inherit"
-                        aria-label="menu"
-                      >
-                        <SearchIcon />
-                      </IconButton>
-                    </div>
-                  ) : (
-                    ""
+                    <>
+                      <div>
+                        <Grid>
+                          <TextField
+                            name="phyData"
+                            placeholder="Enter 14 digit Item Code"
+                          />
+                        </Grid>
+                      </div>
+                      <div>
+                        <IconButton
+                          onClick={mySearchClickHandler}
+                          edge="end"
+                          color="inherit"
+                          aria-label="menu"
+                        >
+                          <SearchIcon />
+                        </IconButton>
+                      </div>
+                    </>
                   )}
                 </div>
               </Grid>

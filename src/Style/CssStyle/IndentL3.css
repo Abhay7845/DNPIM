@@ -15,21 +15,27 @@
 }
 
 
-@media screen and (max-width:410px) {
+@media screen and (max-width:444px) {
     .productsDetailsStyle {
         margin-top: 35%;
     }
 }
 
-@media screen and (max-width:375px) {
+@media screen and (max-width:391px) {
     .productsDetailsStyle {
         margin-top: 45%;
     }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:376px) {
     .productsDetailsStyle {
         margin-top: 65%;
+    }
+}
+
+@media screen and (max-width:274px) {
+    .productsDetailsStyle {
+        margin-top: 80%;
     }
 }
 
