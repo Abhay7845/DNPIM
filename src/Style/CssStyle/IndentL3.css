@@ -8,6 +8,18 @@
     }
 }
 
+@media screen and (max-width:826px) {
+    .productsDetailsStyle {
+        margin-top: 15%;
+    }
+}
+
+@media screen and (max-width:606px) {
+    .productsDetailsStyle {
+        margin-top: 20%;
+    }
+}
+
 @media screen and (max-width:577px) {
     .productsDetailsStyle {
         margin-top: 25%;
