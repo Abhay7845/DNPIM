@@ -7,7 +7,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import axios from "axios";
 import {
   AppBar,
-  Container,
   Drawer,
   Grid,
   IconButton,
@@ -17,21 +16,18 @@ import {
 } from "@material-ui/core";
 import SideAppBar from "./SideAppBar";
 import HostManager from "../HostManager/HostManager";
-import Loading from "./Loading";
 import StatusTabular from "./StatusTabular";
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    backgroundColor: "white",
-    letterSpacing: "2px",
-    fontFamily: "Raleway, sans-serif",
+    backgroundColor: "#ffff",
   },
   menuButton: {
     marginRight: "2%",
   },
   searchButton: {
-    marginLeft: "2%",
+    marginTop: "-12px",
   },
   title: {
     flexGrow: 1,
@@ -60,31 +56,27 @@ const useStyles = makeStyles({
 
 const LowerHeader = (props) => {
   const classes = useStyles();
-  const [dropValueForConsumerbaseState, setdropValueForConsumerbaseState] =
+  const [dropValueForNeedState, setDropValueForNeedState] = useState([]);
+  const [dropValueForGroupState, setDropValueForGroupState] = useState([]);
+  const [dropValueForCollectionState, setDropValueForCollectionState] =
     useState([]);
-  const [dropValueForGroupState, setdropValueForGroupState] = useState([]);
-  const [dropValueForCollectionState, setdropValueForCollectionState] =
-    useState([]);
-  const [dropValueForCategoryState, setdropValueForCategoryState] = useState(
+  const [dropValueForCategoryState, setDropValueForCategoryState] = useState(
     []
   );
   const [barOpener, setBarOpener] = useState(false);
-  const [statusCloserOpner, setstatusCloserOpner] = useState(false);
-  const [statusData, setStatusData] = useState({});
+  const [statusCloserOpener, setStatusCloserOpener] = useState(false);
 
   const [dropState, setDropState] = useState({
     consumerBase: "ALL",
     collection: "ALL",
-    groupdata: "ALL",
+    groupData: "ALL",
     category: "ALL",
   });
   useEffect(() => {
     axios.get(`${HostManager.mainHost}/npim/dropdown/ALL/ALL/ALL/ALL`).then(
       (response) => {
-        // setdropValueForConsumerbaseState(response.data.value);
-
         if (response.data.code == "1000") {
-          setdropValueForCollectionState(response.data.value);
+          setDropValueForCollectionState(response.data.value);
         } else {
           alert("Dropdown Master not Found...!");
         }
@@ -109,7 +101,7 @@ const LowerHeader = (props) => {
             ...old,
             [name]: value,
           };
-        case "groupdata":
+        case "groupData":
           return {
             ...old,
             [name]: value,
@@ -127,13 +119,12 @@ const LowerHeader = (props) => {
         .get(`${HostManager.mainHost}/npim/dropdown/${value}/ALL/ALL/ALL`)
         .then(
           (response) => {
-            // setdropValueForCollectionState(response.data.value);
-            setdropValueForConsumerbaseState(response.data.value);
-            setdropValueForGroupState([]);
-            setdropValueForCategoryState([]);
+            setDropValueForNeedState(response.data.value);
+            setDropValueForGroupState([]);
+            setDropValueForCategoryState([]);
             setDropState((old) => {
               old.consumerBase = "ALL";
-              old.groupdata = "ALL";
+              old.groupData = "ALL";
               old.category = "ALL";
               return old;
             });
@@ -150,12 +141,10 @@ const LowerHeader = (props) => {
         )
         .then(
           (response) => {
-            setdropValueForGroupState(response.data.value);
-            console.log(response.data.value, "setdropValueForGroupState");
-            setdropValueForCategoryState([]);
-
+            setDropValueForGroupState(response.data.value);
+            setDropValueForCategoryState([]);
             setDropState((old) => {
-              old.groupdata = "ALL";
+              old.groupData = "ALL";
               old.category = "ALL";
               return old;
             });
@@ -165,29 +154,19 @@ const LowerHeader = (props) => {
             alert(error);
           }
         );
-    } else if (name === "groupdata") {
-      setdropValueForCategoryState([]);
-      console.log(value, "value");
-      //const paramvalue=value==="PJWS (P1,P2,P3) / PEARL (PL)"?"PJWS (P1,P2,P3)-PEARL (PL)":value
-      //console.log(paramvalue," paramvalue value")
+    } else if (name === "groupData") {
+      setDropValueForCategoryState([]);
       axios
         .get(
           `${HostManager.mainHost}/npim/dropdown/${dropState.collection}/${dropState.consumerBase}/${value}/ALL`
         )
         .then(
           (response) => {
-            console.log(response);
-            console.log(
-              response.data.value,
-              "setdropValueForCategoryState response.data   value"
-            );
-
-            setdropValueForCategoryState(response.data.value);
+            setDropValueForCategoryState(response.data.value);
             setDropState((old) => {
               old.category = "ALL";
               return old;
             });
-            console.log(response.data.value, "setdropValueForCategoryState");
           },
           (error) => {
             console.log(error);
@@ -215,7 +194,7 @@ const LowerHeader = (props) => {
     props.onSear(dropState);
   };
   const statusOpener = (event) => {
-    setstatusCloserOpner(!statusCloserOpner);
+    setStatusCloserOpener(!statusCloserOpener);
   };
 
   return (
@@ -224,7 +203,7 @@ const LowerHeader = (props) => {
         <SideAppBar navBarList={props.navBarList} statusOpener={statusOpener} />
       </Drawer>
 
-      <Drawer anchor="top" open={statusCloserOpner} onClose={statusOpener}>
+      <Drawer anchor="top" open={statusCloserOpener} onClose={statusOpener}>
         <StatusTabular statusData={props.statusData} />
       </Drawer>
       <section className="lower_header_show">
@@ -245,99 +224,96 @@ const LowerHeader = (props) => {
                 >
                   <MenuIcon />
                 </IconButton>
-
-                {!props.phyNpim ? (
-                  <div className={classes.projectLogo}>
-                    <DropdownField
-                      name="collection"
-                      value={dropState.collection}
-                      lableName="Collection"
-                      bigSmall={true}
-                      dropList={dropValueForCollectionState}
-                      myChangeHandler={onchangeHandler}
-                    />
-                  </div>
-                ) : (
-                  ""
-                )}
-
-                {!props.phyNpim ? (
-                  <div className={classes.projectLogo}>
-                    <DropdownField
-                      name="consumerBase"
-                      value={dropState.consumerBase}
-                      lableName="ConsumerBase"
-                      bigSmall={true}
-                      dropList={dropValueForConsumerbaseState}
-                      myChangeHandler={onchangeHandler}
-                    />
-                  </div>
-                ) : (
-                  ""
-                )}
-
-                {!props.phyNpim ? (
-                  <div className={classes.projectLogo}>
-                    <DropdownField
-                      name="groupdata"
-                      value={dropState.groupdata}
-                      lableName="Group"
-                      bigSmall={true}
-                      dropList={dropValueForGroupState}
-                      myChangeHandler={onchangeHandler}
-                    />
-                  </div>
-                ) : (
-                  ""
-                )}
-
-                {!props.phyNpim ? (
-                  <div className={classes.projectLogo}>
-                    <DropdownField
-                      name="category"
-                      value={dropState.category}
-                      lableName="Category"
-                      bigSmall={true}
-                      dropList={dropValueForCategoryState}
-                      myChangeHandler={onchangeHandler}
-                    />
-                  </div>
-                ) : (
-                  ""
-                )}
-
-                {!props.phyNpim ? (
-                  <div className={classes.searchButton}>
-                    <IconButton
-                      onClick={mySearchClickHandler}
-                      edge="end"
-                      color="inherit"
-                      aria-label="menu"
-                    >
-                      <SearchIcon />
-                    </IconButton>
-                  </div>
-                ) : (
-                  ""
-                )}
-
-                {props.phyNpim ? (
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="start"
-                    maxWidth="xs"
-                    justify="start"
-                    className={classes.projectLogo}
-                  >
-                    <TextField
-                      name="phydata"
-                      placeholder="Enter 14 digit Item Code"
-                    />
-                  </Grid>
-                ) : (
-                  ""
-                )}
+                <div className="dropDownStyle">
+                  {!props.phyNpim ? (
+                    <div>
+                      <DropdownField
+                        name="collection"
+                        value={dropState.collection}
+                        lableName="Collection"
+                        bigSmall={true}
+                        dropList={dropValueForCollectionState}
+                        myChangeHandler={onchangeHandler}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {!props.phyNpim ? (
+                    <div className="mx-1">
+                      <DropdownField
+                        name="consumerBase"
+                        value={dropState.consumerBase}
+                        lableName="NeedSate"
+                        bigSmall={true}
+                        dropList={dropValueForNeedState}
+                        myChangeHandler={onchangeHandler}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {!props.phyNpim ? (
+                    <div>
+                      <DropdownField
+                        name="groupData"
+                        value={dropState.groupData}
+                        lableName="Group"
+                        bigSmall={true}
+                        dropList={dropValueForGroupState}
+                        myChangeHandler={onchangeHandler}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {!props.phyNpim ? (
+                    <div className="mx-1">
+                      <DropdownField
+                        name="category"
+                        value={dropState.category}
+                        lableName="Category"
+                        bigSmall={true}
+                        dropList={dropValueForCategoryState}
+                        myChangeHandler={onchangeHandler}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {props.phyNpim ? (
+                    <div>
+                      <Grid
+                        container
+                        direction="row"
+                        alignItems="start"
+                        maxWidth="xs"
+                        justify="start"
+                      >
+                        <TextField
+                          name="phyData"
+                          placeholder="Enter 14 digit Item Code"
+                        />
+                      </Grid>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {!props.phyNpim ? (
+                    <div className={classes.searchButton}>
+                      <IconButton
+                        onClick={mySearchClickHandler}
+                        edge="end"
+                        color="inherit"
+                        aria-label="menu"
+                      >
+                        <SearchIcon />
+                      </IconButton>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </Grid>
             </Toolbar>
           </AppBar>

@@ -34,3 +34,10 @@ lower_header_show ul {
   outline: none !important;
   height: 3rem !important;
 }
+
+.dropDownStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1%;
+}
