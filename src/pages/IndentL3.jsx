@@ -650,7 +650,7 @@ const IndentL3 = () => {
     return stoneOptionList;
   }
   function createTegOfItems(inputObj) {
-    let tegOfItems = ["Single_Tag", "Separate_Tag"]; //separate_Tag
+    let tegOfItems = ["Single_Tag", "Separate_Tag"];
     if (inputObj.childNodesE || inputObj.childNodesN) {
       if (inputObj.childNodesE)
         tegOfItems[1 + tegOfItems.length] = "Only_EAR_RING";

@@ -644,7 +644,6 @@ const ReportL3 = () => {
     if (inputObj.childNodesE || inputObj.childNodesN) {
       if (inputObj.childNodesE)
         tegOfItems[1 + tegOfItems.length] = "Only_EAR_RING";
-
       if (inputObj.childNodesN)
         tegOfItems[1 + tegOfItems.length] = "Only_NECKWEAR_OR_PENDANT";
     } else {

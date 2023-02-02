@@ -37,17 +37,10 @@ const useStyles = makeStyles({
   },
   inputField: {
     width: "100%",
-    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-      border: "1px solid #484850",
-      borderRadius: "5px 5px 0 0",
-    },
   },
   formControl: {
     minWidth: "100%",
-    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-      border: "1px solid #484850",
-      borderRadius: "5px 5px 0 0",
-    },
+    marginTop: "4%",
   },
   hide: {
     display: "none",
@@ -63,7 +56,7 @@ const useStyles = makeStyles({
     margin: "0%",
     padding: "0%",
   },
-  haddingCss: {
+  hadingCss: {
     fontWeight: "bolder",
     fontStretch: "normal",
     fontSize: "16px",
@@ -71,11 +64,10 @@ const useStyles = makeStyles({
     fontFamily: "Raleway, sans - serif",
     letterSpacing: "2px",
   },
-  hadding: {
+  hading: {
     fontWeight: 500,
     fontSize: "18px",
     fontStretch: "normal",
-    // lineHeight: 5.4,
     fontFamily: "Raleway, sans-serif",
     letterSpacing: "1px",
     textAlign: "left",
@@ -436,13 +428,9 @@ function MultiselectUomAndSize(props) {
           onSelect={onInternalSelectChange}
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
-          // style={cssdata}
-          // selectedValues={[]}
           closeOnSelect={true}
-          // selectionLimit={3}
           placeholder="Choose Options"
           disablePreSelectedValues={true}
-          // ref={multiselectRef}
         />
         <table style={{ width: "100%", padding: 1, margin: 0 }}>
           <tbody>
@@ -605,8 +593,7 @@ function MultiSelectDropDownForAll(props) {
 function DropDownMaterialUI(props) {
   const classes = useStyles();
   const { lableName, onChangeHandler, optionsList, valueData } = props;
-
-  const genrateOptions = (dropList) => {
+  const generateOptions = (dropList) => {
     let optionItems = dropList.map((option) => (
       <MenuItem key={option} value={option}>
         {option}
@@ -618,26 +605,20 @@ function DropDownMaterialUI(props) {
 
   return (
     <>
-      {/* <Typography> {lableName}</Typography> */}
-
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">
-          {lableName}
-        </InputLabel>
+        <InputLabel>{lableName}</InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          // value={age}
           label={lableName}
           autoWidth={true}
           onChange={onChangeHandler}
-          // value={valueData}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
 
-          {genrateOptions(optionsList)}
+          {generateOptions(optionsList)}
         </Select>
       </FormControl>
     </>
@@ -701,7 +682,6 @@ function InputFieldMaterialUI(props) {
 }
 
 function MultiSelectAndInput(props) {
-  // const {lableName, options} = props
   const classes = useStyles();
   const [sizeRow, setSizeRow] = useState({
     A: false,
@@ -737,17 +717,14 @@ function MultiSelectAndInput(props) {
     Only_EAR_RING: false,
     Only_NECKWEAR_OR_PENDANT: false,
   });
-  // const resetSelectField = (props) => {
-  //     const { lableName } = props
-  //     multiselectRef.current.resetSelectedValues()
-  // }
-
+  const { feedShowState, findingsResHandler, findingsOptions } = props;
   const options = props.optionsList.map((element) => {
     return {
       valueData: element,
       lableValue: element,
     };
   });
+  console.log("feedShowState==>", props);
   const enableRows = (name, value) => {
     setSizeRow(function (old) {
       switch (name) {
@@ -927,7 +904,7 @@ function MultiSelectAndInput(props) {
     });
   };
   const onInternalSelectChange = (selectedList, selectedItem) => {
-    console.log("selected item for Add", selectedItem.lableValue);
+    console.log("selected==>", selectedItem.lableValue);
     enableRows(selectedItem.lableValue, true);
     specialLabelValue = selectedItem.lableValue;
   };
@@ -962,13 +939,18 @@ function MultiSelectAndInput(props) {
     }
     return false;
   };
-
+  const optionsOnlyE = ["Only_EAR_RING"];
+  const optionE = optionsOnlyE.map((element) => {
+    return {
+      valueData: element,
+      lableValue: element,
+    };
+  });
   return (
     <>
       <div className={classes.drop_multi}>
         <Typography align="center" color="primary">
-          {" "}
-          {props.lableName}{" "}
+          {props.lableName}
         </Typography>
         <Multiselect
           options={options}
@@ -976,16 +958,12 @@ function MultiSelectAndInput(props) {
           onSelect={onInternalSelectChange}
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
-          // style={cssdata}
-          // selectedValues={[]}
           closeOnSelect={true}
-          // selectionLimit={3}
-          placeholder="Choose Options"
+          placeholder="Choose Tag"
           disablePreSelectedValues={true}
-          // ref={multiselectRef}
         />
         <table style={{ width: "100%", padding: 1, margin: 0 }}>
-          <tbody>
+          <tbody className="d-flex">
             {options.map((row, index) => (
               <tr
                 key={index}
@@ -996,18 +974,14 @@ function MultiSelectAndInput(props) {
                 }
               >
                 <td>
-                  <Typography size="small" color="primary">
-                    {row.lableValue}
-                  </Typography>
-                </td>
-                <td>
-                  {" "}
+                  <b style={{ fontSize: "12px" }}>Quantity</b>
                   <input
-                    min="0"
-                    type="number"
+                    type="text"
+                    maxlength="1"
                     id={`${row.lableValue}sq`}
                     name={`${row.lableValue}sq`}
                     className={classes.inputField}
+                    placeholder={row.lableValue}
                   />
                 </td>
               </tr>
@@ -1015,6 +989,31 @@ function MultiSelectAndInput(props) {
           </tbody>
         </table>
       </div>
+      <table style={{ width: "100%", padding: 1, margin: 0 }}>
+        <tbody>
+          {optionE.map((row, index) => (
+            <tr
+              key={index}
+              onChange={rowHandlerChange}
+              id={row.lableValue}
+              className={
+                enableRow(row.lableValue) ? classes.showDropdown : classes.hide
+              }
+            >
+              {feedShowState.findings ? (
+                <DropDownMaterialUI
+                  lableName="Findings"
+                  onChangeHandler={findingsResHandler}
+                  optionsList={findingsOptions}
+                  // valueData=""
+                />
+              ) : (
+                ""
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }
@@ -1027,7 +1026,7 @@ function ProductDetailsTabularL3(props) {
   return (
     <>
       <div>
-        <Typography className={classes.haddingCss} align="center">
+        <Typography className={classes.hadingCss} align="center">
           Product Specification
         </Typography>
       </div>
@@ -1035,7 +1034,7 @@ function ProductDetailsTabularL3(props) {
         <tbody>
           {props.information.collection ? (
             <tr>
-              <th className={classes.hadding}>Collection</th>
+              <th className={classes.hading}>Collection</th>
               <td>-</td>
               <td className={classes.rowData}>
                 {props.information.collection}
@@ -1044,7 +1043,7 @@ function ProductDetailsTabularL3(props) {
           ) : null}
           {props.information.consumerBase ? (
             <tr>
-              <th className={classes.hadding}>Consumer Base</th>
+              <th className={classes.hading}>Consumer Base</th>
               <td>-</td>
               <td className={classes.rowData}>
                 {props.information.consumerBase}
@@ -1053,28 +1052,28 @@ function ProductDetailsTabularL3(props) {
           ) : null}
           {props.information.itGroup ? (
             <tr>
-              <th className={classes.hadding}>Group</th>
+              <th className={classes.hading}>Group</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.itGroup}</td>
             </tr>
           ) : null}
           {props.information.category ? (
             <tr>
-              <th className={classes.hadding}>Category</th>
+              <th className={classes.hading}>Category</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.category}</td>
             </tr>
           ) : null}
           {props.information.gender ? (
             <tr>
-              <th className={classes.hadding}>Gender</th>
+              <th className={classes.hading}>Gender</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.gender}</td>
             </tr>
           ) : null}
           {props.information.complexity ? (
             <tr>
-              <th className={classes.hadding}>Complexity</th>
+              <th className={classes.hading}>Complexity</th>
               <td>-</td>
               <td className={classes.rowData}>
                 {props.information.complexity}
@@ -1083,14 +1082,14 @@ function ProductDetailsTabularL3(props) {
           ) : null}
           {props.information.stdWt ? (
             <tr>
-              <th className={classes.hadding}>Std Wt</th>
+              <th className={classes.hading}>Std Wt</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.stdWt}</td>
             </tr>
           ) : null}
           {props.information.stdUCP || props.information.stdUcp ? (
             <tr>
-              <th className={classes.hadding}>Std UCp</th>
+              <th className={classes.hading}>Std UCp</th>
               <td>-</td>
               <td className={classes.rowData}>
                 {props.information.stdUCP
@@ -1101,7 +1100,7 @@ function ProductDetailsTabularL3(props) {
           ) : null}
           {props.information.indCategory ? (
             <tr>
-              <th className={classes.hadding}>Ind-Category</th>
+              <th className={classes.hading}>Ind-Category</th>
               <td>-</td>
               <td className={classes.rowData}>
                 {props.information.indCategory === "Single_Teg"
@@ -1112,35 +1111,35 @@ function ProductDetailsTabularL3(props) {
           ) : null}
           {props.information.colourWt ? (
             <tr>
-              <th className={classes.hadding}>Metal Color</th>
+              <th className={classes.hading}>Metal Color</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.colourWt}</td>
             </tr>
           ) : null}
           {props.information.findings ? (
             <tr>
-              <th className={classes.hadding}>Findings</th>
+              <th className={classes.hading}>Findings</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.findings}</td>
             </tr>
           ) : null}
           {props.information.size ? (
             <tr>
-              <th className={classes.hadding}>Size</th>
+              <th className={classes.hading}>Size</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.size}</td>
             </tr>
           ) : null}{" "}
           {props.information.uom ? (
             <tr>
-              <th className={classes.hadding}>UOM</th>
+              <th className={classes.hading}>UOM</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.uom}</td>
             </tr>
           ) : null}{" "}
           {props.information.itemQty ? (
             <tr>
-              <th className={classes.hadding}>Quantity</th>
+              <th className={classes.hading}>Quantity</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.itemQty}</td>
             </tr>
@@ -1155,7 +1154,16 @@ function SmallDataTable(props) {
   let digit = props.itemCode[6];
 
   if (digit) {
-    if (digit == "2" || digit == "N") {
+    if (
+      digit == "0" ||
+      digit == "2" ||
+      digit == "3" ||
+      digit == "4" ||
+      digit == "5" ||
+      digit == "6" ||
+      digit == "7" ||
+      digit == "N"
+    ) {
       if (props.childNodesE || props.childNodesN) {
         return (
           <>

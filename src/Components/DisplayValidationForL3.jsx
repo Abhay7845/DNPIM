@@ -18,7 +18,6 @@ export default function DisplayValidationComponent(props) {
     itemCode,
     stoneOptionList,
     setType2option,
-    findingsOption,
     tegOfItemOption,
     allDataFromValidation,
     sizeUomQuantityResHandler,
@@ -29,15 +28,13 @@ export default function DisplayValidationComponent(props) {
     typeSet2ResHandler,
     quantityResHandler,
     findingsResHandler,
+    findingsOption,
     tegSelectionResHandler,
     setSelectResHandler,
     setSelectOptions,
   } = props;
   const [SizeState, setSizeState] = useState([]);
-  console.log(
-    allDataFromValidation,
-    "allDataFromValidation from Display VALIDATION"
-  );
+  console.log("allDataFromValidationProps==>", props);
   useEffect(async () => {
     await axios
       .get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`)
@@ -63,19 +60,18 @@ export default function DisplayValidationComponent(props) {
     (item) => item.size === "Only_EAR_RING"
   );
 
-  
-//       if (feedShowState?.category==="Nosepin"){
-//         let findings=true
-// return(<Grid container spacing={1}>
-//  {findings?<DropDownMaterialUI
+  //       if (feedShowState?.category==="Nosepin"){
+  //         let findings=true
+  // return(<Grid container spacing={1}>
+  //  {findings?<DropDownMaterialUI
 
-// lableName="Findings"
-// onChangeHandler={findingsResHandler}
-// optionsList={findingsOption}
-// // valueData=""
-// />:null}
-// </Grid>)
-//       }
+  // lableName="Findings"
+  // onChangeHandler={findingsResHandler}
+  // optionsList={findingsOption}
+  // // valueData=""
+  // />:null}
+  // </Grid>)
+  //       }
   if (
     digit === "B" ||
     digit === "C" ||
@@ -123,6 +119,9 @@ export default function DisplayValidationComponent(props) {
               optionsList={SizeState}
               onChangeHandler={sizeQuantityResHandler}
               allDataFromValidation={allDataFromValidation}
+              feedShowState={feedShowState}
+              findingsResHandler={findingsResHandler}
+              findingsOptions={findingsOption}
               //put props
             />
           </Grid>
@@ -159,7 +158,7 @@ export default function DisplayValidationComponent(props) {
     digit === "7"
   ) {
     console.log(digit, "new digit");
-    let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect,findings;
+    let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect, findings;
 
     if (
       digit === "0" ||
@@ -174,7 +173,7 @@ export default function DisplayValidationComponent(props) {
       tegOfItemOption ? (tegQuantity = true) : (Quantity = true);
     }
 
-    if ((digit === "N" || digit === "E" || digit === "2") && !cond ) {
+    if ((digit === "N" || digit === "E" || digit === "2") && !cond) {
       TypeSet2 = true;
     }
 
@@ -190,7 +189,7 @@ export default function DisplayValidationComponent(props) {
       Quantity = false;
       // stoneQuality = false;
     }
-    
+
     // if (
     //     feedShowState.category === "SET2" &&
     //     showfindings[0]?.size === "Only_EAR_RING"
@@ -237,6 +236,9 @@ export default function DisplayValidationComponent(props) {
               lableName="Tags/Quantity"
               optionsList={tegOfItemOption}
               onChangeHandler={tegQuantityResHandler}
+              feedShowState={feedShowState}
+              findingsResHandler={findingsResHandler}
+              findingsOptions={findingsOption}
               //put props
             />
           </Grid>
@@ -249,7 +251,6 @@ export default function DisplayValidationComponent(props) {
               onChangeHandler={typeSet2ResHandler}
               optionsList={setType2option}
               // valueData=""
-              
             />
           </Grid>
         ) : null}
@@ -326,6 +327,4 @@ export default function DisplayValidationComponent(props) {
       </>
     );
   }
-
-  
 }
