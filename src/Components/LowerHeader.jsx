@@ -23,7 +23,7 @@ const LowerHeader = (props) => {
   );
   const [barOpener, setBarOpener] = useState(false);
   const [statusCloserOpener, setStatusCloserOpener] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [dropState, setDropState] = useState({
     consumerBase: "ALL",
     collection: "ALL",
@@ -73,6 +73,9 @@ const LowerHeader = (props) => {
     });
 
     if (name === "collection") {
+      setImmediate(() => {
+        setLoading(true);
+      });
       axios
         .get(`${HostManager.mainHost}/npim/dropdown/${value}/ALL/ALL/ALL`)
         .then(
@@ -87,12 +90,18 @@ const LowerHeader = (props) => {
               old.category = "ALL";
               return old;
             });
+            setImmediate(() => {
+              setLoading(false);
+            });
           },
           (error) => {
             console.log(error);
           }
         );
     } else if (name === "consumerBase") {
+      setImmediate(() => {
+        setLoading(true);
+      });
       axios
         .get(
           `${HostManager.mainHost}/npim/dropdown/${dropState.collection}/${value}/ALL/ALL`
@@ -107,12 +116,18 @@ const LowerHeader = (props) => {
               old.category = "ALL";
               return old;
             });
+            setImmediate(() => {
+              setLoading(false);
+            });
           },
           (error) => {
             console.log(error);
           }
         );
     } else if (name === "groupData") {
+      setImmediate(() => {
+        setLoading(true);
+      });
       setDropValueForCategoryState([]);
       axios
         .get(
@@ -125,6 +140,9 @@ const LowerHeader = (props) => {
             setDropState((old) => {
               old.category = "ALL";
               return old;
+            });
+            setImmediate(() => {
+              setLoading(false);
             });
           },
           (error) => {
@@ -158,10 +176,10 @@ const LowerHeader = (props) => {
   };
   return (
     <React.Fragment>
+      <Loading flag={loading} />
       <Drawer anchor="left" open={barOpener} onClose={myBarClickHandler}>
         <SideAppBar navBarList={props.navBarList} statusOpener={statusOpener} />
       </Drawer>
-
       <Drawer anchor="top" open={statusCloserOpener} onClose={statusOpener}>
         <StatusTabular statusData={props.statusData} />
       </Drawer>
