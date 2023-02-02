@@ -1,6 +1,5 @@
 import {
   FormControl,
-  makeStyles,
   Dialog,
   MenuItem,
   DialogContent,
@@ -11,83 +10,22 @@ import {
   Typography,
   Button,
   Container,
-  Paper,
   InputLabel,
-  TextField,
-  Grid,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import axios from "axios";
 import OTPInput from "otp-input-react";
 import React, { useEffect, useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import SingleImgCreator from "./SingleImgCreator";
 import Blink from "react-blink-text";
 import "../Style/CssStyle/LowerHeader.css";
+import { useStyles } from "../Style/ComponentForL3";
 
-const useStyles = makeStyles({
-  drop_multi: {
-    width: "100%",
-    minWidth: "100%",
-  },
-  inputField: {
-    width: "100%",
-  },
-  formControl: {
-    minWidth: "100%",
-    marginTop: "4%",
-  },
-  hide: {
-    display: "none",
-  },
-  show: {
-    display: "block",
-  },
-  header: {
-    backgroundColor: "red",
-  },
-  report: {
-    width: "100%",
-    margin: "0%",
-    padding: "0%",
-  },
-  hadingCss: {
-    fontWeight: "bolder",
-    fontStretch: "normal",
-    fontSize: "16px",
-    lineHeight: "normal",
-    fontFamily: "Raleway, sans - serif",
-    letterSpacing: "2px",
-  },
-  hading: {
-    fontWeight: 500,
-    fontSize: "18px",
-    fontStretch: "normal",
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "1px",
-    textAlign: "left",
-  },
-  rowData: {
-    fontWeight: 500,
-    fontFamily: "Playfair Display,seri",
-    fontSize: "18px",
-    // lineHeight: '20px',
-    letterSpacing: "1px",
-    textAlign: "left",
-  },
-});
 let specialLabelValue;
 function DataGridReport(props) {
   const classes = useStyles();
-
   const { col, rows, caller, reportLable, rowDataHandler } = props;
-
-  const coloum = col.map((element) => {
+  const column = col.map((element) => {
     let fieldRes;
 
     if (element === "Action") {
@@ -95,7 +33,6 @@ function DataGridReport(props) {
         field: "Action",
         headerName: "Action",
         sortable: false,
-        // width: 100,
         flex: 1,
 
         disableClickEventBubbling: true,
@@ -116,7 +53,6 @@ function DataGridReport(props) {
         field: "Image",
         headerName: "Image",
         sortable: false,
-        // width: 100,
         innerHeight: 500,
         flex: 1,
 
@@ -136,11 +72,8 @@ function DataGridReport(props) {
         field: element,
         flex: 1,
         sortable: false,
-        // width: 200,
-        // headerName: element.toUpperCase(),
       };
     }
-
     return fieldRes;
   });
 
@@ -154,7 +87,7 @@ function DataGridReport(props) {
         {/* <DataGrid
                     columnHeader={classes.header}
                     rows={rows}
-                    columns={coloum}
+                    columns={column}
                     pagination
                     pageSize={5}
                     rowCount={100}
@@ -163,7 +96,7 @@ function DataGridReport(props) {
                 /> */}
         <DataGrid
           rows={rows}
-          columns={coloum}
+          columns={column}
           autoHeight={true}
           autoPageSize={true}
           pageSize={100}
@@ -592,14 +525,15 @@ function MultiSelectDropDownForAll(props) {
 //FINDINGS//
 function DropDownMaterialUI(props) {
   const classes = useStyles();
-  const { lableName, onChangeHandler, optionsList, valueData } = props;
-  const generateOptions = (dropList) => {
-    let optionItems = dropList.map((option) => (
+  const { lableName, onChangeHandler, optionsList } = props;
+  const findings = !optionsList ? [""] : [optionsList.findings];
+
+  const generateOptions = () => {
+    let optionItems = findings.map((option) => (
       <MenuItem key={option} value={option}>
         {option}
       </MenuItem>
     ));
-
     return optionItems;
   };
 
@@ -628,7 +562,6 @@ function DropDownMaterialUI(props) {
 
 function InputFieldMaterialUI(props) {
   const classes = useStyles();
-
   const {
     lableName,
     typeName,
@@ -717,7 +650,12 @@ function MultiSelectAndInput(props) {
     Only_EAR_RING: false,
     Only_NECKWEAR_OR_PENDANT: false,
   });
-  const { feedShowState, findingsResHandler, findingsOptions } = props;
+  const {
+    feedShowState,
+    findingsResHandler,
+    findingsOptions,
+    onChangeHandler,
+  } = props;
   const options = props.optionsList.map((element) => {
     return {
       valueData: element,
@@ -928,7 +866,7 @@ function MultiSelectAndInput(props) {
       }
     }
     console.log("get data ", getData);
-    return props.onChangeHandler(getData);
+    return onChangeHandler(getData);
   };
 
   const enableRow = (lableValue) => {
@@ -1283,7 +1221,8 @@ function SmallDataTable(props) {
 function DynamicMultiSelectAndInput(props) {
   const classes = useStyles();
   const [sizeRow, setSizeRow] = useState();
-
+  const { findingsResHandler, feedShowState, onChangeHandler } = props;
+  console.log("findingsOptions==>", feedShowState.findings);
   useEffect(() => {
     if (props.optionsList)
       setImmediate(() => {
@@ -1304,6 +1243,13 @@ function DynamicMultiSelectAndInput(props) {
   console.log("data of set is the ******************", setData);
 
   const options = props.optionsList.map((element) => {
+    return {
+      valueData: element,
+      lableValue: element,
+    };
+  });
+  const optionsOnlyE = ["Only_EAR_RING"];
+  const optionE = optionsOnlyE.map((element) => {
     return {
       valueData: element,
       lableValue: element,
@@ -1341,8 +1287,7 @@ function DynamicMultiSelectAndInput(props) {
       }
     }
     console.log("get data ", getData);
-
-    return props.onChangeHandler(getData);
+    return onChangeHandler(getData);
   };
   const enableRow = (lableValue) => {
     for (let rowName in sizeRow) {
@@ -1365,11 +1310,11 @@ function DynamicMultiSelectAndInput(props) {
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
           closeOnSelect={true}
-          placeholder="Choose Options"
+          placeholder="Choose Tag"
           disablePreSelectedValues={true}
         />
         <table style={{ width: "100%", padding: 1, margin: 0 }}>
-          <tbody>
+          <tbody className="d-flex">
             {options.map((row, index) => (
               <tr
                 key={index}
@@ -1380,17 +1325,14 @@ function DynamicMultiSelectAndInput(props) {
                 }
               >
                 <td>
-                  <Typography size="small" color="primary">
-                    {row.lableValue}&nbsp{" "}
-                  </Typography>
-                </td>
-                <td>
+                  <b style={{ fontSize: "12px" }}>Quantity</b>
                   <input
-                    min="0"
-                    type="number"
+                    type="text"
+                    maxlength="1"
                     id={`${row.lableValue}sq`}
                     name={`${row.lableValue}sq`}
                     className={classes.inputField}
+                    placeholder={row.lableValue}
                   />
                 </td>
               </tr>
@@ -1398,6 +1340,31 @@ function DynamicMultiSelectAndInput(props) {
           </tbody>
         </table>
       </div>
+      <table style={{ width: "100%", padding: 1, margin: 0 }}>
+        <tbody>
+          {optionE.map((row, index) => (
+            <tr
+              key={index}
+              onChange={rowHandlerChange}
+              id={row.lableValue}
+              className={
+                enableRow(row.lableValue) ? classes.showDropdown : classes.hide
+              }
+            >
+              {feedShowState.findings ? (
+                <DropDownMaterialUI
+                  lableName="Findings"
+                  onChangeHandler={findingsResHandler}
+                  optionsList={feedShowState}
+                  // valueData=""
+                />
+              ) : (
+                ""
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }

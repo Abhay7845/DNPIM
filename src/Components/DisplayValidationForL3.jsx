@@ -12,6 +12,7 @@ import {
 } from "./ComponentForL3";
 
 export default function DisplayValidationComponent(props) {
+  const [option, setOption] = useState([]);
   const {
     digit,
     cond,
@@ -33,6 +34,82 @@ export default function DisplayValidationComponent(props) {
     setSelectResHandler,
     setSelectOptions,
   } = props;
+
+  const optionForSet4 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EAR_RING",
+    "Only_NECKWEAR",
+    "Only_BANGLE",
+    "Only_TIKKA",
+    "Only_HARAM",
+  ];
+  const optionForSet5 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EAR_RING",
+    "Only_NECKWEAR",
+    "Only_HARAM",
+    "Only_BANGLE",
+    "Only_TIKKA",
+  ];
+  const optionForSet6 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EAR_RING",
+    "Only_NECKWEAR",
+    "Only_HARAM",
+    "Only_BANGLE",
+    "Only_TIKKA",
+    "Only_Finger_Ring",
+  ];
+  const optionForSet7 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EAR_RING",
+    "Only_NECKWEAR",
+    "Only_HARAM",
+    "Only_BANGLE",
+    "Only_TIKKA",
+    "Only_Finger_Ring",
+  ];
+  const optionForSetT = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_Mangalsutra",
+    "Only_EAR_RING",
+  ];
+
+  useEffect(() => {
+    // if (digit === "0") {
+    //   setOption(optionForSet0);
+    // }
+    // if (digit === "1") {
+    //   setOption(optionForSet1);
+    // }
+    // if (digit === "2") {
+    //   setOption(optionForSet2);
+    // }
+    // if (digit === "3") {
+    //   setOption(optionForSet3);
+    // }
+    if (digit === "4") {
+      setOption(optionForSet4);
+    }
+    if (digit === "5") {
+      setOption(optionForSet5);
+    }
+    if (digit === "6") {
+      setOption(optionForSet6);
+    }
+    if (digit === "7") {
+      setOption(optionForSet7);
+    }
+    if (digit === "T") {
+      setOption(optionForSetT);
+    }
+  }, []);
+
   const [SizeState, setSizeState] = useState([]);
   console.log("allDataFromValidationProps==>", props);
   useEffect(async () => {
@@ -60,18 +137,6 @@ export default function DisplayValidationComponent(props) {
     (item) => item.size === "Only_EAR_RING"
   );
 
-  //       if (feedShowState?.category==="Nosepin"){
-  //         let findings=true
-  // return(<Grid container spacing={1}>
-  //  {findings?<DropDownMaterialUI
-
-  // lableName="Findings"
-  // onChangeHandler={findingsResHandler}
-  // optionsList={findingsOption}
-  // // valueData=""
-  // />:null}
-  // </Grid>)
-  //       }
   if (
     digit === "B" ||
     digit === "C" ||
@@ -135,7 +200,6 @@ export default function DisplayValidationComponent(props) {
                 onChangeHandler={stoneQualityResHandler}
                 optionsList={stoneOptionList}
                 // optionsList={[1, 2, 3, 4, 5, 6]}
-
                 // valueData=""
               />
             </Grid>
@@ -190,21 +254,14 @@ export default function DisplayValidationComponent(props) {
       // stoneQuality = false;
     }
 
-    // if (
-    //     feedShowState.category === "SET2" &&
-    //     showfindings[0]?.size === "Only_EAR_RING"
-    //   ) {
-    //     findings=true
-    //   }
     return (
       <>
         {tegSelect ? (
           <Grid item xs={12} sm={12}>
-            <DropDownMaterialUI
-              lableName="Tag Selection"
-              onChangeHandler={tegSelectionResHandler}
-              optionsList={["Separate", "Set"]}
-              // valueData=""
+            <DynamicMultiSelectAndInput
+              optionsList={option}
+              feedShowState={feedShowState}
+              onChangeHandler={tegQuantityResHandler}
             />
           </Grid>
         ) : null}
