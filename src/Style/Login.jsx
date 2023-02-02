@@ -18,7 +18,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
   },
-
   submitBtn: {
     width: "100%",
     backgroundColor: "#ffd54f",

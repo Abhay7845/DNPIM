@@ -10,6 +10,11 @@ const useStyles = makeStyles({
     letterSpacing: "2px",
     fontWeight: "bold",
     padding: "5px",
+    border: "1.3px solid #832729",
+    cursor: "pointer",
+    borderTop: "none",
+    borderLeft: "none",
+    borderRight: "none",
   },
 });
 
