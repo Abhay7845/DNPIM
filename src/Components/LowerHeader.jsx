@@ -5,52 +5,12 @@ import DropdownField from "./DropdownField";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import axios from "axios";
-import {
-  AppBar,
-  Drawer,
-  Grid,
-  IconButton,
-  makeStyles,
-  TextField,
-  Toolbar,
-} from "@material-ui/core";
+import { AppBar, Drawer, Grid, IconButton, Toolbar } from "@material-ui/core";
 import SideAppBar from "./SideAppBar";
 import HostManager from "../HostManager/HostManager";
 import StatusTabular from "./StatusTabular";
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    backgroundColor: "#ffff",
-  },
-  menuButton: {
-    marginRight: "2%",
-  },
-
-  title: {
-    flexGrow: 1,
-  },
-  projectLogo: {
-    flexGrow: 1,
-    marginTop: "1%",
-    fontWeight: "12px",
-  },
-
-  lowerHeader: {
-    minHeight: "2rem",
-  },
-
-  show: {
-    display: "block",
-  },
-  hide: {
-    display: "none",
-  },
-
-  phyInput: {
-    textAlign: "center",
-  },
-});
+import { useStyles } from "../Style/LowerHeader";
+import Loading from "./Loading";
 
 const LowerHeader = (props) => {
   const classes = useStyles();
@@ -81,12 +41,12 @@ const LowerHeader = (props) => {
       },
       (error) => {
         console.log(error);
-        alert(error);
       }
     );
   }, [dropState.consumerBase]);
   const onchangeHandler = (event) => {
     const { name, value } = event.target;
+    console.log("Value==>", value);
     setDropState(function (old) {
       switch (name) {
         case "consumerBase":
@@ -117,6 +77,7 @@ const LowerHeader = (props) => {
         .get(`${HostManager.mainHost}/npim/dropdown/${value}/ALL/ALL/ALL`)
         .then(
           (response) => {
+            console.log("response1==>", response.data);
             setDropValueForNeedState(response.data.value);
             setDropValueForGroupState([]);
             setDropValueForCategoryState([]);
@@ -129,7 +90,6 @@ const LowerHeader = (props) => {
           },
           (error) => {
             console.log(error);
-            alert(error);
           }
         );
     } else if (name === "consumerBase") {
@@ -139,6 +99,7 @@ const LowerHeader = (props) => {
         )
         .then(
           (response) => {
+            console.log("response12==>", response.data);
             setDropValueForGroupState(response.data.value);
             setDropValueForCategoryState([]);
             setDropState((old) => {
@@ -149,7 +110,6 @@ const LowerHeader = (props) => {
           },
           (error) => {
             console.log(error);
-            alert(error);
           }
         );
     } else if (name === "groupData") {
@@ -160,6 +120,7 @@ const LowerHeader = (props) => {
         )
         .then(
           (response) => {
+            console.log("response123==>", response.data);
             setDropValueForCategoryState(response.data.value);
             setDropState((old) => {
               old.category = "ALL";
@@ -168,7 +129,6 @@ const LowerHeader = (props) => {
           },
           (error) => {
             console.log(error);
-            alert(error);
           }
         );
     }
@@ -177,7 +137,8 @@ const LowerHeader = (props) => {
     setBarOpener(!barOpener);
   };
 
-  const mySearchClickHandler = (event) => {
+  console.log("props.L3==>", props);
+  const mySearchClickHandler = () => {
     if (props.L3) {
       props.setAllDataFromValidation({
         sizeUomQuantityRes: [],
@@ -191,10 +152,10 @@ const LowerHeader = (props) => {
     }
     props.onSear(dropState);
   };
+
   const statusOpener = (event) => {
     setStatusCloserOpener(!statusCloserOpener);
   };
-
   return (
     <React.Fragment>
       <Drawer anchor="left" open={barOpener} onClose={myBarClickHandler}>
@@ -223,71 +184,59 @@ const LowerHeader = (props) => {
                   <MenuIcon />
                 </IconButton>
                 <div className="dropDownStyle">
-                  {!props.phyNpim ? (
-                    <div className="row">
-                      <div className="col">
-                        <DropdownField
-                          name="collection"
-                          value={dropState.collection}
-                          lableName="Collection"
-                          bigSmall={true}
-                          dropList={dropValueForCollectionState}
-                          myChangeHandler={onchangeHandler}
-                        />
-                      </div>
-                      <div className="col">
-                        <DropdownField
-                          name="consumerBase"
-                          value={dropState.consumerBase}
-                          lableName="NeedSate"
-                          bigSmall={true}
-                          dropList={dropValueForNeedState}
-                          myChangeHandler={onchangeHandler}
-                        />
-                      </div>
-                      <div className="col">
-                        <DropdownField
-                          name="groupData"
-                          value={dropState.groupData}
-                          lableName="Group"
-                          bigSmall={true}
-                          dropList={dropValueForGroupState}
-                          myChangeHandler={onchangeHandler}
-                        />
-                      </div>
-                      <div className="col">
-                        <DropdownField
-                          name="category"
-                          value={dropState.category}
-                          lableName="Category"
-                          bigSmall={true}
-                          dropList={dropValueForCategoryState}
-                          myChangeHandler={onchangeHandler}
-                        />
-                      </div>
+                  <div className="row">
+                    <div className="col">
+                      <DropdownField
+                        name="collection"
+                        value={dropState.collection}
+                        lableName="Collection"
+                        bigSmall={true}
+                        dropList={dropValueForCollectionState}
+                        myChangeHandler={onchangeHandler}
+                      />
                     </div>
-                  ) : (
-                    <>
-                      <div>
-                        <Grid>
-                          <TextField
-                            name="phyData"
-                            placeholder="Enter 14 digit Item Code"
-                          />
-                        </Grid>
-                      </div>
-                      <div>
-                        <IconButton
-                          onClick={mySearchClickHandler}
-                          edge="end"
-                          color="inherit"
-                          aria-label="menu"
-                        >
-                          <SearchIcon />
-                        </IconButton>
-                      </div>
-                    </>
-                  )}
+                    <div className="col">
+                      <DropdownField
+                        name="consumerBase"
+                        value={dropState.consumerBase}
+                        lableName="NeedSate"
+                        bigSmall={true}
+                        dropList={dropValueForNeedState}
+                        myChangeHandler={onchangeHandler}
+                      />
+                    </div>
+                    <div className="col">
+                      <DropdownField
+                        name="groupData"
+                        value={dropState.groupData}
+                        lableName="Group"
+                        bigSmall={true}
+                        dropList={dropValueForGroupState}
+                        myChangeHandler={onchangeHandler}
+                      />
+                    </div>
+                    <div className="col">
+                      <DropdownField
+                        name="category"
+                        value={dropState.category}
+                        lableName="Category"
+                        bigSmall={true}
+                        dropList={dropValueForCategoryState}
+                        myChangeHandler={onchangeHandler}
+                      />
+                    </div>
+                    <div>
+                      <IconButton
+                        onClick={mySearchClickHandler}
+                        edge="end"
+                        color="inherit"
+                        aria-label="menu"
+                        className={classes.searchButton}
+                      >
+                        <SearchIcon />
+                      </IconButton>
+                    </div>
+                  </div>
                 </div>
               </Grid>
             </Toolbar>

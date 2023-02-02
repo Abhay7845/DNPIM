@@ -52,6 +52,7 @@ const IndentL3 = () => {
     findingsRes: "",
   });
 
+  console.log("allDataFromValidation==>", allDataFromValidation);
   const [productDetails, setProductDetails] = useState({
     storeCode: storeCode,
     collection: "ALL",
@@ -61,12 +62,9 @@ const IndentL3 = () => {
   });
 
   const [statusData, setStatusData] = useState({});
-
   const [digit, setDigit] = useState();
   const [setSelectState, setSetSelectState] = useState([]);
-
   let seventhDigits;
-
   useEffect(async () => {
     setImmediate(() => {
       setLoading(true);
@@ -74,11 +72,10 @@ const IndentL3 = () => {
     setDigit();
     await axios
       .post(`${HostManager.mainHost}/npim/get/product/details`, productDetails)
-      .then((responce) => {
-        console.log(responce.data);
-
+      .then((response) => {
+        console.log("response==>", response.data);
         let mailSms = "";
-        if (responce.data.code === "1001") {
+        if (response.data.code === "1001") {
           mailSms = "No more data available for the selected category";
           setImmediate(() => {
             setAlertPopupStatus({
@@ -88,24 +85,23 @@ const IndentL3 = () => {
               mode: true,
             });
           });
-        } else if (responce.data.code === "1003") {
+        } else if (response.data.code === "1003") {
           document.getElementById("result").style.visibility = "hidden";
           setAlertPopupStatus({
             status: true,
-            main: responce.data.value,
+            main: response.data.value,
             contain: "",
             mode: true,
           });
         } else {
-          setFeedShowState(responce.data.value);
-          setDigit(responce.data.value.itemCode[6]);
-          seventhDigits = responce.data.value.itemCode[6];
+          setFeedShowState(response.data.value);
+          setDigit(response.data.value.itemCode[6]);
+          seventhDigits = response.data.value.itemCode[6];
           // DisplayValidationRunner();
         }
       })
       .catch((error) => {
-        console.log(error);
-        alert(error);
+        console.log("error==>", error);
       });
 
     await axios
@@ -165,12 +161,12 @@ const IndentL3 = () => {
     },
   ];
   const onSearchClick = (dropState) => {
-    console.log(dropState);
+    console.log("dropState123==>", dropState.groupData);
     setProductDetails({
       storeCode: storeCode,
       collection: dropState.collection,
       consumerBase: dropState.consumerBase,
-      group: dropState.groupdata,
+      group: dropState.groupData,
       category: dropState.category,
     });
     console.log(productDetails);
