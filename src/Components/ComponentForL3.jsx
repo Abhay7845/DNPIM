@@ -1129,14 +1129,14 @@ function ProductDetailsTabularL3(props) {
               <td>-</td>
               <td className={classes.rowData}>{props.information.size}</td>
             </tr>
-          ) : null}{" "}
+          ) : null}
           {props.information.uom ? (
             <tr>
               <th className={classes.hading}>UOM</th>
               <td>-</td>
               <td className={classes.rowData}>{props.information.uom}</td>
             </tr>
-          ) : null}{" "}
+          ) : null}
           {props.information.itemQty ? (
             <tr>
               <th className={classes.hading}>Quantity</th>
@@ -1152,10 +1152,11 @@ function ProductDetailsTabularL3(props) {
 
 function SmallDataTable(props) {
   let digit = props.itemCode[6];
-
+  console.log("propsTable==>", props);
   if (digit) {
     if (
       digit == "0" ||
+      digit == "1" ||
       digit == "2" ||
       digit == "3" ||
       digit == "4" ||

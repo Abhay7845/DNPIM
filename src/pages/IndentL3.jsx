@@ -919,8 +919,6 @@ const IndentL3 = () => {
                       <DisplayValidationComponent
                         digit={feedShowState.itemCode[6]}
                         cond={stoneQualityCheck(feedShowState)}
-                        // cond={false}
-                        // sizeOptionList={sizeOption}
                         itemCode={feedShowState.itemCode}
                         stoneOptionList={stoneOptionsData(feedShowState)}
                         setType2option={["Chain", "Dori"]}
@@ -977,7 +975,7 @@ const IndentL3 = () => {
                     ""
                   )}
                 </Grid>
-                <Grid item xs={12} sm={12}>
+                <Grid item xs={12} sm={12} className="mt-3">
                   {CheckConsumerBase(feedShowState) ? (
                     <StaticTabularConsumerBase />
                   ) : (

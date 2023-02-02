@@ -17,15 +17,10 @@ const useStyles = makeStyles({
     paddingTop: "0%",
   },
   table: {
-    minWidth: 1,
-    margin: "0%",
-    marginBottom: "1%",
-    padding: "0%",
     backgroundColor: "#c4c4c0",
-    fontFamily: "Raleway,sans-serif",
+    marginTop: "3%",
   },
 
-  tableHeader: {},
   tableCell: {
     border: "solid",
     borderColor: "white",
@@ -58,103 +53,101 @@ const rows = [
 console.log(rows, "rows");
 const StaticTabularInformation = (props) => {
   const classes = useStyles();
-  console.log(props, "static table proprs");
+  console.log(props, "static table");
   const { consumerBase } = props;
   return (
     <>
       <div className={classes.root}>
-        <Paper>
-          <Table
-            className={classes.table}
-            size="small"
-            aria-label="a dense table"
-          >
-            <TableHead className={classes.tableHeader}>
-              <TableRow>
-                <TableCell
+        <Table
+          className={classes.table}
+          size="small"
+          aria-label="a dense table"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell
+                className={classes.tableCell}
+                component="th"
+                scope="row"
+                align="left"
+                onClick={
+                  consumerBase
+                    ? () => {
+                        console.log("row1");
+                      }
+                    : ""
+                }
+              >
+                {consumerBase ? "ROW11" : "SI2_GH"}
+              </TableCell>
+              <TableCell className={classes.tableCell} align="left">
+                {consumerBase ? "ROW12" : "VS_GH"}
+              </TableCell>
+              <TableCell className={classes.tableCell} align="left">
+                {consumerBase ? "ROW13" : "VVS1"}
+              </TableCell>
+              <TableCell className={classes.tableCell} align="left">
+                {consumerBase ? "ROW14" : "I2_GH"}
+              </TableCell>
+              <TableCell className={classes.tableCell} align="left">
+                {consumerBase ? "ROW11" : "SI2_IJ"}
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          {consumerBase ? (
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
                   className={classes.tableCell}
-                  component="th"
+                  component="td"
                   scope="row"
                   align="left"
-                  onClick={
-                    consumerBase
-                      ? () => {
-                          console.log("row1");
-                        }
-                      : ""
-                  }
                 >
-                  {consumerBase ? "ROW11" : "SI2_GH"}
-                </TableCell>
-                <TableCell className={classes.tableCell} align="left">
-                  {consumerBase ? "ROW12" : "VS_GH"}
-                </TableCell>
-                <TableCell className={classes.tableCell} align="left">
-                  {consumerBase ? "ROW13" : "VVS1"}
-                </TableCell>
-                <TableCell className={classes.tableCell} align="left">
-                  {consumerBase ? "ROW14" : "I2_GH"}
-                </TableCell>
-                <TableCell className={classes.tableCell} align="left">
-                  {consumerBase ? "ROW11" : "SI2_IJ"}
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            {consumerBase ? (
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    className={classes.tableCell}
-                    component="td"
-                    scope="row"
-                    align="left"
-                  >
-                    <TableCell className={classes.tableCell} align="left">
-                      {row.ri1}
-                    </TableCell>
-                    <TableCell className={classes.tableCell} align="left">
-                      {row.ri2}
-                    </TableCell>
-                    <TableCell className={classes.tableCell} align="left">
-                      {row.ri3}
-                    </TableCell>
-                    <TableCell className={classes.tableCell} align="left">
-                      {row.ri4}
-                    </TableCell>
-                    <TableCell className={classes.tableCell} align="left">
-                      {row.ri5}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            ) : (
-              <TableBody>
-                <TableRow key={props.si2Gh}>
-                  <TableCell
-                    className={classes.tableCell}
-                    component="td"
-                    scope="row"
-                    align="left"
-                  >
-                    {props.si2Gh}
+                  <TableCell className={classes.tableCell} align="left">
+                    {row.ri1}
                   </TableCell>
                   <TableCell className={classes.tableCell} align="left">
-                    {props.vsGh}
+                    {row.ri2}
                   </TableCell>
                   <TableCell className={classes.tableCell} align="left">
-                    {props.vvs1}
+                    {row.ri3}
                   </TableCell>
                   <TableCell className={classes.tableCell} align="left">
-                    {props.i2Gh}
+                    {row.ri4}
                   </TableCell>
                   <TableCell className={classes.tableCell} align="left">
-                    {props.si2Ij}
+                    {row.ri5}
                   </TableCell>
                 </TableRow>
-              </TableBody>
-            )}
-          </Table>
-        </Paper>
+              ))}
+            </TableBody>
+          ) : (
+            <TableBody>
+              <TableRow key={props.si2Gh}>
+                <TableCell
+                  className={classes.tableCell}
+                  component="td"
+                  scope="row"
+                  align="left"
+                >
+                  {props.si2Gh}
+                </TableCell>
+                <TableCell className={classes.tableCell} align="left">
+                  {props.vsGh}
+                </TableCell>
+                <TableCell className={classes.tableCell} align="left">
+                  {props.vvs1}
+                </TableCell>
+                <TableCell className={classes.tableCell} align="left">
+                  {props.i2Gh}
+                </TableCell>
+                <TableCell className={classes.tableCell} align="left">
+                  {props.si2Ij}
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          )}
+        </Table>
       </div>
     </>
   );
@@ -171,7 +164,7 @@ export const StaticTabularConsumerBase = () => {
             size="small"
             aria-label="a dense table"
           >
-            <TableHead className={classes.tableHeader}>
+            <TableHead>
               <TableRow>
                 <TableCell
                   className={classes.tableCell}
