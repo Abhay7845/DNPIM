@@ -13,6 +13,7 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import HostManager from "../HostManager/HostManager";
 import OTPInput from "otp-input-react";
 import React, { useEffect, useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
@@ -20,6 +21,7 @@ import SingleImgCreator from "./SingleImgCreator";
 import Blink from "react-blink-text";
 import "../Style/CssStyle/LowerHeader.css";
 import { useStyles } from "../Style/ComponentForL3";
+import axios from "axios";
 
 let specialLabelValue;
 function DataGridReport(props) {
@@ -110,8 +112,8 @@ function DataGridReport(props) {
 }
 
 function MultiselectUomAndSize(props) {
-  const { lableName, optionsList } = props;
-
+  const { optionsList, sizeUomQuantityResHandler } = props;
+  console.log("propsUMO==>", props);
   const classes = useStyles();
   const [sizeRow, setSizeRow] = useState({
     A: false,
@@ -141,21 +143,8 @@ function MultiselectUomAndSize(props) {
     Y: false,
     Z: false,
   });
-  // const resetSelectField = () => {
-  //     multiselectRef.current.resetSelectedValues()
-  // }
 
-  // const options = [{
-  //     "valueData": "A",
-  //     "lableValue": "A",
-  // },
-  // {
-  //     "valueData": "B",
-  //     "lableValue": "B",
-  // }
-  // ]
-
-  const options = props.optionsList.map((element, index) => {
+  const options = optionsList.map((element, index) => {
     return {
       valueData: element,
       lableValue: element,
@@ -336,8 +325,7 @@ function MultiselectUomAndSize(props) {
       }
     }
     console.log("get data ", getData);
-
-    return props.sizeUomQuantityResHandler(getData);
+    return sizeUomQuantityResHandler(getData);
   };
 
   const enableRow = (lableValue) => {
@@ -362,7 +350,7 @@ function MultiselectUomAndSize(props) {
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
           closeOnSelect={true}
-          placeholder="Choose Options"
+          placeholder="Choose Size"
           disablePreSelectedValues={true}
         />
         <table style={{ width: "100%", padding: 1, margin: 0 }}>
@@ -387,74 +375,65 @@ function MultiselectUomAndSize(props) {
                   </Typography>
                 </td>
                 <td>
-                  {" "}
                   <input
-                    min="0"
-                    type="number"
+                    type="text"
+                    maxlength="1"
                     id={`${row.lableValue}8`}
                     name={`${row.lableValue}8`}
                     className={classes.inputField}
                   />
                 </td>
-
                 <td>
                   <Typography size="small" color="primary">
                     6
                   </Typography>
                 </td>
                 <td>
-                  {" "}
                   <input
-                    min="0"
-                    type="number"
+                    type="text"
+                    maxlength="1"
                     id={`${row.lableValue}6`}
                     name={`${row.lableValue}6`}
                     className={classes.inputField}
                   />
                 </td>
-
                 <td>
                   <Typography size="small" color="primary">
                     4
                   </Typography>
                 </td>
                 <td>
-                  {" "}
                   <input
-                    min="0"
-                    type="number"
+                    type="text"
+                    maxlength="1"
                     id={`${row.lableValue}4`}
                     name={`${row.lableValue}4`}
                     className={classes.inputField}
                   />
                 </td>
-
                 <td>
                   <Typography size="small" color="primary">
                     2
                   </Typography>
                 </td>
                 <td>
-                  {" "}
                   <input
-                    min="0"
-                    type="number"
+                    type="text"
+                    maxlength="1"
                     id={`${row.lableValue}2`}
                     name={`${row.lableValue}2`}
                     className={classes.inputField}
                   />
                 </td>
-
                 <td>
                   <Typography size="small" color="primary">
                     1
                   </Typography>
                 </td>
                 <td>
-                  {" "}
                   <input
-                    min="0"
-                    type="number"
+                    type="text"
+                    maxlength="1"
                     id={`${row.lableValue}1`}
                     name={`${row.lableValue}1`}
                     className={classes.inputField}
@@ -471,12 +450,9 @@ function MultiselectUomAndSize(props) {
 
 function MultiSelectDropDownForAll(props) {
   const classes = useStyles();
-
   // const {placeholder, optionsList, onMultiSelect} = props
-
   let optionsList = ["prasun", "kamal", "Rekha", "chandan", "megha"];
   const placeholder = "size";
-
   const options = optionsList.map((element, index) => {
     return { valueData: element, lableValue: element };
   });
@@ -647,6 +623,7 @@ function MultiSelectAndInput(props) {
     Single_Tag: false,
     Separate_Tag: false,
     Only_EAR_RING: false,
+    Only_BANGLE: false,
     Only_NECKWEAR_OR_PENDANT: false,
   });
   const {
@@ -837,6 +814,11 @@ function MultiSelectAndInput(props) {
             ...old,
             [name]: value,
           };
+        case "Only_BANGLE":
+          return {
+            ...old,
+            [name]: value,
+          };
       }
     });
   };
@@ -883,6 +865,7 @@ function MultiSelectAndInput(props) {
       lableValue: element,
     };
   });
+
   return (
     <>
       <div className={classes.drop_multi}>
@@ -1220,7 +1203,14 @@ function SmallDataTable(props) {
 function DynamicMultiSelectAndInput(props) {
   const classes = useStyles();
   const [sizeRow, setSizeRow] = useState();
-  const { findingsResHandler, feedShowState, onChangeHandler } = props;
+  const [ChildNodeV, setChildNodeV] = useState([]);
+  const {
+    findingsResHandler,
+    feedShowState,
+    onChangeHandler,
+    sizeUomQuantityResHandler,
+  } = props;
+  console.log("MultiSelectAndInputUMO==>", props);
   useEffect(() => {
     if (props.optionsList)
       setImmediate(() => {
@@ -1253,7 +1243,13 @@ function DynamicMultiSelectAndInput(props) {
       lableValue: element,
     };
   });
-
+  const optionsOnlyV = ["Only_BANGLE"];
+  const optionV = optionsOnlyV.map((element) => {
+    return {
+      valueData: element,
+      lableValue: element,
+    };
+  });
   const enableRows = (name, value) => {
     setSizeRow(function (old) {
       return {
@@ -1295,6 +1291,26 @@ function DynamicMultiSelectAndInput(props) {
     }
     return false;
   };
+
+  const childNodeV = feedShowState.childNodeV;
+  // const childNodeF = feedShowState.childNodeF;
+  console.log("ChildNodeV==>", ChildNodeV);
+
+  useEffect(() => {
+    axios
+      .get(`${HostManager.mainHostL3}/npim/size/dropdown/${childNodeV}`)
+      .then((res) => res)
+      .then((result) => {
+        if (result.data.code === "1000") {
+          setChildNodeV(result.data.value);
+        }
+        if (result.data.code === "1001") {
+          console.log("Size Not Available");
+        }
+      })
+      .catch((error) => console.log("error==>", error));
+  }, []);
+
   return (
     <>
       <div className={classes.drop_multi}>
@@ -1359,6 +1375,25 @@ function DynamicMultiSelectAndInput(props) {
               ) : (
                 ""
               )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <table style={{ width: "100%", padding: 1, margin: 0 }}>
+        <tbody>
+          {optionV.map((row, index) => (
+            <tr
+              key={index}
+              onChange={rowHandlerChange}
+              id={row.lableValue}
+              className={
+                enableRow(row.lableValue) ? classes.showDropdown : classes.hide
+              }
+            >
+              <MultiselectUomAndSize
+                optionsList={ChildNodeV}
+                sizeUomQuantityResHandler={sizeUomQuantityResHandler}
+              />
             </tr>
           ))}
         </tbody>

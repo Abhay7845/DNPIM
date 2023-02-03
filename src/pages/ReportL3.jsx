@@ -955,10 +955,7 @@ const ReportL3 = () => {
                                 {dataRowInformation.itemCode[6] && digit ? (
                                   <DisplayValidationComponent
                                     digit={dataRowInformation.itemCode[6]}
-                                    // digit="V"
                                     cond={stoneQualityCheck(dataRowInformation)}
-                                    //cond={false}
-                                    // sizeOptionList={sizeOption}
                                     itemCode={dataRowInformation.itemCode}
                                     stoneOptionList={stoneOptionsData(
                                       dataRowInformation

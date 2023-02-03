@@ -7,7 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import axios from "axios";
 import { AppBar, Drawer, Grid, IconButton, Toolbar } from "@material-ui/core";
 import SideAppBar from "./SideAppBar";
-import HostManager from "../HostManager/HostManager";
+import HostManager from "../APIList/HostManager";
 import StatusTabular from "./StatusTabular";
 import { useStyles } from "../Style/LowerHeader";
 import Loading from "./Loading";

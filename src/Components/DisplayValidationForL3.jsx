@@ -2,7 +2,7 @@ import { Grid } from "@material-ui/core";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import HostManager from "../HostManager/HostManager";
+import HostManager from "../APIList/HostManager";
 import {
   DropDownMaterialUI,
   DynamicMultiSelectAndInput,
@@ -172,7 +172,6 @@ export default function DisplayValidationComponent(props) {
               lableName="Size/UOM/Quantity"
               optionsList={SizeState}
               sizeUomQuantityResHandler={sizeUomQuantityResHandler}
-              // getData={ }
               //put props
             />
           </Grid>
@@ -262,6 +261,7 @@ export default function DisplayValidationComponent(props) {
               optionsList={option}
               feedShowState={feedShowState}
               onChangeHandler={tegQuantityResHandler}
+              sizeUomQuantityResHandler={sizeUomQuantityResHandler}
             />
           </Grid>
         ) : null}
@@ -271,6 +271,7 @@ export default function DisplayValidationComponent(props) {
               lableName="Set Select"
               optionsList={setSelectOptions}
               onChangeHandler={setSelectResHandler}
+              sizeUomQuantityResHandler={sizeUomQuantityResHandler}
               //put props
             />
           </Grid>
