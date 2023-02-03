@@ -19,6 +19,7 @@ import React, { useEffect, useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
 import SingleImgCreator from "./SingleImgCreator";
 import Blink from "react-blink-text";
+import { useParams } from "react-router-dom";
 import "../Style/CssStyle/LowerHeader.css";
 import { useStyles } from "../Style/ComponentForL3";
 import axios from "axios";
@@ -1072,7 +1073,31 @@ function ProductDetailsTabularL3(props) {
 
 function SmallDataTable(props) {
   let digit = props.itemCode[6];
-  console.log("propsTable==>", props);
+  const { storeCode } = useParams();
+  const [tableData, setTableData] = useState({});
+  const productDetails = {
+    storeCode: storeCode,
+    collection: "ALL",
+    consumerBase: "ALL",
+    group: "ALL",
+    category: "ALL",
+    itemCode: props.itemCode,
+  };
+
+  useEffect(() => {
+    axios
+      .post(`${HostManager.mainHost}/npim/get/product/details`, productDetails)
+      .then((res) => res)
+      .then((result) => {
+        if (result.data.code === "1000") {
+          setTableData(result.data.value);
+        }
+        if (result.data.code === "1001") {
+          console.log("Data Not Available");
+        }
+      });
+  }, [props.itemCode]);
+  console.log("tableData==>", tableData.stdUcpE);
   if (digit) {
     if (
       digit == "0" ||
@@ -1122,14 +1147,16 @@ function SmallDataTable(props) {
                   )}
                   <tr>
                     <td>EAR RING</td>
-                    <td>{props.stdWtE}</td>
-                    <td>{props.stdUcpE}</td>
+                    <td>{!props.stdWtE ? tableData.stdWtE : props.stdWtE}</td>
+                    <td>{!props.stdUcpE ? tableData.stdUcpE : props.stdWtE}</td>
                   </tr>
                   {digit === "0" ? (
                     <tr>
                       <td>CHAIN WITH PENDANT</td>
-                      <td>{props.stdWtN}</td>
-                      <td>{props.stdUcpN}</td>
+                      <td>{!props.stdWtN ? tableData.stdWtN : props.stdWtN}</td>
+                      <td>
+                        {!props.stdUcpN ? tableData.stdUcpN : props.stdUcpN}
+                      </td>
                     </tr>
                   ) : (
                     <tr>
@@ -1138,8 +1165,10 @@ function SmallDataTable(props) {
                           ? "NECKWEAR OR PENDENT"
                           : "NECKWEAR"}
                       </td>
-                      <td>{props.stdWtN}</td>
-                      <td>{props.stdUcpN}</td>
+                      <td>{!props.stdWtN ? tableData.stdWtN : props.stdWtN}</td>
+                      <td>
+                        {!props.stdUcpN ? tableData.stdUcpN : props.stdUcpN}
+                      </td>
                     </tr>
                   )}
                   {digit === "3" ||

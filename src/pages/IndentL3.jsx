@@ -29,12 +29,8 @@ const IndentL3 = () => {
   const classes = useStyles();
   const [feedShowState, setFeedShowState] = useState(NpimDataDisplay);
   const [loading, setLoading] = useState(false);
-  const [statusRefresh, setStatusRefresh] = useState(false);
   const [resetDrop, SetResetDrop] = useState(true);
   const [SizeState, setSizeState] = useState([]);
-
-  console.log(feedShowState, "IMPORTANT IMPORTANT IMPORTANT");
-  // const [stoneOption, setStoneOption] = useState([]);
   const [alertPopupStatus, setAlertPopupStatus] = useState({
     status: false,
     main: "",
@@ -59,8 +55,10 @@ const IndentL3 = () => {
     consumerBase: "ALL",
     group: "ALL",
     category: "ALL",
+    itemCode: feedShowState.itemCode,
   });
-
+  console.log("productDetailsSearch==>", productDetails);
+  console.log("feedShowState==>", feedShowState);
   const [statusData, setStatusData] = useState({});
   const [digit, setDigit] = useState();
   const [setSelectState, setSetSelectState] = useState([]);
@@ -73,7 +71,7 @@ const IndentL3 = () => {
     await axios
       .post(`${HostManager.mainHost}/npim/get/product/details`, productDetails)
       .then((response) => {
-        console.log("response==>", response.data);
+        console.log("response==>", response.data.value);
         let mailSms = "";
         if (response.data.code === "1001") {
           mailSms = "No more data available for the selected category";
@@ -95,6 +93,7 @@ const IndentL3 = () => {
           });
         } else {
           setFeedShowState(response.data.value);
+          console.log("response.data.value==>", response.data.value);
           setDigit(response.data.value.itemCode[6]);
           seventhDigits = response.data.value.itemCode[6];
           // DisplayValidationRunner();
@@ -108,22 +107,20 @@ const IndentL3 = () => {
       .get(`${HostManager.mainHostL3}/npim/get/status/L3/${storeCode}`)
       .then(
         (response) => {
-          console.log(response);
           if (response.data.code === "1001") {
-            alert(response.data.value);
+            console.log("response1001==>", response);
           } else {
             setStatusData(response.data);
           }
         },
         (error) => {
           console.log(error);
-          // alert(error);
         }
       );
     setImmediate(() => {
       setLoading(false);
     });
-  }, [productDetails, statusRefresh]);
+  }, [productDetails, feedShowState.itemCode]);
   useEffect(async () => {
     if (feedShowState.itemCode !== "") {
       try {
@@ -161,7 +158,7 @@ const IndentL3 = () => {
     },
   ];
   const onSearchClick = (dropState) => {
-    console.log("dropState123==>", dropState.groupData);
+    console.log("dropState123==>", dropState);
     setProductDetails({
       storeCode: storeCode,
       collection: dropState.collection,
@@ -169,11 +166,11 @@ const IndentL3 = () => {
       group: dropState.groupData,
       category: dropState.category,
     });
-    console.log(productDetails);
+    console.log("productDetails==>", productDetails);
   };
 
   const onBarClick = () => {
-    console.log("click bbar *****************");
+    console.log("click bar *****************");
   };
 
   function NewDisplayValidation() {
@@ -424,7 +421,6 @@ const IndentL3 = () => {
                 findingsRes: "",
               });
               onClickNextPreBtnHandler("next");
-              // alert(responce.data.value)
             } else {
               console.log(responce, "cool");
               setImmediate(() => {
@@ -513,8 +509,7 @@ const IndentL3 = () => {
         mode: false,
       });
 
-      SetResetDrop(!resetDrop);
-
+      SetResetDrop(resetDrop);
       // setProductDetails({
       //   storeCode: storeCode,
       //   collection: "ALL",
