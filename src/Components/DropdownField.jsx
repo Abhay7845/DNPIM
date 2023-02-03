@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     borderTop: "none",
     borderLeft: "none",
     borderRight: "none",
+    outline: "none",
   },
 });
 

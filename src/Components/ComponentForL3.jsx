@@ -526,10 +526,10 @@ function MultiSelectDropDownForAll(props) {
 function DropDownMaterialUI(props) {
   const classes = useStyles();
   const { lableName, onChangeHandler, optionsList } = props;
-  const findings = !optionsList ? [""] : [optionsList.findings];
 
-  const generateOptions = () => {
-    let optionItems = findings.map((option) => (
+  console.log("optionsList==>", optionsList);
+  const generateOptions = (dropList) => {
+    let optionItems = dropList.map((option) => (
       <MenuItem key={option} value={option}>
         {option}
       </MenuItem>
@@ -558,7 +558,6 @@ function DropDownMaterialUI(props) {
     </>
   );
 }
-//FINDINGS//
 
 function InputFieldMaterialUI(props) {
   const classes = useStyles();
@@ -1222,7 +1221,6 @@ function DynamicMultiSelectAndInput(props) {
   const classes = useStyles();
   const [sizeRow, setSizeRow] = useState();
   const { findingsResHandler, feedShowState, onChangeHandler } = props;
-  console.log("findingsOptions==>", feedShowState.findings);
   useEffect(() => {
     if (props.optionsList)
       setImmediate(() => {
@@ -1240,8 +1238,8 @@ function DynamicMultiSelectAndInput(props) {
     {}
   );
 
-  console.log("data of set is the ******************", setData);
-
+  const findings = feedShowState.findings;
+  const findingsOptions = !findings ? "" : findings.split(",");
   const options = props.optionsList.map((element) => {
     return {
       valueData: element,
@@ -1355,7 +1353,7 @@ function DynamicMultiSelectAndInput(props) {
                 <DropDownMaterialUI
                   lableName="Findings"
                   onChangeHandler={findingsResHandler}
-                  optionsList={feedShowState}
+                  optionsList={findingsOptions}
                   // valueData=""
                 />
               ) : (
