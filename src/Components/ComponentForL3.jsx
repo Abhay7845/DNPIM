@@ -632,14 +632,14 @@ function MultiSelectAndInput(props) {
     findingsResHandler,
     findingsOptions,
     onChangeHandler,
+    optionsList,
   } = props;
-  const options = props.optionsList.map((element) => {
+  const options = optionsList.map((element) => {
     return {
       valueData: element,
       lableValue: element,
     };
   });
-  console.log("feedShowState==>", props);
   const enableRows = (name, value) => {
     setSizeRow(function (old) {
       switch (name) {
@@ -870,9 +870,6 @@ function MultiSelectAndInput(props) {
   return (
     <>
       <div className={classes.drop_multi}>
-        <Typography align="center" color="primary">
-          {props.lableName}
-        </Typography>
         <Multiselect
           options={options}
           displayValue="lableValue"
@@ -880,7 +877,7 @@ function MultiSelectAndInput(props) {
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
           closeOnSelect={true}
-          placeholder="Choose Tag"
+          placeholder="Choose Tag here"
           disablePreSelectedValues={true}
         />
         <table style={{ width: "100%", padding: 1, margin: 0 }}>
@@ -1097,7 +1094,6 @@ function SmallDataTable(props) {
         }
       });
   }, [props.itemCode]);
-  console.log("tableData==>", tableData.stdUcpE);
   if (digit) {
     if (
       digit == "0" ||

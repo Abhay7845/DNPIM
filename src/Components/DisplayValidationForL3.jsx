@@ -79,6 +79,7 @@ export default function DisplayValidationComponent(props) {
     "Only_Mangalsutra",
     "Only_EAR_RING",
   ];
+  const coupleBand = ["Single_Tag", "Separate_Tag"];
 
   useEffect(() => {
     // if (digit === "0") {
@@ -108,32 +109,28 @@ export default function DisplayValidationComponent(props) {
     if (digit === "T") {
       setOption(optionForSetT);
     }
+    if (digit === "F") {
+      setOption(coupleBand);
+    }
   }, []);
 
   const [SizeState, setSizeState] = useState([]);
-  console.log("allDataFromValidationProps==>", props);
-  useEffect(async () => {
-    await axios
-      .get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`)
-      .then(
-        (response) => {
-          if (response.data.code === "1001") {
-            setSizeState([]);
-            // alert(response.data.value);
-          } else {
-            console.log({ Size: response.data.value });
-            setSizeState(response.data.value);
-          }
-          console.log("responce of size ", response.data.value);
-        },
-        (error) => {
-          console.log(error);
-          alert(error);
-          setSizeState([]);
+  console.log("tegOfItemOption==>", tegOfItemOption);
+  useEffect(() => {
+    axios.get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`).then(
+      (response) => {
+        if (response.data.code === "1000") {
+          setSizeState(response.data.value);
+        } else {
+          console.log("Data Not Found");
         }
-      );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }, [itemCode]);
-  const showfindings = allDataFromValidation?.tegQuantityRes.filter(
+  const showFindings = allDataFromValidation?.tegQuantityRes.filter(
     (item) => item.size === "Only_EAR_RING"
   );
 
@@ -169,17 +166,17 @@ export default function DisplayValidationComponent(props) {
         {sizeUomQuantity && SizeState[0] ? (
           <Grid item xs={12} sm={12}>
             <MultiselectUomAndSize
-              lableName="Size/UOM/Quantity"
+              labelName="Size/UOM/Quantity"
               optionsList={SizeState}
               sizeUomQuantityResHandler={sizeUomQuantityResHandler}
               //put props
             />
           </Grid>
         ) : null}
-        {sizeQuantity && SizeState[0] ? (
+        {sizeQuantity ? (
           <Grid item xs={12} sm={12}>
             <MultiSelectAndInput
-              lableName="Size/Quantity"
+              labelName="Size/Quantity"
               optionsList={SizeState}
               onChangeHandler={sizeQuantityResHandler}
               allDataFromValidation={allDataFromValidation}
@@ -190,20 +187,15 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-        {
-          //  && stoneOptionList[0]
-          cond ? (
-            <Grid item xs={12} sm={12}>
-              <DropDownMaterialUI
-                lableName="Stone Quality"
-                onChangeHandler={stoneQualityResHandler}
-                optionsList={stoneOptionList}
-                // optionsList={[1, 2, 3, 4, 5, 6]}
-                // valueData=""
-              />
-            </Grid>
-          ) : null
-        }
+        {cond ? (
+          <Grid item xs={12} sm={12}>
+            <DropDownMaterialUI
+              labelName="Stone Quality"
+              onChangeHandler={stoneQualityResHandler}
+              optionsList={stoneOptionList}
+            />
+          </Grid>
+        ) : null}
       </>
     );
   } else if (
@@ -220,9 +212,7 @@ export default function DisplayValidationComponent(props) {
     digit === "6" ||
     digit === "7"
   ) {
-    console.log(digit, "new digit");
     let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect, findings;
-
     if (
       digit === "0" ||
       digit === "1" ||
@@ -231,15 +221,12 @@ export default function DisplayValidationComponent(props) {
       digit === "E" ||
       digit === "N"
     ) {
-      //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DTAA IN DROPDOWN
-
+      //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
       tegOfItemOption ? (tegQuantity = true) : (Quantity = true);
     }
-
     if ((digit === "N" || digit === "E" || digit === "2") && !cond) {
       TypeSet2 = true;
     }
-
     if (
       digit === "3" ||
       digit === "4" ||
@@ -268,7 +255,7 @@ export default function DisplayValidationComponent(props) {
         {setSelect && setSelectOptions[0] ? (
           <Grid item xs={12} sm={12}>
             <DynamicMultiSelectAndInput
-              lableName="Set Select"
+              labelName="Set Select"
               optionsList={setSelectOptions}
               onChangeHandler={setSelectResHandler}
               sizeUomQuantityResHandler={sizeUomQuantityResHandler}
@@ -276,7 +263,6 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-
         {Quantity ? (
           <Grid item xs={12} sm={12}>
             <InputFieldMaterialUI
@@ -360,7 +346,6 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-
         {findings ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
@@ -371,7 +356,6 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-
         {cond ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
