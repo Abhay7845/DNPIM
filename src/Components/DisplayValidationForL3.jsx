@@ -13,6 +13,9 @@ import {
 
 export default function DisplayValidationComponent(props) {
   const [option, setOption] = useState([]);
+  const [SizeState, setSizeState] = useState([]);
+  const [tagOption, setTagOption] = useState("");
+  console.log("tagOption==>", tagOption);
   const {
     digit,
     cond,
@@ -114,7 +117,7 @@ export default function DisplayValidationComponent(props) {
     }
   }, []);
 
-  const [SizeState, setSizeState] = useState([]);
+  const chooseOption = ["Single_Tag", "Separate_Tag"];
   console.log("tegOfItemOption==>", tegOfItemOption);
   useEffect(() => {
     axios.get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`).then(
@@ -173,10 +176,21 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-        {sizeQuantity ? (
+        {feedShowState.category === "COUPLE BAND" ? (
+          <div className="mx-1 w-100 my-2">
+            <DropDownMaterialUI
+              labelName="Choose Tag"
+              onChangeHandler={(e) => setTagOption(e.target.value)}
+              optionsList={chooseOption}
+            />
+          </div>
+        ) : (
+          ""
+        )}
+        {tagOption === "Single_Tag" ? (
           <Grid item xs={12} sm={12}>
             <MultiSelectAndInput
-              labelName="Size/Quantity"
+              labelName="LADIES"
               optionsList={SizeState}
               onChangeHandler={sizeQuantityResHandler}
               allDataFromValidation={allDataFromValidation}
@@ -266,7 +280,7 @@ export default function DisplayValidationComponent(props) {
         {Quantity ? (
           <Grid item xs={12} sm={12}>
             <InputFieldMaterialUI
-              lableName="Quantity"
+              labelName="Quantity"
               typeName="number"
               onChangeHandler={quantityResHandler}
               allDataFromValidation={allDataFromValidation}
@@ -277,7 +291,6 @@ export default function DisplayValidationComponent(props) {
         {tegQuantity ? (
           <Grid item xs={12} sm={12}>
             <MultiSelectAndInput
-              lableName="Tags/Quantity"
               optionsList={tegOfItemOption}
               onChangeHandler={tegQuantityResHandler}
               feedShowState={feedShowState}
@@ -291,7 +304,7 @@ export default function DisplayValidationComponent(props) {
         {TypeSet2 ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
-              lableName="Type Set-2"
+              labelName="Type Set-2"
               onChangeHandler={typeSet2ResHandler}
               optionsList={setType2option}
               // valueData=""
@@ -301,7 +314,7 @@ export default function DisplayValidationComponent(props) {
         {cond ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
-              lableName="Stone Quality"
+              labelName="Stone Quality"
               onChangeHandler={stoneQualityResHandler}
               optionsList={stoneOptionList}
               // valueData=""
@@ -312,7 +325,7 @@ export default function DisplayValidationComponent(props) {
           <>
             <Grid item xs={12} sm={12}>
               <DropDownMaterialUI
-                lableName="Findings"
+                labelName="Findings"
                 onChangeHandler={findingsResHandler}
                 optionsList={findingsOption}
                 // valueData=""
@@ -338,7 +351,7 @@ export default function DisplayValidationComponent(props) {
         {Quantity ? (
           <Grid item xs={12} sm={12}>
             <InputFieldMaterialUI
-              lableName="Quantity"
+              labelName="Quantity"
               typeName="number"
               onChangeHandler={quantityResHandler}
               allDataFromValidation={allDataFromValidation}
@@ -349,7 +362,7 @@ export default function DisplayValidationComponent(props) {
         {findings ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
-              lableName="Findings"
+              labelName="Findings"
               onChangeHandler={findingsResHandler}
               optionsList={findingsOption}
               // valueData=""
@@ -359,7 +372,7 @@ export default function DisplayValidationComponent(props) {
         {cond ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
-              lableName="Stone Quality"
+              labelName="Stone Quality"
               onChangeHandler={stoneQualityResHandler}
               optionsList={stoneOptionList}
               // valueData=""

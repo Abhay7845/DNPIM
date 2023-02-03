@@ -10,7 +10,6 @@ export const useStyles = makeStyles({
   },
   formControl: {
     minWidth: "100%",
-    marginTop: "4%",
   },
   hide: {
     display: "none",

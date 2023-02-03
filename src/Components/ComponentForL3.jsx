@@ -475,9 +475,8 @@ function MultiSelectDropDownForAll(props) {
     <>
       <div className={classes.drop_multi}>
         <Typography align="center" color="primary">
-          Lable
+          Label
         </Typography>
-
         {options ? (
           <Multiselect
             options={options}
@@ -502,9 +501,8 @@ function MultiSelectDropDownForAll(props) {
 //FINDINGS//
 function DropDownMaterialUI(props) {
   const classes = useStyles();
-  const { lableName, onChangeHandler, optionsList } = props;
+  const { labelName, onChangeHandler, optionsList } = props;
 
-  console.log("optionsList==>", optionsList);
   const generateOptions = (dropList) => {
     let optionItems = dropList.map((option) => (
       <MenuItem key={option} value={option}>
@@ -517,18 +515,11 @@ function DropDownMaterialUI(props) {
   return (
     <>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel>{lableName}</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          label={lableName}
-          autoWidth={true}
-          onChange={onChangeHandler}
-        >
+        <InputLabel>{labelName}</InputLabel>
+        <Select label={labelName} onChange={onChangeHandler}>
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-
           {generateOptions(optionsList)}
         </Select>
       </FormControl>
@@ -539,7 +530,7 @@ function DropDownMaterialUI(props) {
 function InputFieldMaterialUI(props) {
   const classes = useStyles();
   const {
-    lableName,
+    labelName,
     typeName,
     onChangeHandler,
     valueName,
@@ -633,6 +624,7 @@ function MultiSelectAndInput(props) {
     findingsOptions,
     onChangeHandler,
     optionsList,
+    labelName,
   } = props;
   const options = optionsList.map((element) => {
     return {
@@ -870,6 +862,7 @@ function MultiSelectAndInput(props) {
   return (
     <>
       <div className={classes.drop_multi}>
+        <b className="text-primary">{labelName}</b>
         <Multiselect
           options={options}
           displayValue="lableValue"
@@ -920,7 +913,7 @@ function MultiSelectAndInput(props) {
             >
               {feedShowState.findings ? (
                 <DropDownMaterialUI
-                  lableName="Findings"
+                  labelName="Findings"
                   onChangeHandler={findingsResHandler}
                   optionsList={findingsOptions}
                   // valueData=""
@@ -1234,6 +1227,7 @@ function DynamicMultiSelectAndInput(props) {
     feedShowState,
     onChangeHandler,
     sizeUomQuantityResHandler,
+    labelName,
   } = props;
   console.log("MultiSelectAndInputUMO==>", props);
   useEffect(() => {
@@ -1340,7 +1334,7 @@ function DynamicMultiSelectAndInput(props) {
     <>
       <div className={classes.drop_multi}>
         <Typography align="center" color="primary">
-          {props.lableName}
+          {labelName}
         </Typography>
         <Multiselect
           options={options}
@@ -1392,7 +1386,7 @@ function DynamicMultiSelectAndInput(props) {
             >
               {feedShowState.findings ? (
                 <DropDownMaterialUI
-                  lableName="Findings"
+                  labelName="Findings"
                   onChangeHandler={findingsResHandler}
                   optionsList={findingsOptions}
                   // valueData=""
