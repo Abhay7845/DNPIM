@@ -25,52 +25,16 @@ import StatusTabular from "../Components/StatusTabular";
 import UpperHeader from "../Components/UpperHeader";
 import HostManager from "../HostManager/HostManager";
 import UrlManager from "../HostManager/UrlManager";
-
-const useStyle = makeStyles({
-  root: {
-    width: "100%",
-    height: "100%",
-    margin: "0%",
-    padding: "0%",
-  },
-  imgShow: {
-    margin: "4%",
-  },
-  productInfo: {
-    marginTop: "3%",
-    height: "64vh",
-  },
-  hidden: {
-    display: "none",
-  },
-  show: {
-    display: "block",
-  },
-  haddingCss: {
-    fontWeight: "bolder",
-    fontStretch: "normal",
-    fontSize: "16px",
-    lineHeight: "normal",
-    fontFamily: "Raleway, sans - serif",
-    letterSpacing: "2px",
-  },
-  innerHightCss: {
-    minHeight: "80vh",
-  },
-  headingColor: {
-    backgroundColor: "#c4c4c0",
-    fontWeight: "bolder",
-  },
-});
+import { useStyle } from "../Style/ReportL3";
 
 const ReportL3 = () => {
-  const { storeCode, rsoName } = useParams();
   const classes = useStyle();
+  const { storeCode, rsoName } = useParams();
   const [col, setCol] = useState([]);
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
   const [barOpener, setBarOpener] = useState(false);
-  const [statusCloserOpner, setStatusCloserOpner] = useState(false);
+  const [statusCloserOpener, setStatusCloserOpener] = useState(false);
   const [statusData, setStatusData] = useState();
   const [reportLabel, setReportLabel] = useState("Item_Wise_Report");
   const [dataRowInformation, setDataRowInformation] = useState({});
@@ -121,10 +85,10 @@ const ReportL3 = () => {
         console.log(response.data, "on YEs");
         //setSuccessCount(response.data)
       } else {
-        alert("something went Worng");
+        alert("something went Wrong");
       }
     } catch (e) {
-      alert("something went Worng");
+      alert("something went Wrong");
     }
   };
   let seventhDigits;
@@ -157,7 +121,6 @@ const ReportL3 = () => {
       case "Cancel_Item_List":
         urlReport = `${UrlManager.canceledItemReportL3}${storeCode}`;
         break;
-
       default:
         urlReport = urlReport = `${UrlManager.itemWiseReportL3}${storeCode}`;
         break;
@@ -166,7 +129,6 @@ const ReportL3 = () => {
     axios.get(urlReport).then(
       (response) => {
         console.log(response);
-
         setImmediate(() => {
           if (response.data.code === "1000") {
             setCol(response.data.coloum);
@@ -181,14 +143,12 @@ const ReportL3 = () => {
       },
       (error) => {
         console.log(error);
-        alert(error);
       }
     );
 
     axios.get(`${HostManager.mainHostL3}/npim/get/status/L3/${storeCode}`).then(
       (response) => {
         console.log(response);
-
         if (response.data.code === "1001") {
           alert(response.data.value);
         } else {
@@ -199,7 +159,6 @@ const ReportL3 = () => {
       },
       (error) => {
         console.log(error);
-        // alert(error);
       }
     );
 
@@ -208,7 +167,7 @@ const ReportL3 = () => {
         setLoading(false);
       });
     }, 3000);
-  }, [statusCloserOpner, reportLabel, modification, popupOpen]);
+  }, [statusCloserOpener, reportLabel, modification, popupOpen]);
   // showInfo
   useEffect(async () => {
     if (dataRowInformation.itemCode !== "") {
@@ -246,7 +205,7 @@ const ReportL3 = () => {
     },
   ];
 
-  function extraCalls(itemcode) {
+  function extraCalls(itemCode) {
     axios
       .get(
         `https://tanishqdigitalnpim.titan.in:8443/Npim/getSize/502783VWQR1A02`
@@ -254,16 +213,12 @@ const ReportL3 = () => {
 
       .then(
         (response) => {
-          // data = response.data.data;
-          // console.log(data);
           setImmediate(() => {
             setSizeOption(response.data.data);
           });
-          console.log(sizeOption);
         },
         (error) => {
           console.log(error);
-          alert(error);
         }
       );
   }
@@ -273,9 +228,7 @@ const ReportL3 = () => {
   }
   function NewDisplayValidation() {
     let digitt = dataRowInformation?.itemCode[6];
-    const showfindings = allDataFromValidation?.tegQuantityRes.filter(
-      (item) => item.size === "Only_EAR_RING"
-    );
+
     if (
       digitt === "B" ||
       digitt === "C" ||
@@ -338,12 +291,10 @@ const ReportL3 = () => {
         digitt === "N"
       ) {
         //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
-
         createTegOfItems(dataRowInformation)
           ? (tegQuantity = true)
           : (Quantity = true);
       }
-
       if (
         (digitt === "N" || digitt === "E" || digitt === "2") &&
         !stoneQualityCheck(dataRowInformation)
@@ -414,16 +365,13 @@ const ReportL3 = () => {
         }
       }
     }
-    console.log(data, "data");
-    console.log(msg, "msg data");
     setImmediate(() => {
       setLoading(true);
     });
-
     seventhDigits = dataRowInformation.itemCode[6];
     // let displayData = displayPresentValidation(dataRowInformation.stdUCP);
     let displayData = { status: true };
-    let stdUcpNotSeletData;
+    let stdUcpNotSelectData;
 
     if (!msg.status && Object.keys(msg).length > 0) {
       // alert(displayData.alert);
@@ -437,7 +385,7 @@ const ReportL3 = () => {
       Error(msg.message);
       console.log(allDataFromValidation);
     } else {
-      stdUcpNotSeletData = `stdUcp-${displayData.data}`;
+      stdUcpNotSelectData = `stdUcp-${displayData.data}`;
       console.log("data of the dataRowInformation", dataRowInformation);
       DisplayValidationRunner();
       const inputData = {
@@ -454,7 +402,7 @@ const ReportL3 = () => {
         set2Type: allDataFromValidation.typeSet2Res,
         stoneQuality: allDataFromValidation.stoneQualityRes
           ? allDataFromValidation.stoneQualityRes
-          : stdUcpNotSeletData,
+          : stdUcpNotSelectData,
         stoneQualityVal: dataRowInformation.stoneQualityVal,
         rsoName: rsoName,
         npimEventNo: dataRowInformation.npimEventNo,
@@ -498,9 +446,6 @@ const ReportL3 = () => {
         reportDropHandler(reportLabel);
       }, 1500);
     }
-
-    console.log("all data change data aia ", allDataFromValidation);
-
     setImmediate(() => {
       setLoading(false);
     });
@@ -542,8 +487,6 @@ const ReportL3 = () => {
         .post(`${HostManager.mainHostL3}/npim/update/responses`, inputData)
         .then((response) => {
           console.log(response.data);
-
-          alert(response.data.value);
           setImmediate(() => {
             setShowInfo(false);
             setModification(!modification);
@@ -555,10 +498,8 @@ const ReportL3 = () => {
       setImmediate(() => {
         setLoading(false);
       });
-
       reportDropHandler(reportLabel);
     }, 1500);
-
     setImmediate(() => {
       setLoading(false);
     });
@@ -578,7 +519,6 @@ const ReportL3 = () => {
   }
 
   const barHandler = () => {
-    console.log("side car clicker in report ");
     setImmediate(() => {
       setBarOpener(!barOpener);
     });
@@ -586,7 +526,7 @@ const ReportL3 = () => {
 
   const statusOpener = () => {
     setImmediate(() => {
-      setStatusCloserOpner(!statusCloserOpner);
+      setStatusCloserOpener(!statusCloserOpener);
     });
   };
 
@@ -598,11 +538,8 @@ const ReportL3 = () => {
       setShowInfo(true);
       setSwitchEnable(false);
     });
-
-    console.log("input data form row  in report in ", input);
     DisplayValidationRunner();
     scrollTop();
-
     setTimeout(() => {
       setImmediate(() => {
         setLoading(false);
@@ -623,9 +560,6 @@ const ReportL3 = () => {
     if (inputObj.i2Gh) {
       return true;
     }
-    // if (inputObj.stdUCP) {
-    //     return true;
-    // }
     if (inputObj.si2Ij) {
       return true;
     } else {
@@ -880,7 +814,7 @@ const ReportL3 = () => {
       >
         <SideAppBar navBarList={navBarList} statusOpener={statusOpener} />
       </Drawer>
-      <Drawer anchor="top" open={statusCloserOpner} onClose={statusOpener}>
+      <Drawer anchor="top" open={statusCloserOpener} onClose={statusOpener}>
         <StatusTabular statusData={statusData} />
       </Drawer>
       <Container className={classes.root} maxWidth="xl">
@@ -939,7 +873,7 @@ const ReportL3 = () => {
                         <Grid item xs={12} sm={6}>
                           <div>
                             <Typography
-                              className={classes.haddingCss}
+                              className={classes.hadingCss}
                               align="center"
                             >
                               Indent Details
