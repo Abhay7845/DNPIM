@@ -15,6 +15,8 @@ import {
 export default function DisplayValidationComponent(props) {
   const [option, setOption] = useState([]);
   const [SizeState, setSizeState] = useState([]);
+  const [CoupleGentsSize, setCoupleGentsSize] = useState([]);
+  const [CoupleLadiesSize, setCoupleLadiesSize] = useState([]);
   const [tagOption, setTagOption] = useState("");
   console.log("tagOption==>", tagOption);
   const {
@@ -134,6 +136,29 @@ export default function DisplayValidationComponent(props) {
       }
     );
   }, [itemCode]);
+  useEffect(() => {
+    axios
+      .get(
+        `https://tanishqdigitalnpim.titan.in:8443/PNPIM/NPIML3/npim/L3/dropdown/couple/band/${itemCode}/COUPLE%20GENTS`
+      )
+      .then((res) => res)
+      .then((result) => {
+        setCoupleGentsSize(result.data.value);
+      })
+      .catch((error) => console.log("error==>", error));
+  }, [itemCode]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://tanishqdigitalnpim.titan.in:8443/PNPIM/NPIML3/npim/L3/dropdown/couple/band/${itemCode}/COUPLE%20LADIES`
+      )
+      .then((res) => res)
+      .then((result) => {
+        setCoupleLadiesSize(result.data.value);
+      })
+      .catch((error) => console.log("error==>", error));
+  }, [itemCode]);
   const showFindings = allDataFromValidation?.tegQuantityRes.filter(
     (item) => item.size === "Only_EAR_RING"
   );
@@ -201,8 +226,34 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-        {cond ? (
+        {tagOption === "Separate_Tag" ? (
           <Grid item xs={12} sm={12}>
+            <b style={{ color: "#832729" }}>FOR GENTS</b>
+            <MultiSelectCoupleBand
+              optionsList={CoupleGentsSize}
+              onChangeHandler={sizeQuantityResHandler}
+              allDataFromValidation={allDataFromValidation}
+              feedShowState={feedShowState}
+              findingsResHandler={findingsResHandler}
+              findingsOptions={findingsOption}
+              //put props
+            />
+            <br />
+            <b style={{ color: "#832729" }}>FOR LADIES</b>
+            <MultiSelectCoupleBand
+              optionsList={CoupleLadiesSize}
+              onChangeHandler={sizeQuantityResHandler}
+              allDataFromValidation={allDataFromValidation}
+              feedShowState={feedShowState}
+              findingsResHandler={findingsResHandler}
+              findingsOptions={findingsOption}
+              //put props
+            />
+          </Grid>
+        ) : null}
+
+        {cond ? (
+          <Grid item xs={12} sm={12} className="my-3">
             <DropDownMaterialUI
               labelName="Stone Quality"
               onChangeHandler={stoneQualityResHandler}
