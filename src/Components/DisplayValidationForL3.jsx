@@ -250,8 +250,8 @@ export default function DisplayValidationComponent(props) {
         ) : null}
         {tagOption === "Separate_Tag" ? (
           <Grid item xs={12} sm={12}>
-            <b style={{ color: "#832729" }}>FOR GENTS</b>
             <MultiSelectCoupleBand
+              labelName="FOR GENTS"
               optionsList={CoupleGentsSize}
               onChangeHandler={sizeQuantityResHandler}
               allDataFromValidation={allDataFromValidation}
@@ -287,6 +287,7 @@ export default function DisplayValidationComponent(props) {
     );
   } else if (
     digit === "E" ||
+    digit === "T" ||
     digit === "N" ||
     digit === "P" ||
     digit === "2" ||
@@ -306,7 +307,8 @@ export default function DisplayValidationComponent(props) {
       digit === "2" ||
       digit === "P" ||
       digit === "E" ||
-      digit === "N"
+      digit === "N" ||
+      digit === "T"
     ) {
       //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
       tegOfItemOption ? (tegQuantity = true) : (Quantity = true);
@@ -394,18 +396,6 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-        {/* {findings?(
-          <>
-            <Grid item xs={12} sm={12}>
-              <DropDownMaterialUI
-                labelName="Findings"
-                onChangeHandler={findingsResHandler}
-                optionsList={findingsOption}
-                // valueData=""
-              />
-            </Grid>
-          </>
-        ):null} */}
       </>
     );
   } else {
@@ -417,8 +407,8 @@ export default function DisplayValidationComponent(props) {
     if (cond) {
       stoneQuality = true;
     }
-
     Quantity = true;
+
     return (
       <>
         {Quantity ? (

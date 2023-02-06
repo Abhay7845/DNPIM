@@ -836,6 +836,11 @@ function MultiSelectAndInput(props) {
             ...old,
             [name]: value,
           };
+        case "Only_Mangalsutra":
+          return {
+            ...old,
+            [name]: value,
+          };
       }
     });
   };
@@ -1482,6 +1487,9 @@ function SmallDataTable(props) {
         }
       });
   }, [props.itemCode]);
+
+  console.log("tableData==>123", tableData);
+
   if (digit) {
     if (
       digit == "0" ||
@@ -1492,6 +1500,7 @@ function SmallDataTable(props) {
       digit == "5" ||
       digit == "6" ||
       digit == "7" ||
+      digit == "T" ||
       digit == "N"
     ) {
       if (props.childNodesE || props.childNodesN) {
@@ -1544,11 +1553,15 @@ function SmallDataTable(props) {
                     </tr>
                   ) : (
                     <tr>
-                      <td>
-                        {digit === "1" || digit === "2"
-                          ? "NECKWEAR OR PENDENT"
-                          : "NECKWEAR"}
-                      </td>
+                      {digit === "T" ? (
+                        <td>MANGLASUTRA</td>
+                      ) : (
+                        <td>
+                          {digit === "1" || digit === "2"
+                            ? "NECKWEAR OR PENDENT"
+                            : "NECKWEAR"}
+                        </td>
+                      )}
                       <td>{!props.stdWtN ? tableData.stdWtN : props.stdWtN}</td>
                       <td>
                         {!props.stdUcpN ? tableData.stdUcpN : props.stdUcpN}

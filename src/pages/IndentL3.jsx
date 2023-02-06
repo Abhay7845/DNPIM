@@ -648,9 +648,9 @@ const IndentL3 = () => {
     let tegOfItems = ["Single_Tag", "Separate_Tag"];
     if (inputObj.childNodesE || inputObj.childNodesN) {
       if (inputObj.childNodesE)
-        tegOfItems[1 + tegOfItems.length] = "Only_EAR_RING";
+        tegOfItems[1 + tegOfItems.length] = "Only_Mangalsutra";
       if (inputObj.childNodesN)
-        tegOfItems[1 + tegOfItems.length] = "Only_NECKWEAR_OR_PENDANT";
+        tegOfItems[1 + tegOfItems.length] = "Only_EAR_RING";
     } else {
       return false;
     }
