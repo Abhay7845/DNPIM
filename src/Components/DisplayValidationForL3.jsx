@@ -8,6 +8,7 @@ import {
   DynamicMultiSelectAndInput,
   InputFieldMaterialUI,
   MultiSelectAndInput,
+  MultiSelectCoupleBand,
   MultiselectUomAndSize,
 } from "./ComponentForL3";
 
@@ -189,8 +190,7 @@ export default function DisplayValidationComponent(props) {
         )}
         {tagOption === "Single_Tag" ? (
           <Grid item xs={12} sm={12}>
-            <MultiSelectAndInput
-              labelName="LADIES"
+            <MultiSelectCoupleBand
               optionsList={SizeState}
               onChangeHandler={sizeQuantityResHandler}
               allDataFromValidation={allDataFromValidation}
