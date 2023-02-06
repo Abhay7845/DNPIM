@@ -107,9 +107,6 @@ function CustomToolbar(props) {
             mode: true,
           });
         } else {
-          // alert(
-          //   `${response?.data?.value?.storeNPIMStatus} and ${response?.data?.mailStatus}`
-          // );
           errorHandling();
         }
       }
@@ -198,7 +195,6 @@ const LazyLoadingDataGrid = (props) => {
     handelOpen,
   } = props;
   const [searchValue, setSearchValue] = useState("");
-  console.log(reportLable, "reportLable reportLable reportLable");
   const role = localStorage.getItem("store_value");
   console.log(role, "ROLE");
   const column = col.map((element) => {
