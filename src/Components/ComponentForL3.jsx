@@ -529,18 +529,7 @@ function DropDownMaterialUI(props) {
 
 function InputFieldMaterialUI(props) {
   const classes = useStyles();
-  const {
-    labelName,
-    typeName,
-    onChangeHandler,
-    valueName,
-    allDataFromValidation,
-  } = props;
-  console.log(
-    allDataFromValidation,
-    "allDataFromValidation allDataFromValidation form component L3"
-  );
-  console.log(valueName, "valueName");
+  const { onChangeHandler, allDataFromValidation } = props;
   const [showHelper, setHelper] = useState(0);
 
   useEffect(() => {
@@ -548,7 +537,7 @@ function InputFieldMaterialUI(props) {
       if (
         allDataFromValidation.quantityRes.length > 1 ||
         parseInt(allDataFromValidation.quantityRes) === 0 ||
-        parseInt(allDataFromValidation.quantityRes) > 5
+        parseInt(allDataFromValidation.quantityRes) > 10
       ) {
         setHelper(1);
       } else {

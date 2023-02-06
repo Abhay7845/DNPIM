@@ -62,7 +62,7 @@ const DayEndReportAdmin = () => {
     {
       id: 2,
       name: "Day End Report",
-      link: `/dayEndreportForAdmin/${storeCode}/${rsoName}`,
+      link: `/dayEndReportForAdmin/${storeCode}/${rsoName}`,
       icon: "ReportIcon",
     },
     {
