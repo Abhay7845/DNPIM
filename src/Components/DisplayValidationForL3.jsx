@@ -143,7 +143,11 @@ export default function DisplayValidationComponent(props) {
       )
       .then((res) => res)
       .then((result) => {
-        setCoupleGentsSize(result.data.value);
+        if (result.data.Code === "1000") {
+          setCoupleGentsSize(result.data.value);
+        } else if (result.data.Code === "1001") {
+          console.log("Size Not Available");
+        }
       })
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
@@ -155,7 +159,11 @@ export default function DisplayValidationComponent(props) {
       )
       .then((res) => res)
       .then((result) => {
-        setCoupleLadiesSize(result.data.value);
+        if (result.data.Code === "1000") {
+          setCoupleLadiesSize(result.data.value);
+        } else if (result.data.Code === "1001") {
+          console.log("Size Not Available");
+        }
       })
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
@@ -202,6 +210,19 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
+        {feedShowState.category === "FINGER RING" ? (
+          <Grid item xs={12} sm={12}>
+            <MultiSelectCoupleBand
+              optionsList={SizeState}
+              onChangeHandler={sizeQuantityResHandler}
+              allDataFromValidation={allDataFromValidation}
+              feedShowState={feedShowState}
+              findingsResHandler={findingsResHandler}
+              findingsOptions={findingsOption}
+              //put props
+            />
+          </Grid>
+        ) : null}
         {feedShowState.category === "COUPLE BAND" ? (
           <div className="mx-1 w-100 my-2">
             <DropDownMaterialUI
@@ -213,6 +234,7 @@ export default function DisplayValidationComponent(props) {
         ) : (
           ""
         )}
+
         {tagOption === "Single_Tag" ? (
           <Grid item xs={12} sm={12}>
             <MultiSelectCoupleBand
