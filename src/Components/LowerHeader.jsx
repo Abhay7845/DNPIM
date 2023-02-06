@@ -147,6 +147,10 @@ const LowerHeader = (props) => {
           },
           (error) => {
             console.log("error==>", error);
+            alert("No Data Available for Selected Value");
+            setImmediate(() => {
+              setLoading(false);
+            });
           }
         );
     }
@@ -207,7 +211,7 @@ const LowerHeader = (props) => {
                       <DropdownField
                         name="collection"
                         value={dropState.collection}
-                        lableName="Collection"
+                        labelName="Collection"
                         bigSmall={true}
                         dropList={dropValueForCollectionState}
                         myChangeHandler={onchangeHandler}
@@ -217,7 +221,7 @@ const LowerHeader = (props) => {
                       <DropdownField
                         name="consumerBase"
                         value={dropState.consumerBase}
-                        lableName="NeedSate"
+                        labelName="NeedSate"
                         bigSmall={true}
                         dropList={dropValueForNeedState}
                         myChangeHandler={onchangeHandler}
@@ -227,7 +231,7 @@ const LowerHeader = (props) => {
                       <DropdownField
                         name="groupData"
                         value={dropState.groupData}
-                        lableName="Group"
+                        labelName="Group"
                         bigSmall={true}
                         dropList={dropValueForGroupState}
                         myChangeHandler={onchangeHandler}
@@ -237,7 +241,7 @@ const LowerHeader = (props) => {
                       <DropdownField
                         name="category"
                         value={dropState.category}
-                        lableName="Category"
+                        labelName="Category"
                         bigSmall={true}
                         dropList={dropValueForCategoryState}
                         myChangeHandler={onchangeHandler}

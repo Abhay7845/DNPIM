@@ -167,13 +167,8 @@ export default function DisplayValidationComponent(props) {
       })
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
-  const showFindings = allDataFromValidation?.tegQuantityRes.filter(
-    (item) => item.size === "Only_EAR_RING"
-  );
-
+  console.log("digit123456==>", digit);
   if (
-    digit === "B" ||
-    digit === "C" ||
     digit === "F" ||
     digit === "R" ||
     digit === "V" ||
@@ -273,7 +268,6 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-
         {cond ? (
           <Grid item xs={12} sm={12} className="my-3">
             <DropDownMaterialUI
@@ -408,7 +402,7 @@ export default function DisplayValidationComponent(props) {
       stoneQuality = true;
     }
     Quantity = true;
-
+    console.log("digit123==>", digit);
     return (
       <>
         {Quantity ? (

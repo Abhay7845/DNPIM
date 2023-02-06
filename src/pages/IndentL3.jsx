@@ -238,7 +238,6 @@ const IndentL3 = () => {
         digit === "N"
       ) {
         //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
-
         createTegOfItems(feedShowState)
           ? (tegQuantity = true)
           : (Quantity = true);
@@ -260,7 +259,7 @@ const IndentL3 = () => {
       ) {
         tegSelect = true;
         setSelect = true;
-        Quantity = false;
+        Quantity = true;
         // stoneQuality = false;
       }
 

@@ -363,12 +363,6 @@ const ReportL3 = () => {
         Quantity = false;
         // stoneQuality = false;
       }
-      // if (
-      //   dataRowInformation.category === "SET2" &&
-      //   showfindings[0]?.size === "Only_EAR_RING"
-      // ) {
-      //   findings=true
-      // }
 
       return {
         tagSelect: tegSelect ? true : false,

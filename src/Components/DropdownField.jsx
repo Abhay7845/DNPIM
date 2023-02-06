@@ -4,10 +4,6 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   selectDrop: {
-    fontFamily: "Roboto,sans-serif",
-    fontWeight: 500,
-    fontSize: "500",
-    letterSpacing: "2px",
     fontWeight: "bold",
     padding: "5px",
     border: "1.3px solid #832729",
@@ -20,6 +16,7 @@ const useStyles = makeStyles({
 });
 
 const DropdownField = (props) => {
+  const { myChangeHandler, name, value, labelName, dropList } = props;
   const classes = useStyles();
   const generateOptions = (dropList) => {
     let optionItems = dropList.map((option) => (
@@ -33,26 +30,17 @@ const DropdownField = (props) => {
 
   return (
     <>
-      <div
-        className={
-          props.bigSmall
-            ? "input-group input-group-sm mb-3"
-            : "input-group mb-3"
-        }
+      <select
+        onChange={myChangeHandler}
+        name={name}
+        value={value}
+        className={classes.selectDrop}
       >
-        <select
-          onChange={props.myChangeHandler}
-          name={props.name}
-          value={props.value}
-          className={classes.selectDrop}
-          id="inputGroupSelect01"
-        >
-          <option className={classes.selectDrop} value="ALL">
-            Select {props.lableName}
-          </option>
-          {generateOptions(props.dropList)}
-        </select>
-      </div>
+        <option className={classes.selectDrop} value="ALL">
+          Select {labelName}
+        </option>
+        {generateOptions(dropList)}
+      </select>
     </>
   );
 };
