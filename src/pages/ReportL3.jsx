@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
   Button,
+  CircularProgress,
   Container,
   Grid,
-  makeStyles,
-  Paper,
   Typography,
   CssBaseline,
   Drawer,
@@ -380,10 +379,8 @@ const ReportL3 = () => {
       //     });
       //   });
       Error(msg.message);
-      console.log(allDataFromValidation);
     } else {
       stdUcpNotSelectData = `stdUcp-${displayData.data}`;
-      console.log("data of the dataRowInformation", dataRowInformation);
       DisplayValidationRunner();
       const inputData = {
         itemCode: dataRowInformation.itemCode,
@@ -417,8 +414,6 @@ const ReportL3 = () => {
         tagQuantitys: allDataFromValidation.tegQuantityRes,
       };
 
-      console.log("input from thr L3 data insert  inputData", inputData);
-
       setTimeout(() => {
         axios
           .post(
@@ -441,7 +436,7 @@ const ReportL3 = () => {
           });
 
         reportDropHandler(reportLabel);
-      }, 1500);
+      });
     }
     setImmediate(() => {
       setLoading(false);
@@ -944,7 +939,17 @@ const ReportL3 = () => {
                               fullWidth
                               onClick={onClickSubmitBtnHandler}
                             >
-                              Submit
+                              {loading === true ? (
+                                <CircularProgress
+                                  size={20}
+                                  style={{
+                                    background: "transparent",
+                                    color: "#ffff",
+                                  }}
+                                />
+                              ) : (
+                                "SUBMIT"
+                              )}
                             </Button>
                           </Grid>
                         </Grid>

@@ -80,10 +80,10 @@ const ProductInfo = (props) => {
   const [value, setValue] = useState(0);
   useEffect(() => {
     setSwitchData(true);
-    if(!props.showinfo){
-      setMultiSelectDrop([])
-      setMultiSelectQltyFeedback([])
-      setValue(0)
+    if (!props.showinfo) {
+      setMultiSelectDrop([]);
+      setMultiSelectQltyFeedback([]);
+      setValue(0);
     }
   }, [props]);
   const handleChange = (event) => {
@@ -109,7 +109,6 @@ const ProductInfo = (props) => {
       multiSelectQltyfeed: multiSelectQltyfeed,
       qualityRating: value,
     });
- 
   };
 
   return (
@@ -253,7 +252,7 @@ const ProductInfo = (props) => {
                     ""
                   )}
                   <div>
-                    {value >0 && value <= 3 && (
+                    {value > 0 && value <= 3 && (
                       <div className="mutli_select_drop">
                         <MuliSelectDropdownFieldQualityFeedback
                           onMultiSelectQlty={onMultiSelectQltyFeedback}

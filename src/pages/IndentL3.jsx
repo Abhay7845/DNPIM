@@ -6,7 +6,7 @@ import ProductDetailsTabular from "../Components/ProductDetailsTabular";
 import UpperHeader from "../Components/UpperHeader";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import StaticTabularInformation from "../Components/StaticTabularInformation";
 import { StaticTabularConsumerBase } from "../Components/StaticTabularInformation";
 import NpimDataDisplay from "../Components/NpimDataDisplay";
@@ -980,7 +980,17 @@ const IndentL3 = () => {
                         variant="contained"
                         fullWidth
                       >
-                        Submit
+                        {loading === true ? (
+                          <CircularProgress
+                            size={20}
+                            style={{
+                              background: "transparent",
+                              color: "#ffff",
+                            }}
+                          />
+                        ) : (
+                          "SUBMIT"
+                        )}
                       </Button>
                     </Grid>
                     <Grid item xs={12} sm={4}>

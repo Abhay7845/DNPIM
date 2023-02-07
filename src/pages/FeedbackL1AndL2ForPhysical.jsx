@@ -10,9 +10,9 @@ import {
   FormGroup,
   FormControlLabel,
   Switch,
-  makeStyles,
   Grid,
   Button,
+  CircularProgress,
   Container,
   Typography,
   CssBaseline,
@@ -520,7 +520,17 @@ const FeedbackL1AndL2ForPhysical = () => {
                           variant="contained"
                           fullWidth
                         >
-                          Submit
+                          {loading === true ? (
+                            <CircularProgress
+                              size={20}
+                              style={{
+                                background: "transparent",
+                                color: "#ffff",
+                              }}
+                            />
+                          ) : (
+                            "SUBMIT"
+                          )}
                         </Button>
                       </Grid>
                     </Container>

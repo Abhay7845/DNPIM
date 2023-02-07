@@ -38,7 +38,6 @@ export default function DisplayValidationComponent(props) {
     setSelectResHandler,
     setSelectOptions,
   } = props;
-  console.log("findingsOption==>", findingsOption);
   const optionForSet4 = [
     "Single_Tag",
     "Separate_Tag",
@@ -165,7 +164,7 @@ export default function DisplayValidationComponent(props) {
       })
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
-  console.log("digit123456==>", digit);
+
   if (digit === "F" || digit === "R" || digit === "V" || digit === "W") {
     let sizeUomQuantity, sizeQuantity;
     if (digit === "V" && feedShowState.category === "BANGLE") {
