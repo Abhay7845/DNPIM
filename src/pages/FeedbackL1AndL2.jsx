@@ -536,20 +536,12 @@ const FeedbackL1AndL2 = () => {
                       <Typography className={classes.headingCss} align="center">
                         Product Details
                       </Typography>
-
-                      <table
-                        style={{
-                          width: "100%",
-                          fontWeight: 900,
-                          letterSpacing: "2px",
-                        }}
-                      >
+                      <table className="w-100">
                         <tbody>
                           <tr>
                             <th classNme={classes.hadding}>Collection</th>
                             <td>- &nbsp;&nbsp;</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.collection}
                             </td>
                           </tr>
@@ -557,7 +549,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Consumer Base</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.consumerBase}
                             </td>
                           </tr>
@@ -565,7 +556,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Group</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.itGroup}
                             </td>
                           </tr>
@@ -573,7 +563,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Category</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.category}
                             </td>
                           </tr>
@@ -581,7 +570,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Gender</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.gender}
                             </td>
                           </tr>
@@ -589,7 +577,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Complexity</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.complexity}
                             </td>
                           </tr>
@@ -597,7 +584,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Std Wt</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.stdWt}
                             </td>
                           </tr>
@@ -605,7 +591,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Std UCp</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.stdUCP}
                             </td>
                           </tr>
@@ -613,7 +598,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Metal Colour</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.colourWt}
                             </td>
                           </tr>
@@ -621,7 +605,6 @@ const FeedbackL1AndL2 = () => {
                             <th classNme={classes.hadding}>Findings</th>
                             <td>-</td>
                             <td className={classes.rowData}>
-                              {" "}
                               {feedShowState.findings}
                             </td>
                           </tr>

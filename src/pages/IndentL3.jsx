@@ -292,53 +292,35 @@ const IndentL3 = () => {
   }
   const onClickSubmitBtnHandler = (event) => {
     let msg = {};
-    const data = NewDisplayValidation();
-    const result = Object.keys(data).filter(
-      (eachKey) => data[eachKey] === true
-    );
-    for (let key of result) {
-      console.log(key, "result");
-      for (let resultKey of Object.keys(allDataFromValidation)) {
-        if (
-          key === resultKey &&
-          allDataFromValidation[resultKey].length === 0
-        ) {
-          msg = {
-            ...msg,
-            status: false,
-            message: `${result.join("/")} is required`,
-          };
-          console.log(allDataFromValidation[resultKey].length, "length");
-        }
-      }
-    }
-    console.log(result, "new popup");
-    console.log(msg, "new msg");
+    // const data = NewDisplayValidation();
+    // const result = Object.keys(data).filter(
+    //   (eachKey) => data[eachKey] === true
+    // );
+    // for (let key of result) {
+    //   console.log(key, "result");
+    //   for (let resultKey of Object.keys(allDataFromValidation)) {
+    //     if (
+    //       key === resultKey &&
+    //       allDataFromValidation[resultKey].length === 0
+    //     ) {
+    //       msg = {
+    //         ...msg,
+    //         status: false,
+    //         message: `${result.join("/")} is required`,
+    //       };
+    //     }
+    //   }
+    // }
+
     setImmediate(() => {
       setLoading(true);
     });
 
-    // let displayData = displayPresentValidation(feedShowState.stdUCP);
-    // let displayData = DisplayValidation(feedShowState.stdUCP);
-    // let displayData = {status:true}
-
-    // console.log(displayData, "display");
-    let stdUcpNotSeletData;
+    let stdUcpNotSelectData;
     if (!msg.status && Object.keys(msg).length > 0) {
-      //if (!displayData.status)
-      // alert(displayData.alert);
       Error(msg.message);
-      // setImmediate(() => {
-      //   setAlertPopupStatus({
-      //     status: true,
-      //     main: msg.message,
-      //     contain: "",
-      //   });
-      // });
     } else {
-      stdUcpNotSeletData = `stdUcp-${0}`;
-
-      console.log("data of the feedShowState", feedShowState);
+      stdUcpNotSelectData = `stdUcp-${0}`;
 
       const inputData = {
         itemCode: feedShowState.itemCode,
@@ -354,7 +336,7 @@ const IndentL3 = () => {
         set2Type: allDataFromValidation.typeSet2Res,
         stoneQuality: allDataFromValidation.stoneQualityRes
           ? allDataFromValidation.stoneQualityRes
-          : stdUcpNotSeletData,
+          : stdUcpNotSelectData,
         stoneQualityVal: feedShowState.stoneQualityVal,
         rsoName: rsoName,
         npimEventNo: feedShowState.npimEventNo,

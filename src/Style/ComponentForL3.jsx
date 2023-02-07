@@ -27,11 +27,9 @@ export const useStyles = makeStyles({
   },
   hadingCss: {
     fontWeight: "bolder",
-    fontStretch: "normal",
     fontSize: "16px",
-    lineHeight: "normal",
-    fontFamily: "Raleway, sans - serif",
-    letterSpacing: "2px",
+    marginBottom: "2%",
+    marginTop: "3%",
   },
   hading: {
     fontWeight: 500,

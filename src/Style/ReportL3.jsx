@@ -8,11 +8,7 @@ export const useStyle = makeStyles({
     padding: "0%",
   },
   imgShow: {
-    margin: "4%",
-  },
-  productInfo: {
-    marginTop: "3%",
-    height: "64vh",
+    marginLeft: "1%",
   },
   hidden: {
     display: "none",
@@ -22,17 +18,23 @@ export const useStyle = makeStyles({
   },
   hadingCss: {
     fontWeight: "bolder",
-    fontStretch: "normal",
     fontSize: "16px",
-    lineHeight: "normal",
-    fontFamily: "Raleway, sans - serif",
-    letterSpacing: "2px",
+    marginBottom: "2%",
+    marginTop: "3%",
   },
   innerHightCss: {
     minHeight: "80vh",
   },
   headingColor: {
-    backgroundColor: "#c4c4c0",
+    backgroundColor: "#832729",
+    color: "#ffff",
     fontWeight: "bolder",
+  },
+  btnSub: {
+    fontWeight: 500,
+    fontSize: "14px",
+    padding: "5px",
+    backgroundColor: "#832729",
+    color: "#ffff",
   },
 });

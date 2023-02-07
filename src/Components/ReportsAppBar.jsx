@@ -41,7 +41,7 @@ function ReportsAppBar(props) {
   const classes = useStyles();
   const {
     barHandler,
-    reporOptions,
+    reportOptions,
     reportLable,
     reportDropHandler,
     showInformationHandler,
@@ -66,7 +66,7 @@ function ReportsAppBar(props) {
             </div>
             <Grid container>
               <Grid item xs={12} sm={6}>
-                {reporOptions ? (
+                {reportOptions ? (
                   <div className={classes.title}>
                     <div className={classes.reportDrop}>
                       <DropdownField
@@ -74,7 +74,7 @@ function ReportsAppBar(props) {
                         // value={selectReport}
                         lableName="Report"
                         bigSmall={false}
-                        dropList={reporOptions}
+                        dropList={reportOptions}
                         myChangeHandler={(event) => {
                           reportDropHandler(event.target.value);
                         }}

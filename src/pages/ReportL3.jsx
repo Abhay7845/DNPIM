@@ -344,27 +344,24 @@ const ReportL3 = () => {
   }
   const onClickSubmitBtnHandler = (event) => {
     let msg = {};
-    const data = NewDisplayValidation();
-
-    const result = Object.keys(data).filter(
-      (eachKey) => data[eachKey] === true
-    );
-    for (let key of result) {
-      console.log(key, "result");
-      for (let resultKey of Object.keys(allDataFromValidation)) {
-        if (
-          key === resultKey &&
-          allDataFromValidation[resultKey].length === 0
-        ) {
-          msg = {
-            ...msg,
-            status: false,
-            message: `${result.join("/")} is required`,
-          };
-          console.log(allDataFromValidation[resultKey].length, "length");
-        }
-      }
-    }
+    // const data = NewDisplayValidation();
+    // const result = Object.keys(data).filter(
+    //   (eachKey) => data[eachKey] === true
+    // );
+    // for (let key of result) {
+    //   for (let resultKey of Object.keys(allDataFromValidation)) {
+    //     if (
+    //       key === resultKey &&
+    //       allDataFromValidation[resultKey].length === 0
+    //     ) {
+    //       msg = {
+    //         ...msg,
+    //         status: false,
+    //         message: `${result.join("/")} is required`,
+    //       };
+    //     }
+    //   }
+    // }
     setImmediate(() => {
       setLoading(true);
     });
@@ -824,7 +821,7 @@ const ReportL3 = () => {
             <Loading flag={loading} />
             <ReportsAppBar
               reportDropHandler={reportDropHandler}
-              reporOptions={[
+              reportOptions={[
                 "Item_Wise_Report",
                 "NeedSate",
                 "Collection",
@@ -843,138 +840,117 @@ const ReportL3 = () => {
             <Grid item xs={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={5}>
-                  <Paper className={classes.innerHightCss}>
-                    <div className={classes.imgShow}>
-                      <ImgShow
-                        itemCode={dataRowInformation.itemCode}
-                        imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
-                        videoLink=""
-                      />
-                    </div>
-                  </Paper>
+                  <div className={classes.imgShow}>
+                    <ImgShow
+                      itemCode={dataRowInformation.itemCode}
+                      imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
+                      videoLink=""
+                    />
+                  </div>
                 </Grid>
-                <Grid item xs={12} sm={7} style={{ marginTop: "0.65%" }}>
-                  <Paper className={classes.innerHightCss}>
-                    <div className={classes.productInfo}>
-                      <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <Typography
-                            className={classes.headingColor}
-                            align="center"
-                          >
-                            {dataRowInformation.itemCode}
-                          </Typography>
+                <Grid item xs={12} sm={7}>
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Typography
+                        className={classes.headingColor}
+                        align="center"
+                      >
+                        {dataRowInformation.itemCode}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <ProductDetailsTabularL3
+                        information={dataRowInformation}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <Typography className={classes.hadingCss} align="center">
+                        <b>Indent Details</b>
+                      </Typography>
+                      <Container>
+                        <Grid container spacing={2}>
+                          {dataRowInformation.itemCode[6] && digit ? (
+                            <DisplayValidationComponent
+                              digit={dataRowInformation.itemCode[6]}
+                              cond={stoneQualityCheck(dataRowInformation)}
+                              itemCode={dataRowInformation.itemCode}
+                              stoneOptionList={stoneOptionsData(
+                                dataRowInformation
+                              )}
+                              setType2option={["Chain", "Dori"]}
+                              findingsOption={[
+                                dataRowInformation.findings || "",
+                              ]}
+                              setSelectOptions={setSelectState}
+                              tegOfItemOption={createTegOfItems(
+                                dataRowInformation
+                              )}
+                              sizeUomQuantityResHandler={
+                                sizeUomQuantityResHandler
+                              }
+                              sizeQuantityResHandler={sizeQuantityResHandler}
+                              stoneQualityResHandler={stoneQualityResHandler}
+                              tegQuantityResHandler={tegQuantityResHandler}
+                              typeSet2ResHandler={typeSet2ResHandler}
+                              quantityResHandler={quantityResHandler}
+                              findingsResHandler={findingsResHandler}
+                              tegSelectionResHandler={tegSelectionResHandler}
+                              setSelectResHandler={tegQuantityResHandler}
+                              feedShowState={dataRowInformation}
+                              allDataFromValidation={allDataFromValidation}
+                            />
+                          ) : null}
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <ProductDetailsTabularL3
-                            information={dataRowInformation}
+                      </Container>
+                    </Grid>
+                    <Grid item xs={12}>
+                      {stoneQualityCheck(dataRowInformation) ? (
+                        <Container>
+                          <StaticTabularInformation
+                            si2Gh={dataRowInformation.si2Gh}
+                            vsGh={dataRowInformation.vsGh}
+                            vvs1={dataRowInformation.vvs1}
+                            i2Gh={dataRowInformation.i2Gh}
+                            si2Ij={dataRowInformation.si2Ij}
                           />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                          <div>
-                            <Typography
-                              className={classes.hadingCss}
-                              align="center"
-                            >
-                              Indent Details
-                            </Typography>
-                            <Container>
-                              <Grid container spacing={2}>
-                                {dataRowInformation.itemCode[6] && digit ? (
-                                  <DisplayValidationComponent
-                                    digit={dataRowInformation.itemCode[6]}
-                                    cond={stoneQualityCheck(dataRowInformation)}
-                                    itemCode={dataRowInformation.itemCode}
-                                    stoneOptionList={stoneOptionsData(
-                                      dataRowInformation
-                                    )}
-                                    setType2option={["Chain", "Dori"]}
-                                    findingsOption={[
-                                      dataRowInformation.findings || "",
-                                    ]}
-                                    setSelectOptions={setSelectState}
-                                    tegOfItemOption={createTegOfItems(
-                                      dataRowInformation
-                                    )}
-                                    sizeUomQuantityResHandler={
-                                      sizeUomQuantityResHandler
-                                    }
-                                    sizeQuantityResHandler={
-                                      sizeQuantityResHandler
-                                    }
-                                    stoneQualityResHandler={
-                                      stoneQualityResHandler
-                                    }
-                                    tegQuantityResHandler={
-                                      tegQuantityResHandler
-                                    }
-                                    typeSet2ResHandler={typeSet2ResHandler}
-                                    quantityResHandler={quantityResHandler}
-                                    findingsResHandler={findingsResHandler}
-                                    tegSelectionResHandler={
-                                      tegSelectionResHandler
-                                    }
-                                    setSelectResHandler={tegQuantityResHandler}
-                                    feedShowState={dataRowInformation}
-                                    allDataFromValidation={
-                                      allDataFromValidation
-                                    }
-                                  />
-                                ) : null}
-                              </Grid>
-                            </Container>
-                          </div>
-                        </Grid>
-                        <Grid item xs={12}>
-                          {stoneQualityCheck(dataRowInformation) ? (
-                            <Container>
-                              <StaticTabularInformation
-                                si2Gh={dataRowInformation.si2Gh}
-                                vsGh={dataRowInformation.vsGh}
-                                vvs1={dataRowInformation.vvs1}
-                                i2Gh={dataRowInformation.i2Gh}
-                                si2Ij={dataRowInformation.si2Ij}
-                              />
-                            </Container>
-                          ) : (
-                            ""
-                          )}
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Container>
-                            <Grid container spacing={4}>
-                              {reportLabel !== "Cancel_Item_List" ? (
-                                <Grid item xs={12} sm={6}>
-                                  <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    fullWidth
-                                    onClick={onClickCancelBtnHandler}
-                                  >
-                                    Cancel Indent
-                                  </Button>
-                                </Grid>
-                              ) : null}
-                              <Grid
-                                item
-                                xs={12}
-                                sm={reportLabel !== "Cancel_Item_List" ? 6 : 12}
+                        </Container>
+                      ) : (
+                        ""
+                      )}
+                    </Grid>
+                    <Grid item xs={12} className="my-4">
+                      <Container>
+                        <Grid container spacing={4}>
+                          {reportLabel !== "Cancel_Item_List" ? (
+                            <Grid item xs={12} sm={6}>
+                              <Button
+                                variant="outlined"
+                                color="primary"
+                                fullWidth
+                                onClick={onClickCancelBtnHandler}
                               >
-                                <Button
-                                  variant="outlined"
-                                  color="secondary"
-                                  fullWidth
-                                  onClick={onClickSubmitBtnHandler}
-                                >
-                                  Submit
-                                </Button>
-                              </Grid>
+                                Cancel Indent
+                              </Button>
                             </Grid>
-                          </Container>
+                          ) : null}
+                          <Grid
+                            item
+                            xs={12}
+                            sm={reportLabel !== "Cancel_Item_List" ? 6 : 12}
+                          >
+                            <Button
+                              variant="outlined"
+                              className={classes.btnSub}
+                              fullWidth
+                              onClick={onClickSubmitBtnHandler}
+                            >
+                              Submit
+                            </Button>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </div>
-                  </Paper>
+                      </Container>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

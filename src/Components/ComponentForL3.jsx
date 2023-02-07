@@ -502,7 +502,6 @@ function MultiSelectDropDownForAll(props) {
 function DropDownMaterialUI(props) {
   const classes = useStyles();
   const { labelName, onChangeHandler, optionsList } = props;
-
   const generateOptions = (dropList) => {
     let optionItems = dropList.map((option) => (
       <MenuItem key={option} value={option}>
@@ -1320,78 +1319,67 @@ function MultiSelectCoupleBand(props) {
 
 function ProductDetailsTabularL3(props) {
   const classes = useStyles();
-
-  console.log(props);
-
   return (
     <>
-      <div>
-        <Typography className={classes.hadingCss} align="center">
-          Product Specification
-        </Typography>
-      </div>
-      <table style={{ width: "95%", fontWeight: 900, letterSpacing: "2px" }}>
+      <Typography className={classes.hadingCss} align="center">
+        <b>Product Specification</b>
+      </Typography>
+      <table className="w-100 mx-2">
         <tbody>
           {props.information.collection ? (
             <tr>
-              <th className={classes.hading}>Collection</th>
+              <th>COLLECTION</th>
               <td>-</td>
-              <td className={classes.rowData}>
-                {props.information.collection}
-              </td>
+              <td>{props.information.collection}</td>
             </tr>
           ) : null}
           {props.information.consumerBase ? (
             <tr>
-              <th className={classes.hading}>Consumer Base</th>
+              <th>NEED STATE</th>
               <td>-</td>
-              <td className={classes.rowData}>
-                {props.information.consumerBase}
-              </td>
+              <td>{props.information.consumerBase}</td>
             </tr>
           ) : null}
           {props.information.itGroup ? (
             <tr>
-              <th className={classes.hading}>Group</th>
+              <th>GROUP</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.itGroup}</td>
+              <td>{props.information.itGroup}</td>
             </tr>
           ) : null}
           {props.information.category ? (
             <tr>
-              <th className={classes.hading}>Category</th>
+              <th>CATEGORY</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.category}</td>
+              <td>{props.information.category}</td>
             </tr>
           ) : null}
           {props.information.gender ? (
             <tr>
-              <th className={classes.hading}>Gender</th>
+              <th>GENDER</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.gender}</td>
+              <td>{props.information.gender}</td>
             </tr>
           ) : null}
           {props.information.complexity ? (
             <tr>
-              <th className={classes.hading}>Complexity</th>
+              <th>COMPLEXITY</th>
               <td>-</td>
-              <td className={classes.rowData}>
-                {props.information.complexity}
-              </td>
+              <td>{props.information.complexity}</td>
             </tr>
           ) : null}
           {props.information.stdWt ? (
             <tr>
-              <th className={classes.hading}>Std Wt</th>
+              <th>Std Wt</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.stdWt}</td>
+              <td>{props.information.stdWt}</td>
             </tr>
           ) : null}
           {props.information.stdUCP || props.information.stdUcp ? (
             <tr>
-              <th className={classes.hading}>Std UCp</th>
+              <th>Std UCp</th>
               <td>-</td>
-              <td className={classes.rowData}>
+              <td>
                 {props.information.stdUCP
                   ? props.information.stdUCP
                   : props.information.stdUcp}
@@ -1400,9 +1388,9 @@ function ProductDetailsTabularL3(props) {
           ) : null}
           {props.information.indCategory ? (
             <tr>
-              <th className={classes.hading}>Ind-Category</th>
+              <th>IND-CATEGORY</th>
               <td>-</td>
-              <td className={classes.rowData}>
+              <td>
                 {props.information.indCategory === "Single_Teg"
                   ? "Single_Tag"
                   : props.information.indCategory}
@@ -1411,37 +1399,37 @@ function ProductDetailsTabularL3(props) {
           ) : null}
           {props.information.colourWt ? (
             <tr>
-              <th className={classes.hading}>Metal Color</th>
+              <th>METAL COLOR</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.colourWt}</td>
+              <td>{props.information.colourWt}</td>
             </tr>
           ) : null}
           {props.information.findings ? (
             <tr>
-              <th className={classes.hading}>Findings</th>
+              <th>FINDINGS</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.findings}</td>
+              <td>{props.information.findings}</td>
             </tr>
           ) : null}
           {props.information.size ? (
             <tr>
-              <th className={classes.hading}>Size</th>
+              <th>SIZE</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.size}</td>
+              <td>{props.information.size}</td>
             </tr>
           ) : null}
           {props.information.uom ? (
             <tr>
-              <th className={classes.hading}>UOM</th>
+              <th>UOM</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.uom}</td>
+              <td>{props.information.uom}</td>
             </tr>
           ) : null}
           {props.information.itemQty ? (
             <tr>
-              <th className={classes.hading}>Quantity</th>
+              <th>QUANTITY</th>
               <td>-</td>
-              <td className={classes.rowData}>{props.information.itemQty}</td>
+              <td>{props.information.itemQty}</td>
             </tr>
           ) : null}
         </tbody>

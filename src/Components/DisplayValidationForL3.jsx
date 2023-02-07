@@ -18,7 +18,6 @@ export default function DisplayValidationComponent(props) {
   const [CoupleGentsSize, setCoupleGentsSize] = useState([]);
   const [CoupleLadiesSize, setCoupleLadiesSize] = useState([]);
   const [tagOption, setTagOption] = useState("");
-  console.log("tagOption==>", tagOption);
   const {
     digit,
     cond,
@@ -36,11 +35,10 @@ export default function DisplayValidationComponent(props) {
     quantityResHandler,
     findingsResHandler,
     findingsOption,
-    tegSelectionResHandler,
     setSelectResHandler,
     setSelectOptions,
   } = props;
-
+  console.log("findingsOption==>", findingsOption);
   const optionForSet4 = [
     "Single_Tag",
     "Separate_Tag",
@@ -410,10 +408,10 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-        {findings ? (
+        {feedShowState.findings ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
-              labelName="Findings"
+              labelName="Findings here"
               onChangeHandler={findingsResHandler}
               optionsList={findingsOption}
               // valueData=""
