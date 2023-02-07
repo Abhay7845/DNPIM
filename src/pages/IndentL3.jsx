@@ -865,16 +865,14 @@ const IndentL3 = () => {
               "Loading...!"
             )}
           </Grid>
-          <div className="row mx-2 productsDetailsStyle">
+          <div className="row mx-2 w-100 productsDetailsStyle">
             <Grid item xs={12} sm={5}>
-              {feedShowState.itemCode ? (
-                <ImgShow
-                  itemCode={feedShowState.itemCode}
-                  imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
-                  videoLink={feedShowState.videoLink || ""}
-                  //imgLink={img}
-                />
-              ) : null}
+              <ImgShow
+                itemCode={feedShowState.itemCode}
+                imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
+                videoLink={feedShowState.videoLink || ""}
+                //imgLink={img}
+              />
             </Grid>
             <Grid item xs={12} sm={7}>
               <Grid container className="ProductDataDetails">
@@ -906,7 +904,9 @@ const IndentL3 = () => {
                       text={` ${feedShowState.btqCount}  Btqs Indented `}
                       fontSize={15}
                     />
-                  ) : null}
+                  ) : (
+                    ""
+                  )}
                   <br />
                   <Grid container spacing={1}>
                     {digit ? (
