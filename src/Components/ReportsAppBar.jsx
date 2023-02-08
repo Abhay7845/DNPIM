@@ -52,7 +52,7 @@ function ReportsAppBar(props) {
   return (
     <>
       <div className={classes.appBar}>
-        <AppBar position="static" color="#f2feff">
+        <AppBar position="static" color="default">
           <Toolbar>
             <div className={classes.menuButton}>
               <IconButton
