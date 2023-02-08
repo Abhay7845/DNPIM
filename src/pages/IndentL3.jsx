@@ -48,7 +48,6 @@ const IndentL3 = () => {
     findingsRes: "",
   });
 
-  console.log("allDataFromValidation==>", allDataFromValidation);
   const [productDetails, setProductDetails] = useState({
     storeCode: storeCode,
     collection: "ALL",
@@ -72,6 +71,7 @@ const IndentL3 = () => {
       .then((response) => {
         let mailSms = "";
         if (response.data.code === "1001") {
+          console.log("response.data.value==>", response);
           mailSms = "No more data available for the selected category";
           setImmediate(() => {
             setAlertPopupStatus({
@@ -83,13 +83,15 @@ const IndentL3 = () => {
           });
         } else if (response.data.code === "1003") {
           document.getElementById("result").style.visibility = "hidden";
+          console.log("response.data.value==>", response.data.value);
           setAlertPopupStatus({
             status: true,
             main: response.data.value,
             contain: "",
             mode: true,
           });
-        } else {
+        } else if (response.data.code === "1000") {
+          console.log("response.data.value==>", response.data);
           setFeedShowState(response.data.value);
           setDigit(response.data.value.itemCode[6]);
           seventhDigits = response.data.value.itemCode[6];
@@ -155,12 +157,14 @@ const IndentL3 = () => {
   ];
   const onSearchClick = (dropState) => {
     console.log("dropState123==>", dropState);
-    setProductDetails({
-      storeCode: storeCode,
-      collection: dropState.collection,
-      consumerBase: dropState.consumerBase,
-      group: dropState.groupData,
-      category: dropState.category,
+    setImmediate(() => {
+      setProductDetails({
+        storeCode: storeCode,
+        collection: dropState.collection,
+        consumerBase: dropState.consumerBase,
+        group: dropState.groupData,
+        category: dropState.category,
+      });
     });
   };
 
