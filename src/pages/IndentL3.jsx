@@ -57,8 +57,7 @@ const IndentL3 = () => {
     category: "ALL",
     itemCode: feedShowState.itemCode,
   });
-  console.log("productDetailsSearch==>", productDetails);
-  console.log("feedShowState==>", feedShowState);
+
   const [statusData, setStatusData] = useState({});
   const [digit, setDigit] = useState();
   const [setSelectState, setSetSelectState] = useState([]);
@@ -71,7 +70,6 @@ const IndentL3 = () => {
     await axios
       .post(`${HostManager.mainHost}/npim/get/product/details`, productDetails)
       .then((response) => {
-        console.log("response==>", response.data.value);
         let mailSms = "";
         if (response.data.code === "1001") {
           mailSms = "No more data available for the selected category";
@@ -93,7 +91,6 @@ const IndentL3 = () => {
           });
         } else {
           setFeedShowState(response.data.value);
-          console.log("response.data.value==>", response.data.value);
           setDigit(response.data.value.itemCode[6]);
           seventhDigits = response.data.value.itemCode[6];
           // DisplayValidationRunner();
@@ -108,7 +105,7 @@ const IndentL3 = () => {
       .then(
         (response) => {
           if (response.data.code === "1001") {
-            console.log("response1001==>", response);
+            console.log("");
           } else {
             setStatusData(response.data);
           }
@@ -136,7 +133,6 @@ const IndentL3 = () => {
         }
       } catch (err) {
         setSizeState([]);
-        console.log(err.message, "frorm display validation");
       }
     } else {
       setSizeState([]);
@@ -166,19 +162,12 @@ const IndentL3 = () => {
       group: dropState.groupData,
       category: dropState.category,
     });
-    console.log("productDetails==>", productDetails);
   };
 
-  const onBarClick = () => {
-    console.log("click bar *****************");
-  };
+  const onBarClick = () => {};
 
   function NewDisplayValidation() {
     let data = {};
-    console.log(digit, "digit in indent L3");
-    const showfindings = allDataFromValidation?.tegQuantityRes.filter(
-      (item) => item.size === "Only_EAR_RING"
-    );
     if (
       digit === "B" ||
       digit === "C" ||
@@ -350,8 +339,6 @@ const IndentL3 = () => {
         tagQuantitys: allDataFromValidation.tegQuantityRes,
       };
 
-      console.log("input from thr L3 data insert  inputData", inputData);
-
       DisplayValidationRunner();
 
       setTimeout(() => {
@@ -360,10 +347,9 @@ const IndentL3 = () => {
             `${HostManager.mainHostL3}/npim/insert/responses/from/L3`,
             inputData
           )
-          .then((responce) => {
+          .then((response) => {
             let mailSms = "";
-            console.log(responce.data);
-            if (responce.data.code === "1001") {
+            if (response.data.code === "1001") {
               if (
                 productDetails.collection == "ALL" ||
                 productDetails.consumerBase == "ALL" ||
@@ -380,7 +366,7 @@ const IndentL3 = () => {
               ) {
                 mailSms = "No more data available for the selected category.";
               } else {
-                mailSms = responce.data.value;
+                mailSms = response.data.value;
               }
 
               setImmediate(() => {
@@ -403,10 +389,8 @@ const IndentL3 = () => {
               });
               onClickNextPreBtnHandler("next");
             } else {
-              console.log(responce, "cool");
               setImmediate(() => {
                 //  setStatusRefresh(!statusRefresh);
-                //alert(responce.status)
                 setImmediate(() => {
                   setAlertPopupStatus({
                     status: true,
@@ -416,7 +400,7 @@ const IndentL3 = () => {
                   });
                 });
                 setDigit();
-                //setFeedShowState(responce.data.value);
+                //setFeedShowState(response.data.value);
                 //document.getElementById("result").style.visibility = "hidden";
                 setImmediate(() => {
                   setAllDataFromValidation({
@@ -437,7 +421,7 @@ const IndentL3 = () => {
               });
 
               onClickNextPreBtnHandler("next");
-              seventhDigits = responce.data.value.itemCode[6];
+              seventhDigits = response.data.value.itemCode[6];
             }
           })
           .catch((error) => {
@@ -520,14 +504,12 @@ const IndentL3 = () => {
       itemCode: feedShowState.itemCode,
       direction: direction,
     };
-    console.log(Input);
 
     await axios
       .post(`${HostManager.mainHost}/npim/get/product/details/PreNex`, Input)
-      .then((responce) => {
-        console.log(responce.data);
+      .then((response) => {
         let mailSms = "";
-        if (responce.data.code === "1001") {
+        if (response.data.code === "1001") {
           mailSms = "No more data available for the selected category.";
           setImmediate(() => {
             setAlertPopupStatus({
@@ -537,22 +519,21 @@ const IndentL3 = () => {
               mode: true,
             });
           });
-        } else if (responce.data.code === "1003") {
+        } else if (response.data.code === "1003") {
           //document.getElementById("result").style.visibility = "hidden";
           setAlertPopupStatus({
             status: true,
-            main: responce.data.value,
+            main: response.data.value,
             contain: "",
             mode: true,
           });
         } else {
-          setFeedShowState(responce.data.value);
-          seventhDigits = responce.data.value.itemCode[6];
+          setFeedShowState(response.data.value);
+          seventhDigits = response.data.value.itemCode[6];
         }
       })
       .catch((error) => {
         console.log(error);
-        alert(error);
       });
 
     setImmediate(() => {
@@ -585,8 +566,6 @@ const IndentL3 = () => {
     }
   }
   function CheckConsumerBase(inputObj) {
-    //console.log(inputObj,"CheckConsumerBase")
-    //console.log("Solitaire".toUpperCase(),"uppercase")
     if (inputObj.consumerBase === "Solitaire".toUpperCase()) {
       return true;
     } else {
@@ -594,11 +573,8 @@ const IndentL3 = () => {
     }
   }
 
-  //const check= CheckConsumerBase(feedShowState)
-  //console.log(check,"check")
   function DisplayValidationRunner() {
     setDigit(feedShowState.itemCode[6]);
-    console.log("inside Display Validation setDigit");
   }
 
   function stoneOptionsData(inputObj) {
@@ -621,8 +597,6 @@ const IndentL3 = () => {
     if (inputObj.si2Ij) {
       stoneOptionList[1 + stoneOptionList.length] = `si2Ij-${inputObj.si2Ij}`;
     }
-
-    // setImmediate(() => { setStoneOption(stoneOptionList) });
     return stoneOptionList;
   }
   function createTegOfItems(inputObj) {
@@ -639,12 +613,9 @@ const IndentL3 = () => {
   }
 
   function allDataChangeHandler(allValidationInput) {
-    console.log("All Data input  From  ", allValidationInput);
-
     setImmediate(() => {
       setAllDataFromValidation(allValidationInput);
     });
-    console.log("All Data validation From  ", allDataFromValidation);
   }
 
   function sizeUomQuantityResHandler(sizeUomQuantityData) {
@@ -763,7 +734,6 @@ const IndentL3 = () => {
               });
             } else {
               console.log(response.data.value);
-              alert(response.data.value);
             }
           },
           (error) => {
@@ -776,7 +746,6 @@ const IndentL3 = () => {
         .get(
           `${HostManager.mailHostAdmin}/npim/item/set/category/code/${feedShowState.itemCode}`
         )
-
         .then(
           (response) => {
             if (response.data.code == 1000) {
@@ -790,7 +759,6 @@ const IndentL3 = () => {
           },
           (error) => {
             console.log(error);
-            alert(error);
           }
         );
     } else {
@@ -833,7 +801,6 @@ const IndentL3 = () => {
               storeCode={storeCode}
             />
             <Loading flag={loading} />
-
             {resetDrop ? (
               <LowerHeader
                 onBar={onBarClick}
