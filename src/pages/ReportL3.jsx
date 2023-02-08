@@ -39,7 +39,6 @@ const ReportL3 = () => {
   const [dataRowInformation, setDataRowInformation] = useState({});
   const [showInfo, setShowInfo] = useState(false);
   const [digit, setDigit] = useState(false);
-  const [sizeOption, setSizeOption] = useState([]);
   const [modification, setModification] = useState(true);
   const [switchEnable, setSwitchEnable] = useState(false);
   const [setSelectState, setSetSelectState] = useState([]);
@@ -60,7 +59,6 @@ const ReportL3 = () => {
     findingsRes: "",
   });
   const reportDropHandler = (input) => {
-    console.log(input, "input");
     setReportLabel(input);
     // setImmediate(() => {
     //     setLoading(true);
@@ -78,10 +76,8 @@ const ReportL3 = () => {
     const confirmURL = `https://tanishqdigitalnpim.titan.in:8443/PNPIM/NPIML3//npim/item/wise/rpt/edr/L3/${storeCode}`;
     try {
       const response = await axios.post(confirmURL, rows);
-      console.log(response, "yes response");
       if (response.status === 200) {
         setPopupOpen(false);
-        console.log(response.data, "on YEs");
         //setSuccessCount(response.data)
       } else {
         alert("something went Wrong");
@@ -91,16 +87,12 @@ const ReportL3 = () => {
     }
   };
   let seventhDigits;
-  console.log(reportLabel, "alert reportLabel");
   useEffect(() => {
     setImmediate(() => {
       setLoading(true);
     });
 
     let urlReport;
-    console.log(reportLabel, "reportLabel from Switch");
-    console.log(urlReport, "urlReport from Switch");
-
     switch (reportLabel) {
       case "Item_Wise_Report":
         urlReport = `${UrlManager.itemWiseReportL3}${storeCode}`;
@@ -147,7 +139,6 @@ const ReportL3 = () => {
 
     axios.get(`${HostManager.mainHostL3}/npim/get/status/L3/${storeCode}`).then(
       (response) => {
-        console.log(response);
         if (response.data.code === "1001") {
           alert(response.data.value);
         } else {
@@ -183,7 +174,6 @@ const ReportL3 = () => {
         }
       } catch (err) {
         setSizeState([]);
-        console.log(err.message, "form display validation");
       }
     } else {
       setSizeState([]);
@@ -203,24 +193,6 @@ const ReportL3 = () => {
       icon: "ReportIcon",
     },
   ];
-
-  function extraCalls(itemCode) {
-    axios
-      .get(
-        `https://tanishqdigitalnpim.titan.in:8443/Npim/getSize/502783VWQR1A02`
-      )
-
-      .then(
-        (response) => {
-          setImmediate(() => {
-            setSizeOption(response.data.data);
-          });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }
 
   function scrollTop() {
     window.scrollTo({ top: "0", behavior: "smooth" });
@@ -472,8 +444,6 @@ const ReportL3 = () => {
       exStonequality: dataRowInformation.stoneQuality,
     };
 
-    console.log("input from thr L3 data update   inputData", inputData);
-
     setTimeout(() => {
       axios
         .post(`${HostManager.mainHostL3}/npim/update/responses`, inputData)
@@ -698,10 +668,7 @@ const ReportL3 = () => {
 
   const getAll = (name, value) => {
     allDataFromValidation[name] = value;
-
     setAllDataFromValidation();
-    console.log("data form the get all method   :", allDataFromValidation);
-    console.log("name : ", name, "value : ", value);
   };
 
   function tegSelectionResHandler(tegSelectionData) {
@@ -710,7 +677,6 @@ const ReportL3 = () => {
         .get(
           `${HostManager.mailHostAdmin}/npim/get/set/category/list/${dataRowInformation.itemCode}`
         )
-
         .then(
           (response) => {
             if (response.data.code == 1000) {
@@ -721,12 +687,10 @@ const ReportL3 = () => {
               });
             } else {
               console.log(response.data.value);
-              alert(response.data.value);
             }
           },
           (error) => {
             console.log(error);
-            alert(error);
           }
         );
     } else if (tegSelectionData.target.value === "Set") {
@@ -734,7 +698,6 @@ const ReportL3 = () => {
         .get(
           `${HostManager.mailHostAdmin}/npim/item/set/category/code/${dataRowInformation.itemCode}`
         )
-
         .then(
           (response) => {
             if (response.data.code == 1000) {
@@ -743,12 +706,10 @@ const ReportL3 = () => {
               });
             } else {
               console.log(response.data.value);
-              alert(response.data.value);
             }
           },
           (error) => {
             console.log(error);
-            alert(error);
           }
         );
     } else {
@@ -758,7 +719,6 @@ const ReportL3 = () => {
   function DisplayValidationRunner() {
     setImmediate(() => {
       setDigit(false);
-
       setAllDataFromValidation({
         sizeUomQuantityRes: [],
         sizeQuantityRes: [],
