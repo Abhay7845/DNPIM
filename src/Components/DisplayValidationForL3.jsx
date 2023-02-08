@@ -7,7 +7,6 @@ import {
   DropDownMaterialUI,
   DynamicMultiSelectAndInput,
   InputFieldMaterialUI,
-  MultiSelectAndInput,
   MultiSelectCoupleBand,
   MultiselectUomAndSize,
 } from "./ComponentForL3";
@@ -123,8 +122,8 @@ export default function DisplayValidationComponent(props) {
     }
   }, []);
 
+  console.log("feedShowState==>", digit);
   const chooseOption = ["Single_Tag", "Separate_Tag"];
-  console.log("tegOfItemOption==>", tegOfItemOption);
   useEffect(() => {
     axios.get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`).then(
       (response) => {
@@ -171,7 +170,7 @@ export default function DisplayValidationComponent(props) {
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
 
-  if (digit === "F" || digit === "R" || digit === "V" || digit === "W") {
+  if (digit === "F" || digit === "R" || digit === "V") {
     let sizeUomQuantity, sizeQuantity;
     if (digit === "V" && feedShowState.category === "BANGLE") {
       sizeUomQuantity = true;
@@ -228,7 +227,6 @@ export default function DisplayValidationComponent(props) {
         ) : (
           ""
         )}
-
         {tagOption === "Single_Tag" ? (
           <Grid item xs={12} sm={12}>
             <MultiSelectCoupleBand
@@ -279,7 +277,6 @@ export default function DisplayValidationComponent(props) {
       </>
     );
   } else if (
-    digit === "E" ||
     digit === "T" ||
     digit === "N" ||
     digit === "P" ||
@@ -293,35 +290,31 @@ export default function DisplayValidationComponent(props) {
     digit === "6" ||
     digit === "7"
   ) {
-    let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect, findings;
+    let TypeSet2, tegSelect, setSelect, findings;
     if (
       digit === "0" ||
       digit === "1" ||
       digit === "2" ||
-      digit === "P" ||
-      digit === "E" ||
-      digit === "N" ||
-      digit === "T"
-    ) {
-      //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
-      tegOfItemOption ? (tegQuantity = true) : (Quantity = true);
-    }
-    if ((digit === "N" || digit === "E" || digit === "2") && !cond) {
-      TypeSet2 = true;
-    }
-    if (
       digit === "3" ||
       digit === "4" ||
       digit === "5" ||
       digit === "6" ||
       digit === "7"
+    )
+      if ((digit === "N" || digit === "E" || digit === "2") && !cond) {
+        TypeSet2 = true;
+      }
+    if (
+      digit === "2" ||
+      digit === "3" ||
+      digit === "4" ||
+      digit === "5" ||
+      digit === "6"
     ) {
       tegSelect = true;
       setSelect = true;
-      Quantity = false;
-      // stoneQuality = false;
+      // Quantity = true;
     }
-
     return (
       <>
         {tegSelect ? (
@@ -334,37 +327,6 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-        {setSelect && setSelectOptions[0] ? (
-          <Grid item xs={12} sm={12}>
-            <DynamicMultiSelectAndInput
-              labelName="Set Select"
-              optionsList={setSelectOptions}
-              onChangeHandler={setSelectResHandler}
-              sizeUomQuantityResHandler={sizeUomQuantityResHandler}
-              //put props
-            />
-          </Grid>
-        ) : null}
-        {feedShowState.category === "SET1" ||
-        "SET2" ||
-        "SET3" ||
-        "SET4" ||
-        "SET5" ||
-        "SET6" ||
-        "SET7" ? (
-          <Grid item xs={12} sm={12}>
-            <MultiSelectAndInput
-              optionsList={option}
-              onChangeHandler={tegQuantityResHandler}
-              feedShowState={feedShowState}
-              findingsResHandler={findingsResHandler}
-              findingsOptions={findingsOption}
-              //put props
-            />
-          </Grid>
-        ) : (
-          ""
-        )}
         {TypeSet2 ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
@@ -388,35 +350,22 @@ export default function DisplayValidationComponent(props) {
       </>
     );
   } else {
-    let findings, stoneQuality, Quantity;
-
-    if (digit === "S" || digit === "D" || digit === "J") {
-      findings = true;
-    }
-    if (cond) {
-      stoneQuality = true;
-    }
-    Quantity = true;
     return (
       <>
-        {Quantity ? (
-          <Grid item xs={12} sm={12}>
-            <InputFieldMaterialUI
-              labelName="Quantity"
-              typeName="number"
-              onChangeHandler={quantityResHandler}
-              allDataFromValidation={allDataFromValidation}
-              // valueName={ }
-            />
-          </Grid>
-        ) : null}
+        <Grid item xs={12} sm={12}>
+          <InputFieldMaterialUI
+            labelName="Quantity"
+            typeName="number"
+            onChangeHandler={quantityResHandler}
+            allDataFromValidation={allDataFromValidation}
+          />
+        </Grid>
         {feedShowState.findings ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
-              labelName="Findings here"
+              labelName="Findings"
               onChangeHandler={findingsResHandler}
               optionsList={findingsOption}
-              // valueData=""
             />
           </Grid>
         ) : null}
