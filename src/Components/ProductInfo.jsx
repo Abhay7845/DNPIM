@@ -51,7 +51,7 @@ const useStyles = makeStyles({
     textAlign: "center",
   },
   hadding: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontSize: "18px",
     fontStretch: "normal",
     // lineHeight: 5.4,
@@ -60,7 +60,7 @@ const useStyles = makeStyles({
     textAlign: "left",
   },
   rowData: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontFamily: "Playfair Display,seri",
     fontSize: "18px",
     // lineHeight: '20px',
@@ -141,13 +141,7 @@ const ProductInfo = (props) => {
 
                   <h5 className={classes.proHeading}>Product Description</h5>
 
-                  <table
-                    style={{
-                      width: "100%",
-                      fontWeight: 900,
-                      letterSpacing: "2px",
-                    }}
-                  >
+                  <table className="w-100">
                     <tbody>
                       <tr>
                         <th className={classes.hadding}>Collection</th>

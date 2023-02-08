@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     borderColor: "white",
     letterSpacing: "2px",
     fontSize: "13px",
-    fontWeight: 500,
+    fontWeight: "bold",
     lineHeight: "normal",
   },
   tableCellConsumer: {
@@ -34,12 +34,12 @@ const useStyles = makeStyles({
     borderColor: "white",
     letterSpacing: "2px",
     fontSize: "13px",
-    fontWeight: 500,
+    fontWeight: "bold",
     lineHeight: "normal",
     cursor: "pointer",
     "&:focus,&:active": {
       color: "#000000",
-      fontWeight: 800,
+      fontWeight: "bold",
     },
   },
 });

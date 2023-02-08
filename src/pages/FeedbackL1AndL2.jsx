@@ -90,7 +90,7 @@ const useStyles = makeStyles({
   },
 
   hadding: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontSize: "18px",
     fontStretch: "normal",
     fontFamily: "Raleway, sans-serif",
@@ -98,7 +98,7 @@ const useStyles = makeStyles({
     textAlign: "left",
   },
   rowData: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontFamily: "Playfair Display,seri",
     fontSize: "18px",
     letterSpacing: "1px",
@@ -113,7 +113,7 @@ const useStyles = makeStyles({
     letterSpacing: "2px",
   },
   btn: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontSize: "14px",
     fontFamily: "Raleway, sans-serif",
     letterSpacing: "2px",
@@ -121,7 +121,7 @@ const useStyles = makeStyles({
   },
 
   btnSub: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontSize: "14px",
     fontFamily: "Raleway, sans-serif",
     letterSpacing: "2px",

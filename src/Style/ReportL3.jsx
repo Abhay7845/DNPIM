@@ -31,7 +31,7 @@ export const useStyle = makeStyles({
     fontWeight: "bolder",
   },
   btnSub: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontSize: "14px",
     padding: "5px",
     backgroundColor: "#832729",

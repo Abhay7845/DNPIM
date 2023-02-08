@@ -32,7 +32,7 @@ export const useStyles = makeStyles({
     marginTop: "3%",
   },
   hading: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontSize: "18px",
     fontStretch: "normal",
     fontFamily: "Raleway, sans-serif",
@@ -40,7 +40,7 @@ export const useStyles = makeStyles({
     textAlign: "left",
   },
   rowData: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontFamily: "Playfair Display,seri",
     fontSize: "18px",
     letterSpacing: "1px",

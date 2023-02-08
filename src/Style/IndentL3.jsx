@@ -29,7 +29,7 @@ export const useStyles = makeStyles({
     padding: "2%",
   },
   btn: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontSize: "14px",
     fontFamily: "Raleway, sans-serif",
     letterSpacing: "2px",
@@ -37,7 +37,7 @@ export const useStyles = makeStyles({
   },
 
   btnSub: {
-    fontWeight: 500,
+    fontWeight: "bold",
     fontSize: "14px",
     padding: "5px",
     backgroundColor: "#832729",
