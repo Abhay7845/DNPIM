@@ -419,33 +419,18 @@ const IndentL3 = () => {
                 });
                 // document.getElementById("result").style.visibility = "visible";
               });
-
               onClickNextPreBtnHandler("next");
               seventhDigits = response.data.value.itemCode[6];
             }
           })
           .catch((error) => {
-            // setAllDataFromValidation({
-            //   sizeUomQuantityRes: [],
-            //   sizeQuantityRes: [],
-            //   stoneQualityRes: "",
-            //   tegQuantityRes: [],
-            //   typeSet2Res: "",
-            //   quantityRes: "",
-            //   findingsRes: "",
-            // });
-
             console.log(error);
-            alert(error);
           });
         setImmediate(() => {
           setLoading(false);
         });
-
-        // digit = feedShowState.itemCode[6];
       }, 1000);
     }
-
     setImmediate(() => {
       setLoading(false);
     });
@@ -475,26 +460,17 @@ const IndentL3 = () => {
       });
 
       SetResetDrop(resetDrop);
-      // setProductDetails({
-      //   storeCode: storeCode,
-      //   collection: "ALL",
-      //   consumerBase: "ALL",
-      //   group: "ALL",
-      //   category: "ALL",
-      // });
     });
-
     setImmediate(() => {
       setLoading(false);
       SetResetDrop(true);
     });
   }
-
   const onClickNextPreBtnHandler = async (direction) => {
     setImmediate(() => {
       setLoading(true);
     });
-    //document.getElementById("result").style.visibility = "visible";
+    allDataFromValidation.quantityRes = "";
     const Input = {
       storeCode: storeCode,
       collection: productDetails.collection,
@@ -510,7 +486,7 @@ const IndentL3 = () => {
       .then((response) => {
         let mailSms = "";
         if (response.data.code === "1001") {
-          mailSms = "No more data available for the selected category.";
+          mailSms = "No more data available for the selected category";
           setImmediate(() => {
             setAlertPopupStatus({
               status: true,
@@ -535,7 +511,6 @@ const IndentL3 = () => {
       .catch((error) => {
         console.log(error);
       });
-
     setImmediate(() => {
       setLoading(false);
     });
