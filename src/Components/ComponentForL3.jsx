@@ -605,6 +605,7 @@ function MultiSelectAndInput(props) {
     Only_EAR_RING: false,
     Only_BANGLE: false,
     Only_NECKWEAR_OR_PENDANT: false,
+    Only_NECKWEAR: false,
   });
   const {
     feedShowState,
@@ -829,6 +830,11 @@ function MultiSelectAndInput(props) {
             ...old,
             [name]: value,
           };
+        case "Only_NECKWEAR":
+          return {
+            ...old,
+            [name]: value,
+          };
       }
     });
   };
@@ -917,7 +923,7 @@ function MultiSelectAndInput(props) {
           </tbody>
         </table>
       </div>
-      <table style={{ width: "100%", padding: 1, margin: 0 }}>
+      <table className="w-100">
         <tbody>
           {optionE.map((row, index) => (
             <tr

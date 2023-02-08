@@ -71,7 +71,6 @@ const LowerHeader = (props) => {
           };
       }
     });
-
     if (name === "collection") {
       setImmediate(() => {
         setLoading(true);
@@ -96,6 +95,7 @@ const LowerHeader = (props) => {
           },
           (error) => {
             console.log(error);
+            alert("No Data Available for Selected Value");
           }
         );
     } else if (name === "consumerBase") {
@@ -108,7 +108,6 @@ const LowerHeader = (props) => {
         )
         .then(
           (response) => {
-            console.log("response12==>", response.data);
             setDropValueForGroupState(response.data.value);
             setDropValueForCategoryState([]);
             setDropState((old) => {
@@ -122,6 +121,7 @@ const LowerHeader = (props) => {
           },
           (error) => {
             console.log(error);
+            alert("No Data Available for Selected Value");
           }
         );
     } else if (name === "groupData") {
@@ -159,7 +159,6 @@ const LowerHeader = (props) => {
     setBarOpener(!barOpener);
   };
 
-  console.log("props.L3==>", props);
   const mySearchClickHandler = () => {
     if (props.L3) {
       props.setAllDataFromValidation({

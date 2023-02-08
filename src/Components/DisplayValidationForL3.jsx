@@ -38,6 +38,12 @@ export default function DisplayValidationComponent(props) {
     setSelectResHandler,
     setSelectOptions,
   } = props;
+  const optionForSet2 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EAR_RING",
+    "Only_NECKWEAR",
+  ];
   const optionForSet4 = [
     "Single_Tag",
     "Separate_Tag",
@@ -91,9 +97,9 @@ export default function DisplayValidationComponent(props) {
     // if (digit === "1") {
     //   setOption(optionForSet1);
     // }
-    // if (digit === "2") {
-    //   setOption(optionForSet2);
-    // }
+    if (digit === "2") {
+      setOption(optionForSet2);
+    }
     // if (digit === "3") {
     //   setOption(optionForSet3);
     // }
@@ -186,7 +192,7 @@ export default function DisplayValidationComponent(props) {
     }
     return (
       <>
-        {sizeUomQuantity && SizeState[0] ? (
+        {feedShowState.category === "BANGLE" ? (
           <Grid item xs={12} sm={12}>
             <MultiselectUomAndSize
               labelName="Size/UOM/Quantity"
@@ -195,7 +201,9 @@ export default function DisplayValidationComponent(props) {
               //put props
             />
           </Grid>
-        ) : null}
+        ) : (
+          ""
+        )}
         {feedShowState.category === "FINGER RING" ? (
           <Grid item xs={12} sm={12}>
             <MultiSelectCoupleBand
@@ -337,21 +345,16 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
-        {Quantity ? (
-          <Grid item xs={12} sm={12}>
-            <InputFieldMaterialUI
-              labelName="Quantity"
-              typeName="number"
-              onChangeHandler={quantityResHandler}
-              allDataFromValidation={allDataFromValidation}
-              // valueName={ }
-            />
-          </Grid>
-        ) : null}
-        {tegQuantity ? (
+        {feedShowState.category === "SET1" ||
+        "SET2" ||
+        "SET3" ||
+        "SET4" ||
+        "SET5" ||
+        "SET6" ||
+        "SET7" ? (
           <Grid item xs={12} sm={12}>
             <MultiSelectAndInput
-              optionsList={tegOfItemOption}
+              optionsList={option}
               onChangeHandler={tegQuantityResHandler}
               feedShowState={feedShowState}
               findingsResHandler={findingsResHandler}
@@ -359,8 +362,9 @@ export default function DisplayValidationComponent(props) {
               //put props
             />
           </Grid>
-        ) : null}
-
+        ) : (
+          ""
+        )}
         {TypeSet2 ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
@@ -393,7 +397,6 @@ export default function DisplayValidationComponent(props) {
       stoneQuality = true;
     }
     Quantity = true;
-    console.log("digit123==>", digit);
     return (
       <>
         {Quantity ? (
