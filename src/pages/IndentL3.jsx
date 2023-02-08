@@ -57,7 +57,7 @@ const IndentL3 = () => {
     category: "ALL",
     itemCode: feedShowState.itemCode,
   });
-
+  console.log("productDetails==>", productDetails);
   const [statusData, setStatusData] = useState({});
   const [digit, setDigit] = useState();
   const [setSelectState, setSetSelectState] = useState([]);

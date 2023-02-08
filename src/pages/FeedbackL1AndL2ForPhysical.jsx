@@ -101,7 +101,7 @@ const FeedbackL1AndL2ForPhysical = () => {
               productDetails.group !== "ALL" ||
               productDetails.category !== "ALL"
             ) {
-              mailSms = "No more data available for the selected category.";
+              mailSms = " data available for the selected category.";
             } else {
               mailSms = response.data.value;
             }

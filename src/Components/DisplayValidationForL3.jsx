@@ -122,7 +122,7 @@ export default function DisplayValidationComponent(props) {
     }
   }, []);
 
-  console.log("feedShowState==>", digit);
+  console.log("feedShowState==>", feedShowState);
   const chooseOption = ["Single_Tag", "Separate_Tag"];
   useEffect(() => {
     axios.get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`).then(
@@ -279,7 +279,6 @@ export default function DisplayValidationComponent(props) {
   } else if (
     digit === "T" ||
     digit === "N" ||
-    digit === "P" ||
     digit === "2" ||
     digit === "3" ||
     digit === "0" ||
