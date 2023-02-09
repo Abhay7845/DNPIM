@@ -49,7 +49,7 @@ const IndentL3 = () => {
   });
 
   const [productDetails, setProductDetails] = useState({
-    storeCode: "",
+    storeCode: storeCode,
     collection: "ALL",
     consumerBase: "ALL",
     group: "ALL",
@@ -72,11 +72,11 @@ const IndentL3 = () => {
         let mailSms = "";
         if (response.data.code === "1001") {
           console.log("response.data.value==>", response);
-          // mailSms = "No more data available for the selected category";
+          mailSms = "No more data available for the selected category";
           setImmediate(() => {
             setAlertPopupStatus({
               status: true,
-              main: response.data.value,
+              main: mailSms,
               contain: "",
               mode: true,
             });
@@ -488,6 +488,7 @@ const IndentL3 = () => {
     await axios
       .post(`${HostManager.mainHost}/npim/get/product/details/PreNex`, Input)
       .then((response) => {
+        console.log("responseNext==>", response);
         let mailSms = "";
         if (response.data.code === "1001") {
           mailSms = "No more data available for the selected category";
@@ -500,7 +501,7 @@ const IndentL3 = () => {
             });
           });
         } else if (response.data.code === "1003") {
-          //document.getElementById("result").style.visibility = "hidden";
+          document.getElementById("result").style.visibility = "hidden";
           setAlertPopupStatus({
             status: true,
             main: response.data.value,

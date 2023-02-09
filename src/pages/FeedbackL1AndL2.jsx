@@ -406,7 +406,6 @@ const FeedbackL1AndL2 = () => {
     setImmediate(() => {
       setLoading(true);
     });
-
     const Input = {
       storeCode: storeCode,
       collection: productDetails.collection,
@@ -417,8 +416,6 @@ const FeedbackL1AndL2 = () => {
       direction: direction,
     };
 
-    console.log(Input);
-
     setTimeout(() => {
       axios
         .post(`${HostManager.mainHost}/npim/get/product/details/PreNex`, Input)
@@ -426,7 +423,6 @@ const FeedbackL1AndL2 = () => {
           console.log(responce.data);
           let mailSms = "";
           if (responce.data.code === "1001") {
-            // alert(responce.data.value)
             mailSms = "No more data available for the selected category.";
             setImmediate(() => {
               setAlertPopupStatus({
@@ -453,7 +449,6 @@ const FeedbackL1AndL2 = () => {
           alert(error);
         });
       setSwitchData(true);
-
       setImmediate(() => {
         setLoading(false);
       });
