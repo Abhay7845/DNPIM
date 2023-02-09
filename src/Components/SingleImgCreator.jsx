@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 const SingleImgCreator = (props) => {
   const { itemCode } = props;
-  // const [imgLink, setImgLink] = useState();
   const [img, setImg] = useState("");
 
   const getImages = async () => {
