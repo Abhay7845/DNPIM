@@ -1,16 +1,12 @@
-import React from "react"
+import React from "react";
 import { GlassMagnifier } from "react-image-magnifiers";
-import image from "../images/bg.jpeg"
+import image from "../images/bg.jpeg";
 
 const Glasssmegmifi = () => {
-
-
-
-    <GlassMagnifier
-        imageSrc={image}
-        imageAlt="Example"
-        largeImageSrc="./large-image.jpg" // Optional
-    />
-
+  <GlassMagnifier
+    imageSrc={image}
+    imageAlt="Example"
+    largeImageSrc="./large-image.jpg" // Optional
+  />;
 };
 export default Glasssmegmifi;
