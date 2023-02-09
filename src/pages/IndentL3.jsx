@@ -206,9 +206,9 @@ const IndentL3 = () => {
       digit === "E" ||
       digit === "N" ||
       digit === "P" ||
-      digit === "2" ||
       digit === "0" ||
       digit === "1" ||
+      digit === "2" ||
       digit === "3" ||
       digit === "4" ||
       digit === "5" ||
@@ -219,6 +219,7 @@ const IndentL3 = () => {
       if (
         digit === "0" ||
         digit === "1" ||
+        digit === "2" ||
         digit === "P" ||
         digit === "E" ||
         digit === "N"
@@ -253,7 +254,7 @@ const IndentL3 = () => {
         Quantity: Quantity ? true : false,
         tegQuantityRes: tegQuantity ? true : false,
         typeSet2Res: TypeSet2 ? true : false,
-        // findingsRes:findings?true:false,
+        // findingsRes: findings ? true : false,
         stoneQuality: stoneQualityCheck(feedShowState) ? true : false,
       });
     } else {
@@ -273,8 +274,8 @@ const IndentL3 = () => {
     }
   }
   const onClickSubmitBtnHandler = (event) => {
-    const data = NewDisplayValidation();
     let msg = {};
+    const data = NewDisplayValidation();
     const result = Object.keys(data).filter(
       (eachKey) => data[eachKey] === true
     );
@@ -298,10 +299,11 @@ const IndentL3 = () => {
       setLoading(true);
     });
 
-    // let stdUcpNotSelectData;
-    // if (!msg.status && Object.keys(msg).length > 0) {
-    //   Error(msg.message);
-    // } else {
+    let stdUcpNotSelectData;
+    if (!msg.status && Object.keys(msg).length > 0) {
+      Error(msg.message);
+    }
+    // else {
     //   stdUcpNotSelectData = `stdUcp-${0}`;
 
     //   const inputData = {
