@@ -122,7 +122,6 @@ export default function DisplayValidationComponent(props) {
     }
   }, []);
 
-  console.log("feedShowState==>", feedShowState);
   const chooseOption = ["Single_Tag", "Separate_Tag"];
   useEffect(() => {
     axios.get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`).then(

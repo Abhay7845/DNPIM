@@ -58,6 +58,8 @@ const ReportL3 = () => {
     quantityRes: "",
     findingsRes: "",
   });
+
+  console.log("allDataFromValidation==>", allDataFromValidation);
   const reportDropHandler = (input) => {
     setReportLabel(input);
     // setImmediate(() => {
@@ -610,6 +612,7 @@ const ReportL3 = () => {
     // getAll("stoneQualityRes", stoneQualityData.target.value)
   }
   function tegQuantityResHandler(tegQuantityData) {
+    console.log("tegQuantityData==>", tegQuantityData);
     setImmediate(() => {
       setAllDataFromValidation({
         sizeUomQuantityRes: allDataFromValidation.sizeUomQuantityRes,

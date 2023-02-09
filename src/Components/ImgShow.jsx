@@ -42,7 +42,6 @@ const ImgShow = (props) => {
       setValue(1);
     }
   }, [props]);
-  console.log("value==>", value);
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (event.target.src) {
@@ -54,8 +53,6 @@ const ImgShow = (props) => {
 
   const imageCode = props.itemCode !== "" && props.itemCode.substring(2, 9);
   const combineImage = props.imgLink !== "" && `${props.imgLink}${imageCode}`;
-  console.log("props==>", props);
-  console.log("combineImage==>", combineImage);
 
   return (
     <>

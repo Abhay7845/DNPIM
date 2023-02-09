@@ -46,7 +46,7 @@ const IndentL3 = () => {
     quantityRes: "",
     findingsRes: "",
   });
-
+  console.log("allDataFromValidation==>", allDataFromValidation);
   const [productDetails, setProductDetails] = useState({
     storeCode: storeCode,
     collection: "ALL",
@@ -55,7 +55,6 @@ const IndentL3 = () => {
     category: "ALL",
     itemCode: feedShowState.itemCode,
   });
-  console.log("productDetails==>", productDetails);
   const [statusData, setStatusData] = useState({});
   const [digit, setDigit] = useState();
   const [setSelectState, setSetSelectState] = useState([]);
@@ -157,7 +156,6 @@ const IndentL3 = () => {
     },
   ];
   const onSearchClick = (dropState) => {
-    console.log("dropState123==>", dropState);
     setProductDetails({
       storeCode: storeCode,
       collection: dropState.collection,
@@ -169,7 +167,7 @@ const IndentL3 = () => {
   };
 
   const onBarClick = () => {};
-
+  console.log("digit==>", digit);
   function NewDisplayValidation() {
     let data = {};
     if (
@@ -182,7 +180,6 @@ const IndentL3 = () => {
       digit === "Y"
     ) {
       let sizeUomQuantity, sizeQuantity;
-
       if (digit === "V" && feedShowState.category === "BANGLE") {
         sizeUomQuantity = true;
       } else if (
@@ -200,7 +197,6 @@ const IndentL3 = () => {
       ) {
         sizeQuantity = true;
       }
-
       return (data = {
         sizeUomQuantityRes: sizeUomQuantity && SizeState[0] ? true : false,
         sizeQuantityRes: sizeQuantity && SizeState[0] ? true : false,
@@ -211,7 +207,6 @@ const IndentL3 = () => {
       digit === "N" ||
       digit === "P" ||
       digit === "2" ||
-      digit === "3" ||
       digit === "0" ||
       digit === "1" ||
       digit === "3" ||
@@ -221,11 +216,9 @@ const IndentL3 = () => {
       digit === "7"
     ) {
       let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect, findings;
-
       if (
         digit === "0" ||
         digit === "1" ||
-        digit === "2" ||
         digit === "P" ||
         digit === "E" ||
         digit === "N"
@@ -235,14 +228,12 @@ const IndentL3 = () => {
           ? (tegQuantity = true)
           : (Quantity = true);
       }
-
       if (
         (digit === "N" || digit === "E" || digit === "2") &&
         !stoneQualityCheck(feedShowState)
       ) {
         TypeSet2 = true;
       }
-
       if (
         digit === "3" ||
         digit === "4" ||
@@ -267,14 +258,12 @@ const IndentL3 = () => {
       });
     } else {
       let findings, stoneQuality, Quantity;
-
       if (digit === "S" || digit === "D" || digit === "J") {
         findings = true;
       }
       if (stoneQualityCheck(feedShowState)) {
         stoneQuality = true;
       }
-
       Quantity = true;
       return (data = {
         quantityRes: Quantity ? true : false,
@@ -284,157 +273,157 @@ const IndentL3 = () => {
     }
   }
   const onClickSubmitBtnHandler = (event) => {
+    const data = NewDisplayValidation();
     let msg = {};
-    // const data = NewDisplayValidation();
-    // const result = Object.keys(data).filter(
-    //   (eachKey) => data[eachKey] === true
-    // );
-    // for (let key of result) {
-    //   console.log(key, "result");
-    //   for (let resultKey of Object.keys(allDataFromValidation)) {
-    //     if (
-    //       key === resultKey &&
-    //       allDataFromValidation[resultKey].length === 0
-    //     ) {
-    //       msg = {
-    //         ...msg,
-    //         status: false,
-    //         message: `${result.join("/")} is required`,
-    //       };
-    //     }
-    //   }
-    // }
+    const result = Object.keys(data).filter(
+      (eachKey) => data[eachKey] === true
+    );
+    console.log("result==>", result);
+    for (let key of result) {
+      for (let resultKey of Object.keys(allDataFromValidation)) {
+        if (
+          key === resultKey &&
+          allDataFromValidation[resultKey].length === 0
+        ) {
+          msg = {
+            ...msg,
+            status: false,
+            message: `${result.join("/")} is required`,
+          };
+        }
+      }
+    }
 
     setImmediate(() => {
       setLoading(true);
     });
 
-    let stdUcpNotSelectData;
-    if (!msg.status && Object.keys(msg).length > 0) {
-      Error(msg.message);
-    } else {
-      stdUcpNotSelectData = `stdUcp-${0}`;
+    // let stdUcpNotSelectData;
+    // if (!msg.status && Object.keys(msg).length > 0) {
+    //   Error(msg.message);
+    // } else {
+    //   stdUcpNotSelectData = `stdUcp-${0}`;
 
-      const inputData = {
-        itemCode: feedShowState.itemCode,
-        strCode: storeCode,
-        saleable: "",
-        reasons: "",
-        childNodesE: feedShowState.childNodesE,
-        childNodesN: feedShowState.childNodesN,
-        findings: allDataFromValidation.findingsRes,
-        indQty: allDataFromValidation.quantityRes,
-        indCategory: feedShowState.category,
-        submitStatus: "indent",
-        set2Type: allDataFromValidation.typeSet2Res,
-        stoneQuality: allDataFromValidation.stoneQualityRes
-          ? allDataFromValidation.stoneQualityRes
-          : stdUcpNotSelectData,
-        stoneQualityVal: feedShowState.stoneQualityVal,
-        rsoName: rsoName,
-        npimEventNo: feedShowState.npimEventNo,
-        indentLevelType: feedShowState.itemLevelType,
-        collection: productDetails.collection,
-        consumerbase: productDetails.consumerBase,
-        itgroup: productDetails.group,
-        category: productDetails.category,
-        sizeUomQuantitys: allDataFromValidation.sizeUomQuantityRes,
-        sizeQuantitys: allDataFromValidation.sizeQuantityRes,
-        tagQuantitys: allDataFromValidation.tegQuantityRes,
-      };
+    //   const inputData = {
+    //     itemCode: feedShowState.itemCode,
+    //     strCode: storeCode,
+    //     saleable: "",
+    //     reasons: "",
+    //     childNodesE: feedShowState.childNodesE,
+    //     childNodesN: feedShowState.childNodesN,
+    //     findings: allDataFromValidation.findingsRes,
+    //     indQty: allDataFromValidation.quantityRes,
+    //     indCategory: feedShowState.category,
+    //     submitStatus: "indent",
+    //     set2Type: allDataFromValidation.typeSet2Res,
+    //     stoneQuality: allDataFromValidation.stoneQualityRes
+    //       ? allDataFromValidation.stoneQualityRes
+    //       : stdUcpNotSelectData,
+    //     stoneQualityVal: feedShowState.stoneQualityVal,
+    //     rsoName: rsoName,
+    //     npimEventNo: feedShowState.npimEventNo,
+    //     indentLevelType: feedShowState.itemLevelType,
+    //     collection: productDetails.collection,
+    //     consumerbase: productDetails.consumerBase,
+    //     itgroup: productDetails.group,
+    //     category: productDetails.category,
+    //     sizeUomQuantitys: allDataFromValidation.sizeUomQuantityRes,
+    //     sizeQuantitys: allDataFromValidation.sizeQuantityRes,
+    //     tagQuantitys: allDataFromValidation.tegQuantityRes,
+    //   };
 
-      DisplayValidationRunner();
+    //   DisplayValidationRunner();
 
-      setTimeout(() => {
-        axios
-          .post(
-            `${HostManager.mainHostL3}/npim/insert/responses/from/L3`,
-            inputData
-          )
-          .then((response) => {
-            let mailSms = "";
-            if (response.data.code === "1001") {
-              if (
-                productDetails.collection == "ALL" ||
-                productDetails.consumerBase == "ALL" ||
-                productDetails.group == "ALL" ||
-                productDetails.category == "ALL"
-              ) {
-                mailSms =
-                  "You have successfully completed the Indented. Thankyou.";
-              } else if (
-                productDetails.collection !== "ALL" ||
-                productDetails.consumerBase !== "ALL" ||
-                productDetails.group !== "ALL" ||
-                productDetails.category !== "ALL"
-              ) {
-                mailSms = "No more data available for the selected category.";
-              } else {
-                mailSms = response.data.value;
-              }
+    //   setTimeout(() => {
+    //     axios
+    //       .post(
+    //         `${HostManager.mainHostL3}/npim/insert/responses/from/L3`,
+    //         inputData
+    //       )
+    //       .then((response) => {
+    //         let mailSms = "";
+    //         if (response.data.code === "1001") {
+    //           if (
+    //             productDetails.collection == "ALL" ||
+    //             productDetails.consumerBase == "ALL" ||
+    //             productDetails.group == "ALL" ||
+    //             productDetails.category == "ALL"
+    //           ) {
+    //             mailSms =
+    //               "You have successfully completed the Indented. Thankyou.";
+    //           } else if (
+    //             productDetails.collection !== "ALL" ||
+    //             productDetails.consumerBase !== "ALL" ||
+    //             productDetails.group !== "ALL" ||
+    //             productDetails.category !== "ALL"
+    //           ) {
+    //             mailSms = "No more data available for the selected category.";
+    //           } else {
+    //             mailSms = response.data.value;
+    //           }
 
-              setImmediate(() => {
-                setAlertPopupStatus({
-                  status: true,
-                  main: mailSms,
-                  contain: "",
-                  mode: true,
-                });
-              });
+    //           setImmediate(() => {
+    //             setAlertPopupStatus({
+    //               status: true,
+    //               main: mailSms,
+    //               contain: "",
+    //               mode: true,
+    //             });
+    //           });
 
-              setAllDataFromValidation({
-                sizeUomQuantityRes: [],
-                sizeQuantityRes: [],
-                stoneQualityRes: "",
-                tegQuantityRes: [],
-                typeSet2Res: "",
-                quantityRes: "",
-                findingsRes: "",
-              });
-              onClickNextPreBtnHandler("next");
-            } else {
-              setImmediate(() => {
-                //  setStatusRefresh(!statusRefresh);
-                setImmediate(() => {
-                  setAlertPopupStatus({
-                    status: true,
-                    main: "Data has been saved Successfully",
-                    contain: "",
-                    mode: true,
-                  });
-                });
-                setDigit();
-                //setFeedShowState(response.data.value);
-                //document.getElementById("result").style.visibility = "hidden";
-                setImmediate(() => {
-                  setAllDataFromValidation({
-                    sizeUomQuantityRes: [],
-                    sizeQuantityRes: [],
-                    stoneQualityRes: "",
-                    tegQuantityRes: [],
-                    typeSet2Res: "",
-                    quantityRes: "",
-                    findingsRes: "",
-                  });
-                });
+    //           setAllDataFromValidation({
+    //             sizeUomQuantityRes: [],
+    //             sizeQuantityRes: [],
+    //             stoneQualityRes: "",
+    //             tegQuantityRes: [],
+    //             typeSet2Res: "",
+    //             quantityRes: "",
+    //             findingsRes: "",
+    //           });
+    //           onClickNextPreBtnHandler("next");
+    //         } else {
+    //           setImmediate(() => {
+    //             //  setStatusRefresh(!statusRefresh);
+    //             setImmediate(() => {
+    //               setAlertPopupStatus({
+    //                 status: true,
+    //                 main: "Data has been saved Successfully",
+    //                 contain: "",
+    //                 mode: true,
+    //               });
+    //             });
+    //             setDigit();
+    //             //setFeedShowState(response.data.value);
+    //             //document.getElementById("result").style.visibility = "hidden";
+    //             setImmediate(() => {
+    //               setAllDataFromValidation({
+    //                 sizeUomQuantityRes: [],
+    //                 sizeQuantityRes: [],
+    //                 stoneQualityRes: "",
+    //                 tegQuantityRes: [],
+    //                 typeSet2Res: "",
+    //                 quantityRes: "",
+    //                 findingsRes: "",
+    //               });
+    //             });
 
-                setImmediate(() => {
-                  setLoading(false);
-                });
-                // document.getElementById("result").style.visibility = "visible";
-              });
-              onClickNextPreBtnHandler("next");
-              seventhDigits = response.data.value.itemCode[6];
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        setImmediate(() => {
-          setLoading(false);
-        });
-      }, 1000);
-    }
+    //             setImmediate(() => {
+    //               setLoading(false);
+    //             });
+    //             // document.getElementById("result").style.visibility = "visible";
+    //           });
+    //           onClickNextPreBtnHandler("next");
+    //           seventhDigits = response.data.value.itemCode[6];
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //     setImmediate(() => {
+    //       setLoading(false);
+    //     });
+    //   }, 1000);
+    // }
     setImmediate(() => {
       setLoading(false);
     });
@@ -643,6 +632,7 @@ const IndentL3 = () => {
     // getAll("stoneQualityRes", stoneQualityData.target.value)
   }
   function tegQuantityResHandler(tegQuantityData) {
+    console.log("tegQuantityData==>", tegQuantityData);
     setImmediate(() => {
       setAllDataFromValidation({
         sizeUomQuantityRes: allDataFromValidation.sizeUomQuantityRes,
@@ -937,7 +927,7 @@ const IndentL3 = () => {
                             }}
                           />
                         ) : (
-                          "SUBMIT"
+                          "SUBMIT HE"
                         )}
                       </Button>
                     </Grid>

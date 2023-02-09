@@ -1305,7 +1305,7 @@ function DynamicMultiSelectAndInput(props) {
         };
       }
     }
-    console.log("get data ", getData);
+    console.log("getData==>", getData);
     return onChangeHandler(getData);
   };
   const enableRow = (lableValue) => {
@@ -1319,7 +1319,6 @@ function DynamicMultiSelectAndInput(props) {
 
   const childNodeV = feedShowState.childNodeV;
   // const childNodeF = feedShowState.childNodeF;
-  console.log("ChildNodeV==>", ChildNodeV);
 
   useEffect(() => {
     axios
