@@ -37,3 +37,10 @@
         margin-top: 65%;
     }
 }
+
+
+@media screen and (max-width:600px) {
+    .ProductDataDetails {
+        margin-top: 3%;
+    }
+}

@@ -48,6 +48,8 @@ const IndentL3 = () => {
     findingsRes: "",
   });
 
+  console.log("allDataFromValidation==>", allDataFromValidation);
+
   const [productDetails, setProductDetails] = useState({
     storeCode: storeCode,
     collection: "ALL",
@@ -800,7 +802,6 @@ const IndentL3 = () => {
                 itemCode={feedShowState.itemCode}
                 imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
                 videoLink={feedShowState.videoLink || ""}
-                // imgLink={img}
               />
             </Grid>
             <Grid item xs={12} sm={7}>
