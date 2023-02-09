@@ -37,7 +37,6 @@ const IndentL3 = () => {
     contain: "",
     mode: false,
   });
-
   const [allDataFromValidation, setAllDataFromValidation] = useState({
     sizeUomQuantityRes: [],
     sizeQuantityRes: [],
@@ -47,8 +46,6 @@ const IndentL3 = () => {
     quantityRes: "",
     findingsRes: "",
   });
-
-  console.log("allDataFromValidation==>", allDataFromValidation);
 
   const [productDetails, setProductDetails] = useState({
     storeCode: storeCode,
@@ -94,10 +91,12 @@ const IndentL3 = () => {
           });
         } else if (response.data.code === "1000") {
           console.log("response.data.value==>", response.data);
-          setFeedShowState(response.data.value);
-          setDigit(response.data.value.itemCode[6]);
-          seventhDigits = response.data.value.itemCode[6];
-          // DisplayValidationRunner();
+          setImmediate(() => {
+            setFeedShowState(response.data.value);
+            setDigit(response.data.value.itemCode[6]);
+            seventhDigits = response.data.value.itemCode[6];
+            // DisplayValidationRunner();
+          });
         }
       })
       .catch((error) => {
@@ -121,7 +120,7 @@ const IndentL3 = () => {
     setImmediate(() => {
       setLoading(false);
     });
-  }, [productDetails, feedShowState.itemCode]);
+  }, [productDetails]);
   useEffect(async () => {
     if (feedShowState.itemCode !== "") {
       try {
@@ -159,14 +158,13 @@ const IndentL3 = () => {
   ];
   const onSearchClick = (dropState) => {
     console.log("dropState123==>", dropState);
-    setImmediate(() => {
-      setProductDetails({
-        storeCode: storeCode,
-        collection: dropState.collection,
-        consumerBase: dropState.consumerBase,
-        group: dropState.groupData,
-        category: dropState.category,
-      });
+    setProductDetails({
+      storeCode: storeCode,
+      collection: dropState.collection,
+      consumerBase: dropState.consumerBase,
+      group: dropState.groupData,
+      category: dropState.category,
+      itemCode: "",
     });
   };
 
@@ -486,7 +484,7 @@ const IndentL3 = () => {
       itemCode: feedShowState.itemCode,
       direction: direction,
     };
-
+    console.log("Input==>", Input);
     await axios
       .post(`${HostManager.mainHost}/npim/get/product/details/PreNex`, Input)
       .then((response) => {
@@ -510,9 +508,11 @@ const IndentL3 = () => {
             contain: "",
             mode: true,
           });
-        } else {
-          setFeedShowState(response.data.value);
-          seventhDigits = response.data.value.itemCode[6];
+        } else if (response.data.code === "1000") {
+          setImmediate(() => {
+            setFeedShowState(response.data.value);
+            seventhDigits = response.data.value.itemCode[6];
+          });
         }
       })
       .catch((error) => {
@@ -951,7 +951,7 @@ const IndentL3 = () => {
                         variant="outlined"
                         fullWidth
                       >
-                        Next
+                        Next here
                       </Button>
                     </Grid>
                   </Grid>

@@ -18,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     maxWidth: "100%",
     minWidth: "100%",
-    margin: "0%",
-    padding: "0%",
   },
   itemCodeColor: {
     backgroundColor: "#c4c4c0",

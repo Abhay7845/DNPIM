@@ -278,7 +278,6 @@ export default function DisplayValidationComponent(props) {
     );
   } else if (
     digit === "T" ||
-    digit === "N" ||
     digit === "2" ||
     digit === "3" ||
     digit === "0" ||
