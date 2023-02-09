@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./ImgShow.css";
-import image from "../images/index.jpeg";
 import ReactImageMagnify from "react-image-magnify";
 import {
   makeStyles,
@@ -11,17 +9,13 @@ import {
   Avatar,
   CardActionArea,
   Card,
-  Typography,
 } from "@material-ui/core";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import { useEffect } from "react";
 import { loadingGif } from "../images/images";
-import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    // width: '94.5%',
     maxWidth: "100%",
     minWidth: "100%",
     margin: "0%",
@@ -30,10 +24,6 @@ const useStyles = makeStyles((theme) => ({
   itemCodeColor: {
     backgroundColor: "#c4c4c0",
   },
-  // cardStyle: {
-  //     // maxWidth: "35rem",
-  //     marginLeft: "0%"
-  // },
   hidden: {
     display: "none",
   },
@@ -45,19 +35,16 @@ const ImgShow = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [ImgLoad, setImgLoad] = React.useState(true);
-  const [imgLink, setImgLink] = React.useState(props.videoLink);
-  const [img, setimg] = React.useState("");
-
+  const [imgLink, setImgLink] = React.useState("");
   useEffect(() => {
     setImgLink(props.videoLink);
-
     if (props.videoLink) {
       setValue(0);
     } else {
       setValue(1);
     }
   }, [props]);
-
+  console.log("value==>", value);
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (event.target.src) {
@@ -68,7 +55,9 @@ const ImgShow = (props) => {
   };
 
   const imageCode = props.itemCode !== "" && props.itemCode.substring(2, 9);
-  const conbineImage = props.imgLink !== "" && `${props.imgLink}${imageCode}`;
+  const combineImage = props.imgLink !== "" && `${props.imgLink}${imageCode}`;
+  console.log("props==>", props);
+  console.log("combineImage==>", combineImage);
 
   return (
     <>
@@ -86,23 +75,23 @@ const ImgShow = (props) => {
               <ReactImageMagnify
                 {...{
                   smallImage: {
-                    src: ImgLoad ? loadingGif : `${conbineImage}_1.jpg`,
+                    src: ImgLoad ? loadingGif : `${combineImage}_${value}.jpg`,
                     height: 472,
                     width: window.innerWidth * (40.41145833 / 100),
                     alt: "Image is not available",
                     onLoad: () => {
-                      conbineImage.length <= 0
+                      combineImage.length <= 0
                         ? setImgLoad(true)
                         : setImgLoad(false);
                     },
                   },
                   largeImage: {
-                    src: ImgLoad ? loadingGif : `${conbineImage}_1.jpg`,
-                    width: 1500,
-                    height: 1500,
+                    src: ImgLoad ? loadingGif : `${combineImage}_${value}.jpg`,
+                    width: 1000,
+                    height: 900,
                     alt: "Image is not available",
                     onLoad: () => {
-                      conbineImage.length <= 0
+                      combineImage.length <= 0
                         ? setImgLoad(true)
                         : setImgLoad(false);
                     },
@@ -128,23 +117,23 @@ const ImgShow = (props) => {
             <Tab style={{ minWidth: "1%" }} icon={<PlayCircleOutlineIcon />} />
             <Tab
               style={{ minWidth: "1%" }}
-              icon={<Avatar variant="square" src={`${conbineImage}_1.jpg`} />}
+              icon={<Avatar variant="square" src={`${combineImage}_1.jpg`} />}
             />
             <Tab
               style={{ minWidth: "1%" }}
-              icon={<Avatar variant="square" src={`${conbineImage}_2.jpg`} />}
+              icon={<Avatar variant="square" src={`${combineImage}_2.jpg`} />}
             />
             <Tab
               style={{ minWidth: "1%" }}
-              icon={<Avatar variant="square" src={`${conbineImage}_3.jpg`} />}
+              icon={<Avatar variant="square" src={`${combineImage}_3.jpg`} />}
             />
             <Tab
               style={{ minWidth: "1%" }}
-              icon={<Avatar variant="square" src={`${conbineImage}_4.jpg`} />}
+              icon={<Avatar variant="square" src={`${combineImage}_4.jpg`} />}
             />
             <Tab
               style={{ minWidth: "1%" }}
-              icon={<Avatar variant="square" src={`${conbineImage}_5.jpg`} />}
+              icon={<Avatar variant="square" src={`${combineImage}_5.jpg`} />}
             />
           </Tabs>
         </AppBar>

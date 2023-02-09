@@ -799,7 +799,7 @@ const IndentL3 = () => {
                 itemCode={feedShowState.itemCode}
                 imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
                 videoLink={feedShowState.videoLink || ""}
-                //imgLink={img}
+                // imgLink={img}
               />
             </Grid>
             <Grid item xs={12} sm={7}>
