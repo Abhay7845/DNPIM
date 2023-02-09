@@ -49,7 +49,7 @@ const IndentL3 = () => {
   });
 
   const [productDetails, setProductDetails] = useState({
-    storeCode: storeCode,
+    storeCode: "",
     collection: "ALL",
     consumerBase: "ALL",
     group: "ALL",
@@ -72,11 +72,11 @@ const IndentL3 = () => {
         let mailSms = "";
         if (response.data.code === "1001") {
           console.log("response.data.value==>", response);
-          mailSms = "No more data available for the selected category";
+          // mailSms = "No more data available for the selected category";
           setImmediate(() => {
             setAlertPopupStatus({
               status: true,
-              main: mailSms,
+              main: response.data.value,
               contain: "",
               mode: true,
             });

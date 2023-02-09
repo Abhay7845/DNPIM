@@ -108,6 +108,7 @@ const LowerHeader = (props) => {
         )
         .then(
           (response) => {
+            console.log("response2==>", response.data);
             setDropValueForGroupState(response.data.value);
             setDropValueForCategoryState([]);
             setDropState((old) => {
@@ -135,7 +136,7 @@ const LowerHeader = (props) => {
         )
         .then(
           (response) => {
-            console.log("response123==>", response.data);
+            console.log("response3==>", response.data);
             setDropValueForCategoryState(response.data.value);
             setDropState((old) => {
               old.category = "ALL";
