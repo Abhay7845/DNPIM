@@ -927,7 +927,7 @@ const IndentL3 = () => {
                             }}
                           />
                         ) : (
-                          "SUBMIT HE"
+                          "SUBMIT"
                         )}
                       </Button>
                     </Grid>
@@ -941,7 +941,7 @@ const IndentL3 = () => {
                         variant="outlined"
                         fullWidth
                       >
-                        Next here
+                        Next
                       </Button>
                     </Grid>
                   </Grid>
