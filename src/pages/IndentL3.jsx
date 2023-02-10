@@ -302,130 +302,128 @@ const IndentL3 = () => {
     let stdUcpNotSelectData;
     if (!msg.status && Object.keys(msg).length > 0) {
       Error(msg.message);
+    } else {
+      stdUcpNotSelectData = `stdUcp-${0}`;
+      const inputData = {
+        itemCode: feedShowState.itemCode,
+        strCode: storeCode,
+        saleable: "",
+        reasons: "",
+        childNodesE: feedShowState.childNodesE,
+        childNodesN: feedShowState.childNodesN,
+        findings: allDataFromValidation.findingsRes,
+        indQty: allDataFromValidation.quantityRes,
+        indCategory: feedShowState.category,
+        submitStatus: "indent",
+        set2Type: allDataFromValidation.typeSet2Res,
+        stoneQuality: allDataFromValidation.stoneQualityRes
+          ? allDataFromValidation.stoneQualityRes
+          : stdUcpNotSelectData,
+        stoneQualityVal: feedShowState.stoneQualityVal,
+        rsoName: rsoName,
+        npimEventNo: feedShowState.npimEventNo,
+        indentLevelType: feedShowState.itemLevelType,
+        collection: productDetails.collection,
+        consumerbase: productDetails.consumerBase,
+        itgroup: productDetails.group,
+        category: productDetails.category,
+        sizeUomQuantitys: allDataFromValidation.sizeUomQuantityRes,
+        sizeQuantitys: allDataFromValidation.sizeQuantityRes,
+        tagQuantitys: allDataFromValidation.tegQuantityRes,
+      };
+
+      DisplayValidationRunner();
+
+      setTimeout(() => {
+        axios
+          .post(
+            `${HostManager.mainHostL3}/npim/insert/responses/from/L3`,
+            inputData
+          )
+          .then((response) => {
+            let mailSms = "";
+            if (response.data.code === "1001") {
+              if (
+                productDetails.collection == "ALL" ||
+                productDetails.consumerBase == "ALL" ||
+                productDetails.group == "ALL" ||
+                productDetails.category == "ALL"
+              ) {
+                mailSms =
+                  "You have successfully completed the Indented. Thankyou.";
+              } else if (
+                productDetails.collection !== "ALL" ||
+                productDetails.consumerBase !== "ALL" ||
+                productDetails.group !== "ALL" ||
+                productDetails.category !== "ALL"
+              ) {
+                mailSms = "No more data available for the selected category.";
+              } else {
+                mailSms = response.data.value;
+              }
+
+              setImmediate(() => {
+                setAlertPopupStatus({
+                  status: true,
+                  main: mailSms,
+                  contain: "",
+                  mode: true,
+                });
+              });
+
+              setAllDataFromValidation({
+                sizeUomQuantityRes: [],
+                sizeQuantityRes: [],
+                stoneQualityRes: "",
+                tegQuantityRes: [],
+                typeSet2Res: "",
+                quantityRes: "",
+                findingsRes: "",
+              });
+              onClickNextPreBtnHandler("next");
+            } else {
+              setImmediate(() => {
+                //  setStatusRefresh(!statusRefresh);
+                setImmediate(() => {
+                  setAlertPopupStatus({
+                    status: true,
+                    main: "Data has been saved Successfully",
+                    contain: "",
+                    mode: true,
+                  });
+                });
+                setDigit();
+                //setFeedShowState(response.data.value);
+                //document.getElementById("result").style.visibility = "hidden";
+                setImmediate(() => {
+                  setAllDataFromValidation({
+                    sizeUomQuantityRes: [],
+                    sizeQuantityRes: [],
+                    stoneQualityRes: "",
+                    tegQuantityRes: [],
+                    typeSet2Res: "",
+                    quantityRes: "",
+                    findingsRes: "",
+                  });
+                });
+
+                setImmediate(() => {
+                  setLoading(false);
+                });
+                // document.getElementById("result").style.visibility = "visible";
+              });
+              onClickNextPreBtnHandler("next");
+              seventhDigits = response.data.value.itemCode[6];
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        setImmediate(() => {
+          setLoading(false);
+        });
+      }, 1000);
     }
-    // else {
-    //   stdUcpNotSelectData = `stdUcp-${0}`;
-
-    //   const inputData = {
-    //     itemCode: feedShowState.itemCode,
-    //     strCode: storeCode,
-    //     saleable: "",
-    //     reasons: "",
-    //     childNodesE: feedShowState.childNodesE,
-    //     childNodesN: feedShowState.childNodesN,
-    //     findings: allDataFromValidation.findingsRes,
-    //     indQty: allDataFromValidation.quantityRes,
-    //     indCategory: feedShowState.category,
-    //     submitStatus: "indent",
-    //     set2Type: allDataFromValidation.typeSet2Res,
-    //     stoneQuality: allDataFromValidation.stoneQualityRes
-    //       ? allDataFromValidation.stoneQualityRes
-    //       : stdUcpNotSelectData,
-    //     stoneQualityVal: feedShowState.stoneQualityVal,
-    //     rsoName: rsoName,
-    //     npimEventNo: feedShowState.npimEventNo,
-    //     indentLevelType: feedShowState.itemLevelType,
-    //     collection: productDetails.collection,
-    //     consumerbase: productDetails.consumerBase,
-    //     itgroup: productDetails.group,
-    //     category: productDetails.category,
-    //     sizeUomQuantitys: allDataFromValidation.sizeUomQuantityRes,
-    //     sizeQuantitys: allDataFromValidation.sizeQuantityRes,
-    //     tagQuantitys: allDataFromValidation.tegQuantityRes,
-    //   };
-
-    //   DisplayValidationRunner();
-
-    //   setTimeout(() => {
-    //     axios
-    //       .post(
-    //         `${HostManager.mainHostL3}/npim/insert/responses/from/L3`,
-    //         inputData
-    //       )
-    //       .then((response) => {
-    //         let mailSms = "";
-    //         if (response.data.code === "1001") {
-    //           if (
-    //             productDetails.collection == "ALL" ||
-    //             productDetails.consumerBase == "ALL" ||
-    //             productDetails.group == "ALL" ||
-    //             productDetails.category == "ALL"
-    //           ) {
-    //             mailSms =
-    //               "You have successfully completed the Indented. Thankyou.";
-    //           } else if (
-    //             productDetails.collection !== "ALL" ||
-    //             productDetails.consumerBase !== "ALL" ||
-    //             productDetails.group !== "ALL" ||
-    //             productDetails.category !== "ALL"
-    //           ) {
-    //             mailSms = "No more data available for the selected category.";
-    //           } else {
-    //             mailSms = response.data.value;
-    //           }
-
-    //           setImmediate(() => {
-    //             setAlertPopupStatus({
-    //               status: true,
-    //               main: mailSms,
-    //               contain: "",
-    //               mode: true,
-    //             });
-    //           });
-
-    //           setAllDataFromValidation({
-    //             sizeUomQuantityRes: [],
-    //             sizeQuantityRes: [],
-    //             stoneQualityRes: "",
-    //             tegQuantityRes: [],
-    //             typeSet2Res: "",
-    //             quantityRes: "",
-    //             findingsRes: "",
-    //           });
-    //           onClickNextPreBtnHandler("next");
-    //         } else {
-    //           setImmediate(() => {
-    //             //  setStatusRefresh(!statusRefresh);
-    //             setImmediate(() => {
-    //               setAlertPopupStatus({
-    //                 status: true,
-    //                 main: "Data has been saved Successfully",
-    //                 contain: "",
-    //                 mode: true,
-    //               });
-    //             });
-    //             setDigit();
-    //             //setFeedShowState(response.data.value);
-    //             //document.getElementById("result").style.visibility = "hidden";
-    //             setImmediate(() => {
-    //               setAllDataFromValidation({
-    //                 sizeUomQuantityRes: [],
-    //                 sizeQuantityRes: [],
-    //                 stoneQualityRes: "",
-    //                 tegQuantityRes: [],
-    //                 typeSet2Res: "",
-    //                 quantityRes: "",
-    //                 findingsRes: "",
-    //               });
-    //             });
-
-    //             setImmediate(() => {
-    //               setLoading(false);
-    //             });
-    //             // document.getElementById("result").style.visibility = "visible";
-    //           });
-    //           onClickNextPreBtnHandler("next");
-    //           seventhDigits = response.data.value.itemCode[6];
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //     setImmediate(() => {
-    //       setLoading(false);
-    //     });
-    //   }, 1000);
-    // }
     setImmediate(() => {
       setLoading(false);
     });
