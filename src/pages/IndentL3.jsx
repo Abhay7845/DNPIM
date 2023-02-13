@@ -167,7 +167,6 @@ const IndentL3 = () => {
   };
 
   const onBarClick = () => {};
-  console.log("digit==>", digit);
   function NewDisplayValidation() {
     let data = {};
     if (
@@ -259,7 +258,7 @@ const IndentL3 = () => {
       });
     } else {
       let findings, stoneQuality, Quantity;
-      if (digit === "S" || digit === "D" || digit === "J") {
+      if (digit === "S" || digit === "J") {
         findings = true;
       }
       if (stoneQualityCheck(feedShowState)) {
@@ -279,7 +278,6 @@ const IndentL3 = () => {
     const result = Object.keys(data).filter(
       (eachKey) => data[eachKey] === true
     );
-    console.log("result==>", result);
     for (let key of result) {
       for (let resultKey of Object.keys(allDataFromValidation)) {
         if (
@@ -294,14 +292,13 @@ const IndentL3 = () => {
         }
       }
     }
-    setImmediate(() => {
-      setLoading(true);
-    });
-
     let stdUcpNotSelectData;
     if (!msg.status && Object.keys(msg).length > 0) {
       Error(msg.message);
     } else {
+      setImmediate(() => {
+        setLoading(true);
+      });
       stdUcpNotSelectData = `stdUcp-${0}`;
       const inputData = {
         itemCode: feedShowState.itemCode,
@@ -330,9 +327,7 @@ const IndentL3 = () => {
         sizeQuantitys: allDataFromValidation.sizeQuantityRes,
         tagQuantitys: allDataFromValidation.tegQuantityRes,
       };
-
       DisplayValidationRunner();
-
       setTimeout(() => {
         axios
           .post(
@@ -349,7 +344,7 @@ const IndentL3 = () => {
                 productDetails.category == "ALL"
               ) {
                 mailSms =
-                  "You have successfully completed the Indented. Thankyou.";
+                  "You have successfully completed the Indented. Thankyou";
               } else if (
                 productDetails.collection !== "ALL" ||
                 productDetails.consumerBase !== "ALL" ||
@@ -360,7 +355,6 @@ const IndentL3 = () => {
               } else {
                 mailSms = response.data.value;
               }
-
               setImmediate(() => {
                 setAlertPopupStatus({
                   status: true,
@@ -369,7 +363,6 @@ const IndentL3 = () => {
                   mode: true,
                 });
               });
-
               setAllDataFromValidation({
                 sizeUomQuantityRes: [],
                 sizeQuantityRes: [],
@@ -405,11 +398,9 @@ const IndentL3 = () => {
                     findingsRes: "",
                   });
                 });
-
                 setImmediate(() => {
                   setLoading(false);
                 });
-                // document.getElementById("result").style.visibility = "visible";
               });
               onClickNextPreBtnHandler("next");
               seventhDigits = response.data.value.itemCode[6];
