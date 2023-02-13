@@ -92,7 +92,7 @@ function CustomToolbar(props) {
       if (response.status === 200) {
         console.log(response, "mails");
         if (response.data.code === "1000") {
-          const success = `Thankyou for completing the Indent Confirmation Process  successfully`;
+          const success = `Thankyou for completing the Indent Confirmation Process successfully`;
           const error = `There was an error in Triggering email please try again ..`;
           const msg =
             response?.data?.value?.storeNPIMStatus === "LOCKED"
@@ -196,7 +196,6 @@ const LazyLoadingDataGrid = (props) => {
   } = props;
   const [searchValue, setSearchValue] = useState("");
   const role = localStorage.getItem("store_value");
-  console.log(role, "ROLE");
   const column = col.map((element) => {
     let fieldRes;
 
