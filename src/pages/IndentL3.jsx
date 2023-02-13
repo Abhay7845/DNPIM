@@ -463,7 +463,6 @@ const IndentL3 = () => {
       itemCode: feedShowState.itemCode,
       direction: direction,
     };
-    console.log("Input==>", Input);
     await axios
       .post(`${HostManager.mainHost}/npim/get/product/details/PreNex`, Input)
       .then((response) => {

@@ -147,7 +147,6 @@ const ProductInfo = (props) => {
                         <th className={classes.hadding}>Collection</th>
                         <td>-&emsp;&emsp;&emsp;</td>
                         <td className={classes.rowData}>
-                          {" "}
                           {props.productInfo.collection}
                         </td>
                       </tr>
@@ -163,7 +162,6 @@ const ProductInfo = (props) => {
                         <th className={classes.hadding}>Group</th>
                         <td>-</td>
                         <td className={classes.rowData}>
-                          {" "}
                           {props.productInfo.itGroup}
                         </td>
                       </tr>
@@ -171,7 +169,6 @@ const ProductInfo = (props) => {
                         <th className={classes.hadding}>Category</th>
                         <td>-</td>
                         <td className={classes.rowData}>
-                          {" "}
                           {props.productInfo.category}
                         </td>
                       </tr>
@@ -180,7 +177,6 @@ const ProductInfo = (props) => {
                         <th className={classes.hadding}>Std Wt</th>
                         <td>-</td>
                         <td className={classes.rowData}>
-                          {" "}
                           {props.productInfo.stdWt}
                         </td>
                       </tr>
@@ -188,7 +184,6 @@ const ProductInfo = (props) => {
                         <th className={classes.hadding}>Std UCp</th>
                         <td>-</td>
                         <td className={classes.rowData}>
-                          {" "}
                           {props.productInfo.stdUCP}
                         </td>
                       </tr>
@@ -196,7 +191,6 @@ const ProductInfo = (props) => {
                         <th className={classes.hadding}>Saleable</th>
                         <td>-</td>
                         <td className={classes.rowData}>
-                          {" "}
                           {props.productInfo.saleable}
                         </td>
                       </tr>
@@ -204,7 +198,6 @@ const ProductInfo = (props) => {
                         <th className={classes.hadding}>Reasons</th>
                         <td>-</td>
                         <td className={classes.rowData}>
-                          {" "}
                           {props.productInfo.reasons}
                         </td>
                       </tr>
@@ -213,7 +206,6 @@ const ProductInfo = (props) => {
                 </div>
                 <div className={classes.feedback}>
                   <Typography color="primary">Feedback</Typography>
-
                   <FormGroup row className={classes.feedbackSwitch}>
                     <FormControlLabel
                       control={
@@ -234,7 +226,6 @@ const ProductInfo = (props) => {
                     />
                   </FormGroup>
                   <br />
-
                   {!switchData ? (
                     <div className="mutli_select_drop">
                       <MuliSelectDropdownField

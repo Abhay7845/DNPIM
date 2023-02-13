@@ -248,17 +248,14 @@ function SendStoreReportAdmin(props) {
         .get(
           `${HostManager.mailHostAdmin}/npim/from/store/list/${sendReportInput.fromDate}`
         )
-
         .then(
           (response) => {
             console.log(response.data);
-
             if (response.data.code === 1000) {
               let dada = [];
               setImmediate(() => {
                 setStoreList(response.data.value);
               });
-              // .map((data) => (data.strCode))
               setImmediate(() => {
                 setAlertState({
                   alertFlag1: false,
@@ -282,7 +279,6 @@ function SendStoreReportAdmin(props) {
           },
           (error) => {
             console.log(error);
-            alert(error);
           }
         );
     }
@@ -292,10 +288,8 @@ function SendStoreReportAdmin(props) {
       });
     }, 3000);
   }
-
   function ccCombiner(inputCc) {
     let resData = [];
-
     for (const key in inputCc) {
       if (key === "strCode" || key === "storeMailId") {
         continue;
@@ -308,8 +302,6 @@ function SendStoreReportAdmin(props) {
   }
 
   function onChangeStoreCodeHandler(storeCodes) {
-    console.log("store codes list arr the ", storeCodes);
-
     let storeDataList = storeCodes.map((objData) => ({
       storeCode: objData.strCode,
       to: objData.storeMailId,
@@ -328,7 +320,6 @@ function SendStoreReportAdmin(props) {
   return (
     <>
       <CssBaseline />
-
       <Drawer
         anchor="left"
         open={barOpener}
@@ -344,7 +335,6 @@ function SendStoreReportAdmin(props) {
           // statusOpener={statusOpener}
         />
       </Drawer>
-
       <Container maxWidth="xl" className={classes.root}>
         <Grid container>
           <Grid item xs={12} sm={12}>

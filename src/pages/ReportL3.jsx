@@ -356,7 +356,7 @@ const ReportL3 = () => {
         childNodesN: dataRowInformation.childNodesN,
         findings: allDataFromValidation.findingsRes,
         indQty: allDataFromValidation.quantityRes,
-        indCategory: dataRowInformation.category,
+        indCategory: dataRowInformation.indCategory,
         submitStatus: "report",
         set2Type: allDataFromValidation.typeSet2Res,
         stoneQuality: allDataFromValidation.stoneQualityRes
@@ -433,7 +433,7 @@ const ReportL3 = () => {
       IndentLevelType: dataRowInformation.indentLevelType,
       exSize: dataRowInformation.size,
       exUOM: dataRowInformation.uom,
-      exIndCategory: dataRowInformation.category,
+      exIndCategory: dataRowInformation.indCategory,
       exStonequality: dataRowInformation.stoneQuality,
     };
 
