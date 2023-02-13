@@ -201,7 +201,6 @@ const ReportL3 = () => {
   }
   function NewDisplayValidation() {
     let digitt = dataRowInformation?.itemCode[6];
-
     if (
       digitt === "B" ||
       digitt === "C" ||
@@ -243,10 +242,9 @@ const ReportL3 = () => {
       digitt === "E" ||
       digitt === "N" ||
       digitt === "P" ||
-      digitt === "2" ||
-      digitt === "3" ||
       digitt === "0" ||
       digitt === "1" ||
+      digitt === "2" ||
       digitt === "3" ||
       digitt === "4" ||
       digitt === "5" ||
@@ -294,13 +292,13 @@ const ReportL3 = () => {
         Quantity: Quantity ? true : false,
         tegQuantityRes: tegQuantity ? true : false,
         typeSet2Res: TypeSet2 ? true : false,
-        // findingsRes:findings?true:false,
+        // findingsRes: findings ? true : false,
         stoneQuality: stoneQualityCheck(dataRowInformation) ? true : false,
       };
     } else {
       let findings, stoneQuality, Quantity;
 
-      if (digitt === "S" || digitt === "D" || digitt === "J") {
+      if (digitt === "S" || digitt === "J") {
         findings = true;
       }
       if (stoneQualityCheck(dataRowInformation)) {
@@ -317,41 +315,34 @@ const ReportL3 = () => {
   }
   const onClickSubmitBtnHandler = (event) => {
     let msg = {};
-    // const data = NewDisplayValidation();
-    // const result = Object.keys(data).filter(
-    //   (eachKey) => data[eachKey] === true
-    // );
-    // for (let key of result) {
-    //   for (let resultKey of Object.keys(allDataFromValidation)) {
-    //     if (
-    //       key === resultKey &&
-    //       allDataFromValidation[resultKey].length === 0
-    //     ) {
-    //       msg = {
-    //         ...msg,
-    //         status: false,
-    //         message: `${result.join("/")} is required`,
-    //       };
-    //     }
-    //   }
-    // }
+    const data = NewDisplayValidation();
+    const result = Object.keys(data).filter(
+      (eachKey) => data[eachKey] === true
+    );
+    console.log("result==>", result);
+    for (let key of result) {
+      for (let resultKey of Object.keys(allDataFromValidation)) {
+        if (
+          key === resultKey &&
+          allDataFromValidation[resultKey].length === 0
+        ) {
+          msg = {
+            ...msg,
+            status: false,
+            message: `${result.join("/")} is required`,
+          };
+        }
+      }
+    }
     setImmediate(() => {
       setLoading(true);
     });
+
     seventhDigits = dataRowInformation.itemCode[6];
-    // let displayData = displayPresentValidation(dataRowInformation.stdUCP);
     let displayData = { status: true };
     let stdUcpNotSelectData;
 
     if (!msg.status && Object.keys(msg).length > 0) {
-      // alert(displayData.alert);
-      //   setImmediate(() => {
-      //     setAlertPopupStatus({
-      //       status: true,
-      //       main: msg.message,
-      //       contain: "",
-      //     });
-      //   });
       Error(msg.message);
     } else {
       stdUcpNotSelectData = `stdUcp-${displayData.data}`;
