@@ -203,6 +203,7 @@ const IndentL3 = () => {
       });
     } else if (
       digit === "E" ||
+      digit === "T" ||
       digit === "N" ||
       digit === "P" ||
       digit === "0" ||
@@ -225,6 +226,7 @@ const IndentL3 = () => {
         digit === "6" ||
         digit === "7" ||
         digit === "P" ||
+        digit === "T" ||
         digit === "E" ||
         digit === "N"
       ) {

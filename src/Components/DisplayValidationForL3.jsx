@@ -58,11 +58,11 @@ export default function DisplayValidationComponent(props) {
   const optionForSet3 = [
     "Single_Tag",
     "Separate_Tag",
-    // "Only_EAR_RING",
-    // "Only_NECKWEAR",
-    // "Only_BANGLE",
-    // "Only_TIKKA",
-    // "Only_HARAM",
+    "Only_EAR_RING",
+    "Only_NECKWEAR",
+    "Only_BANGLE",
+    "Only_TIKKA",
+    "Only_HARAM",
   ];
   const optionForSet4 = [
     "Single_Tag",
@@ -273,8 +273,8 @@ export default function DisplayValidationComponent(props) {
               //put props
             />
             <br />
-            <b style={{ color: "#832729" }}>FOR LADIES</b>
             <MultiSelectCoupleBand
+              labelName="FOR LADIES"
               optionsList={CoupleLadiesSize}
               onChangeHandler={sizeQuantityResHandler}
               allDataFromValidation={allDataFromValidation}
@@ -297,16 +297,15 @@ export default function DisplayValidationComponent(props) {
       </>
     );
   } else if (
-    digit === "T" ||
-    digit === "2" ||
-    digit === "3" ||
     digit === "0" ||
     digit === "1" ||
+    digit === "2" ||
     digit === "3" ||
     digit === "4" ||
     digit === "5" ||
     digit === "6" ||
-    digit === "7"
+    digit === "7" ||
+    digit === "T"
   ) {
     let TypeSet2, tegSelect, setSelect, findings;
     if (
@@ -316,7 +315,8 @@ export default function DisplayValidationComponent(props) {
       digit === "4" ||
       digit === "5" ||
       digit === "6" ||
-      digit === "7"
+      digit === "7" ||
+      digit === "T"
     )
       if ((digit === "N" || digit === "E" || digit === "2") && !cond) {
         TypeSet2 = true;
@@ -329,7 +329,8 @@ export default function DisplayValidationComponent(props) {
       digit === "4" ||
       digit === "5" ||
       digit === "6" ||
-      digit === "7"
+      digit === "7" ||
+      digit === "T"
     ) {
       tegSelect = true;
       setSelect = true;
