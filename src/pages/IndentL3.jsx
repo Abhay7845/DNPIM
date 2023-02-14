@@ -204,11 +204,6 @@ const IndentL3 = () => {
         stoneQualityRes: stoneQualityCheck(feedShowState) ? true : false,
       });
     } else if (
-      digit === "E" ||
-      digit === "T" ||
-      digit === "N" ||
-      digit === "B" ||
-      digit === "P" ||
       digit === "0" ||
       digit === "1" ||
       digit === "2" ||
@@ -216,7 +211,12 @@ const IndentL3 = () => {
       digit === "4" ||
       digit === "5" ||
       digit === "6" ||
-      digit === "7"
+      digit === "7" ||
+      digit === "E" ||
+      digit === "T" ||
+      digit === "N" ||
+      digit === "B" ||
+      digit === "P"
     ) {
       let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect, findings;
       if (
@@ -234,13 +234,10 @@ const IndentL3 = () => {
         digit === "B" ||
         digit === "N"
       ) {
-        //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
-        createTegOfItems(feedShowState)
-          ? (tegQuantity = true)
-          : (Quantity = true);
+        tegQuantity = true;
       }
       if (
-        (digit === "N" || digit === "E" || digit === "2") &&
+        (digit === "N" || digit === "2") &&
         !stoneQualityCheck(feedShowState)
       ) {
         TypeSet2 = true;
@@ -251,7 +248,6 @@ const IndentL3 = () => {
       //   Quantity = true;
       //   // stoneQuality = false;
       // }
-
       return (data = {
         tagSelect: tegSelect ? true : false,
         setSelect: setSelect && setSelectState[0] ? true : false,
@@ -263,13 +259,15 @@ const IndentL3 = () => {
       });
     } else {
       let findings, stoneQuality, Quantity;
-      if (digit === "S" || digit === "J") {
+      if (digit === "S") {
         findings = true;
       }
       if (stoneQualityCheck(feedShowState)) {
         stoneQuality = true;
       }
-      Quantity = true;
+      if (digit === "D" || digit === "E") {
+        Quantity = true;
+      }
       return (data = {
         quantityRes: Quantity ? true : false,
         findingsRes: findings ? true : false,
@@ -523,11 +521,7 @@ const IndentL3 = () => {
     }
     if (inputObj.si2Ij) {
       return true;
-    }
-    // if (inputObj.stdUCP) {
-    //     return true;
-    // }
-    else {
+    } else {
       return false;
     }
   }
