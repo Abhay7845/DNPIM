@@ -237,14 +237,12 @@ const IndentL3 = () => {
       ) {
         TypeSet2 = true;
       }
-
       return (data = {
         tagSelect: tegSelect ? true : false,
         setSelect: setSelect && setSelectState[0] ? true : false,
         Quantity: Quantity ? true : false,
         tegQuantityRes: tegQuantity ? true : false,
         typeSet2Res: TypeSet2 ? true : false,
-        // findingsRes: findings ? true : false,
         stoneQuality: stoneQualityCheck(feedShowState) ? true : false,
       });
     } else {
