@@ -114,7 +114,6 @@ function DataGridReport(props) {
 
 function MultiselectUomAndSize(props) {
   const { optionsList, sizeUomQuantityResHandler } = props;
-  console.log("propsUMO==>", props);
   const classes = useStyles();
   const [sizeRow, setSizeRow] = useState({
     A: false,

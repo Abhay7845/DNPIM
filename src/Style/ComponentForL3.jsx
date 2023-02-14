@@ -16,6 +16,7 @@ export const useStyles = makeStyles({
   },
   show: {
     display: "block",
+    marginTop: "3px",
   },
   header: {
     backgroundColor: "red",
