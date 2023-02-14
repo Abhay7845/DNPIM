@@ -212,11 +212,7 @@ const IndentL3 = () => {
       digit === "5" ||
       digit === "6" ||
       digit === "7" ||
-      digit === "E" ||
-      digit === "T" ||
-      digit === "N" ||
-      digit === "B" ||
-      digit === "P"
+      digit === "T"
     ) {
       let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect, findings;
       if (
@@ -228,13 +224,12 @@ const IndentL3 = () => {
         digit === "5" ||
         digit === "6" ||
         digit === "7" ||
-        digit === "P" ||
-        digit === "T" ||
-        digit === "E" ||
-        digit === "B" ||
-        digit === "N"
+        digit === "T"
       ) {
         tegQuantity = true;
+      }
+      if (digit === "K") {
+        Quantity = true;
       }
       if (
         (digit === "N" || digit === "2") &&
@@ -242,12 +237,7 @@ const IndentL3 = () => {
       ) {
         TypeSet2 = true;
       }
-      // if (digit === "3") {
-      //   tegSelect = true;
-      //   setSelect = true;
-      //   Quantity = true;
-      //   // stoneQuality = false;
-      // }
+
       return (data = {
         tagSelect: tegSelect ? true : false,
         setSelect: setSelect && setSelectState[0] ? true : false,
@@ -265,7 +255,7 @@ const IndentL3 = () => {
       if (stoneQualityCheck(feedShowState)) {
         stoneQuality = true;
       }
-      if (digit === "D" || digit === "E") {
+      if (digit === "D" || digit === "E" || digit === "K") {
         Quantity = true;
       }
       return (data = {
@@ -621,7 +611,6 @@ const IndentL3 = () => {
     // getAll("stoneQualityRes", stoneQualityData.target.value)
   }
   function tegQuantityResHandler(tegQuantityData) {
-    console.log("tegQuantityData==>", tegQuantityData);
     setImmediate(() => {
       setAllDataFromValidation({
         sizeUomQuantityRes: allDataFromValidation.sizeUomQuantityRes,
