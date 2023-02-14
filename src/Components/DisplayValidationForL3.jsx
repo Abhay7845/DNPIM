@@ -37,11 +37,32 @@ export default function DisplayValidationComponent(props) {
     setSelectResHandler,
     setSelectOptions,
   } = props;
+  const optionForSet0 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EAR_RING",
+    "Only_CHAIN_WITH_PENDANT",
+  ];
+  const optionForSet1 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EAR_RING",
+    "Only_NECKWEAR_OR_PENDANT",
+  ];
   const optionForSet2 = [
     "Single_Tag",
     "Separate_Tag",
     "Only_EAR_RING",
     "Only_NECKWEAR",
+  ];
+  const optionForSet3 = [
+    "Single_Tag",
+    "Separate_Tag",
+    // "Only_EAR_RING",
+    // "Only_NECKWEAR",
+    // "Only_BANGLE",
+    // "Only_TIKKA",
+    // "Only_HARAM",
   ];
   const optionForSet4 = [
     "Single_Tag",
@@ -90,18 +111,18 @@ export default function DisplayValidationComponent(props) {
   const coupleBand = ["Single_Tag", "Separate_Tag"];
 
   useEffect(() => {
-    // if (digit === "0") {
-    //   setOption(optionForSet0);
-    // }
-    // if (digit === "1") {
-    //   setOption(optionForSet1);
-    // }
+    if (digit === "0") {
+      setOption(optionForSet0);
+    }
+    if (digit === "1") {
+      setOption(optionForSet1);
+    }
     if (digit === "2") {
       setOption(optionForSet2);
     }
-    // if (digit === "3") {
-    //   setOption(optionForSet3);
-    // }
+    if (digit === "3") {
+      setOption(optionForSet3);
+    }
     if (digit === "4") {
       setOption(optionForSet4);
     }
@@ -289,7 +310,6 @@ export default function DisplayValidationComponent(props) {
   ) {
     let TypeSet2, tegSelect, setSelect, findings;
     if (
-      digit === "0" ||
       digit === "1" ||
       digit === "2" ||
       digit === "3" ||
@@ -302,11 +322,14 @@ export default function DisplayValidationComponent(props) {
         TypeSet2 = true;
       }
     if (
+      digit === "0" ||
+      digit === "1" ||
       digit === "2" ||
       digit === "3" ||
       digit === "4" ||
       digit === "5" ||
-      digit === "6"
+      digit === "6" ||
+      digit === "7"
     ) {
       tegSelect = true;
       setSelect = true;

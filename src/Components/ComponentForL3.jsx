@@ -1348,7 +1348,7 @@ function DynamicMultiSelectAndInput(props) {
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
           closeOnSelect={true}
-          placeholder="Choose Tag"
+          placeholder="Choose Tag here"
           disablePreSelectedValues={true}
         />
         <table style={{ width: "100%", padding: 1, margin: 0 }}>

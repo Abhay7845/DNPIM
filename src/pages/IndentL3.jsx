@@ -218,7 +218,12 @@ const IndentL3 = () => {
       if (
         digit === "0" ||
         digit === "1" ||
+        digit === "3" ||
         digit === "2" ||
+        digit === "4" ||
+        digit === "5" ||
+        digit === "6" ||
+        digit === "7" ||
         digit === "P" ||
         digit === "E" ||
         digit === "N"
@@ -234,18 +239,12 @@ const IndentL3 = () => {
       ) {
         TypeSet2 = true;
       }
-      if (
-        digit === "3" ||
-        digit === "4" ||
-        digit === "5" ||
-        digit === "6" ||
-        digit === "7"
-      ) {
-        tegSelect = true;
-        setSelect = true;
-        Quantity = true;
-        // stoneQuality = false;
-      }
+      // if (digit === "3") {
+      //   tegSelect = true;
+      //   setSelect = true;
+      //   Quantity = true;
+      //   // stoneQuality = false;
+      // }
 
       return (data = {
         tagSelect: tegSelect ? true : false,
