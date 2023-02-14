@@ -342,10 +342,10 @@ const IndentL3 = () => {
             let mailSms = "";
             if (response.data.code === "1001") {
               if (
-                productDetails.collection == "ALL" ||
-                productDetails.consumerBase == "ALL" ||
-                productDetails.group == "ALL" ||
-                productDetails.category == "ALL"
+                productDetails.collection === "ALL" ||
+                productDetails.consumerBase === "ALL" ||
+                productDetails.group === "ALL" ||
+                productDetails.category === "ALL"
               ) {
                 mailSms =
                   "You have successfully completed the Indented. Thankyou";
@@ -687,7 +687,7 @@ const IndentL3 = () => {
 
         .then(
           (response) => {
-            if (response.data.code == 1000) {
+            if (response.data.code === "1000") {
               setImmediate(() => {
                 setSetSelectState(
                   response.data.value.map((element) => element.category)
@@ -709,13 +709,12 @@ const IndentL3 = () => {
         )
         .then(
           (response) => {
-            if (response.data.code == 1000) {
+            if (response.data.code === "1000") {
               setImmediate(() => {
                 setSetSelectState(response.data.value);
               });
             } else {
               console.log(response.data.value);
-              alert(response.data.value);
             }
           },
           (error) => {

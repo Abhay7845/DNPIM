@@ -184,7 +184,7 @@ const ReportL1AndL2 = (props) => {
       setLoading(true);
     });
 
-    if (!input.switchData && input.multiSelectDrop.toString().length == 0) {
+    if (!input.switchData && input.multiSelectDrop.toString().length === 0) {
       alert("Please select reason for NO ...");
       return;
     }
@@ -195,7 +195,7 @@ const ReportL1AndL2 = (props) => {
     if (
       input.qualityRating > 0 &&
       input.qualityRating <= 3 &&
-      input.multiSelectQltyfeed.toString().length == 0
+      input.multiSelectQltyfeed.toString().length === 0
     ) {
       alert("Please select reason for QA ...");
       return;

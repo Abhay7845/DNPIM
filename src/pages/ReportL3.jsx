@@ -673,7 +673,7 @@ const ReportL3 = () => {
         )
         .then(
           (response) => {
-            if (response.data.code == 1000) {
+            if (response.data.code === "1000") {
               setImmediate(() => {
                 setSetSelectState(
                   response.data.value.map((element) => element.category)
@@ -694,7 +694,7 @@ const ReportL3 = () => {
         )
         .then(
           (response) => {
-            if (response.data.code == 1000) {
+            if (response.data.code === "1000") {
               setImmediate(() => {
                 setSetSelectState(response.data.value);
               });

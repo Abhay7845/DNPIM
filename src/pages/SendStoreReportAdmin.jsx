@@ -41,7 +41,6 @@ function SendStoreReportAdmin(props) {
   const [barOpener, setBarOpener] = useState(false);
   const [sendReportInput, setSendReportInput] = useState({
     from: "",
-    // fromMailIdTest: "",
     subject: "",
     mailBody: "",
     fromDate: "",
@@ -252,7 +251,6 @@ function SendStoreReportAdmin(props) {
           (response) => {
             console.log(response.data);
             if (response.data.code === 1000) {
-              let dada = [];
               setImmediate(() => {
                 setStoreList(response.data.value);
               });
