@@ -1074,7 +1074,8 @@ function SmallDataTable(props) {
     category: "ALL",
     itemCode: props.itemCode,
   };
-
+  console.log("tableData==>", tableData);
+  console.log("props==>", props);
   useEffect(() => {
     axios
       .post(`${HostManager.mainHost}/npim/get/product/details`, productDetails)
@@ -1123,8 +1124,12 @@ function SmallDataTable(props) {
                       {!props.stdUcpH ? (
                         <tr>
                           <td>OTHER</td>
-                          <td>{props.stdWtO}</td>
-                          <td>{props.stdUcpO}</td>
+                          <td>
+                            {!props.stdWtO ? tableData.stdWtO : props.stdWtO}
+                          </td>
+                          <td>
+                            {!props.stdUcpO ? tableData.stdUcpO : props.stdUcpO}
+                          </td>
                         </tr>
                       ) : (
                         <tr>
@@ -1348,7 +1353,7 @@ function DynamicMultiSelectAndInput(props) {
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
           closeOnSelect={true}
-          placeholder="Choose Tag here"
+          placeholder="Choose Tag"
           disablePreSelectedValues={true}
         />
         <table style={{ width: "100%", padding: 1, margin: 0 }}>
