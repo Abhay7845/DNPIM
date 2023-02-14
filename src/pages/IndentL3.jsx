@@ -170,31 +170,33 @@ const IndentL3 = () => {
   function NewDisplayValidation() {
     let data = {};
     if (
-      digit === "B" ||
       digit === "C" ||
       digit === "F" ||
       digit === "R" ||
       digit === "V" ||
       digit === "W" ||
+      digit === "B" ||
       digit === "Y"
     ) {
-      let sizeUomQuantity, sizeQuantity;
+      let sizeUomQuantity, sizeQuantity, Quantity;
       if (digit === "V" && feedShowState.category === "BANGLE") {
         sizeUomQuantity = true;
       } else if (
         (digit === "V" ||
           digit === "C" ||
           digit === "F" ||
-          digit === "Y" ||
-          digit === "B") &&
+          digit === "B" ||
+          digit === "Y") &&
         stoneQualityCheck(feedShowState)
       ) {
         sizeQuantity = true;
+        Quantity = true;
       } else if (
         (digit === "C" || digit === "F" || digit === "Y" || digit === "B") &&
         !stoneQualityCheck(feedShowState)
       ) {
         sizeQuantity = true;
+        Quantity = true;
       }
       return (data = {
         sizeUomQuantityRes: sizeUomQuantity && SizeState[0] ? true : false,
@@ -205,6 +207,7 @@ const IndentL3 = () => {
       digit === "E" ||
       digit === "T" ||
       digit === "N" ||
+      digit === "B" ||
       digit === "P" ||
       digit === "0" ||
       digit === "1" ||
@@ -228,6 +231,7 @@ const IndentL3 = () => {
         digit === "P" ||
         digit === "T" ||
         digit === "E" ||
+        digit === "B" ||
         digit === "N"
       ) {
         //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
@@ -279,6 +283,7 @@ const IndentL3 = () => {
     const result = Object.keys(data).filter(
       (eachKey) => data[eachKey] === true
     );
+    console.log("result==>", result);
     for (let key of result) {
       for (let resultKey of Object.keys(allDataFromValidation)) {
         if (
