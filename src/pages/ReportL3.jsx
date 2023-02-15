@@ -199,218 +199,113 @@ const ReportL3 = () => {
   function scrollTop() {
     window.scrollTo({ top: "0", behavior: "smooth" });
   }
-  // function NewDisplayValidation() {
-  //   let digitt = dataRowInformation?.itemCode[6];
-  //   if (
-  //     digitt === "B" ||
-  //     digitt === "C" ||
-  //     digitt === "F" ||
-  //     digitt === "R" ||
-  //     digitt === "V" ||
-  //     digitt === "W" ||
-  //     digitt === "Y"
-  //   ) {
-  //     let sizeUomQuantity, sizeQuantity;
-
-  //     if (digitt === "V" && dataRowInformation?.category === "BANGLE") {
-  //       sizeUomQuantity = true;
-  //     } else if (
-  //       (digitt === "V" ||
-  //         digitt === "C" ||
-  //         digitt === "F" ||
-  //         digitt === "Y" ||
-  //         digitt === "B") &&
-  //       stoneQualityCheck(dataRowInformation)
-  //     ) {
-  //       sizeQuantity = true;
-  //     } else if (
-  //       (digitt === "C" ||
-  //         digitt === "F" ||
-  //         digitt === "Y" ||
-  //         digitt === "B") &&
-  //       !stoneQualityCheck(dataRowInformation)
-  //     ) {
-  //       sizeQuantity = true;
-  //     }
-
-  //     return {
-  //       sizeUomQuantityRes: sizeUomQuantity && SizeState[0] ? true : false,
-  //       sizeQuantityRes: sizeQuantity && SizeState[0] ? true : false,
-  //       stoneQualityRes: stoneQualityCheck(dataRowInformation) ? true : false,
-  //     };
-  //   } else if (
-  //     digitt === "E" ||
-  //     digitt === "N" ||
-  //     digitt === "P" ||
-  //     digitt === "0" ||
-  //     digitt === "1" ||
-  //     digitt === "2" ||
-  //     digitt === "3" ||
-  //     digitt === "4" ||
-  //     digitt === "5" ||
-  //     digitt === "6" ||
-  //     digitt === "7"
-  //   ) {
-  //     let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect, findings;
-
-  //     if (
-  //       digitt === "0" ||
-  //       digitt === "1" ||
-  //       digitt === "2" ||
-  //       digitt === "P" ||
-  //       digitt === "E" ||
-  //       digitt === "N"
-  //     ) {
-  //       //CHECK THE CONDITION AND CHILD CODE ABD ADD THE DATA IN DROPDOWN
-  //       createTegOfItems(dataRowInformation)
-  //         ? (tegQuantity = true)
-  //         : (Quantity = true);
-  //     }
-  //     if (
-  //       (digitt === "N" || digitt === "E" || digitt === "2") &&
-  //       !stoneQualityCheck(dataRowInformation)
-  //     ) {
-  //       TypeSet2 = true;
-  //     }
-
-  //     if (
-  //       digitt === "3" ||
-  //       digitt === "4" ||
-  //       digitt === "5" ||
-  //       digitt === "6" ||
-  //       digitt === "7"
-  //     ) {
-  //       tegSelect = true;
-  //       setSelect = true;
-  //       Quantity = false;
-  //       // stoneQuality = false;
-  //     }
-
-  //     return {
-  //       tagSelect: tegSelect ? true : false,
-  //       setSelect: setSelect && setSelectState[0] ? true : false,
-  //       Quantity: Quantity ? true : false,
-  //       tegQuantityRes: tegQuantity ? true : false,
-  //       typeSet2Res: TypeSet2 ? true : false,
-  //       // findingsRes: findings ? true : false,
-  //       stoneQuality: stoneQualityCheck(dataRowInformation) ? true : false,
-  //     };
-  //   } else {
-  //     let findings, stoneQuality, Quantity;
-
-  //     if (digitt === "S" || digitt === "J") {
-  //       findings = true;
-  //     }
-  //     if (stoneQualityCheck(dataRowInformation)) {
-  //       stoneQuality = true;
-  //     }
-
-  //     Quantity = true;
-  //     return {
-  //       quantityRes: Quantity ? true : false,
-  //       findingsRes: findings ? true : false,
-  //       stoneQualityRes: stoneQualityCheck(dataRowInformation) ? true : false,
-  //     };
-  //   }
-  // }
-
   function NewDisplayValidation() {
-    let data = {};
-    if (digit === "F" || digit === "R" || digit === "V" || digit === "W") {
-      let sizeUomQuantity, sizeQuantity, Quantity;
-      if (digit === "V" && dataRowInformation.category === "BANGLE") {
+    let digitt = dataRowInformation.itemCode[6];
+    if (
+      digitt === "B" ||
+      digitt === "C" ||
+      digitt === "F" ||
+      digitt === "R" ||
+      digitt === "V" ||
+      digitt === "W" ||
+      digitt === "Y"
+    ) {
+      let sizeUomQuantity, sizeQuantity;
+
+      if (digitt === "V" && dataRowInformation?.category === "BANGLE") {
         sizeUomQuantity = true;
       } else if (
-        (digit === "V" || digit === "F") &&
+        (digitt === "V" ||
+          digitt === "C" ||
+          digitt === "F" ||
+          digitt === "Y" ||
+          digitt === "B") &&
         stoneQualityCheck(dataRowInformation)
       ) {
         sizeQuantity = true;
-        Quantity = true;
-      } else if (digit === "F" && !stoneQualityCheck(dataRowInformation)) {
+      } else if (
+        (digitt === "C" ||
+          digitt === "F" ||
+          digitt === "Y" ||
+          digitt === "B") &&
+        !stoneQualityCheck(dataRowInformation)
+      ) {
         sizeQuantity = true;
-        Quantity = true;
       }
-      return (data = {
+
+      return {
         sizeUomQuantityRes: sizeUomQuantity && SizeState[0] ? true : false,
         sizeQuantityRes: sizeQuantity && SizeState[0] ? true : false,
         stoneQualityRes: stoneQualityCheck(dataRowInformation) ? true : false,
-      });
+      };
     } else if (
-      digit === "0" ||
-      digit === "1" ||
-      digit === "2" ||
-      digit === "3" ||
-      digit === "4" ||
-      digit === "5" ||
-      digit === "6" ||
-      digit === "7" ||
-      digit === "T"
+      digitt === "0" ||
+      digitt === "1" ||
+      digitt === "2" ||
+      digitt === "3" ||
+      digitt === "4" ||
+      digitt === "5" ||
+      digitt === "6" ||
+      digitt === "7" ||
+      digitt === "T"
     ) {
       let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect;
       if (
-        digit === "0" ||
-        digit === "1" ||
-        digit === "3" ||
-        digit === "2" ||
-        digit === "4" ||
-        digit === "5" ||
-        digit === "6" ||
-        digit === "7" ||
-        digit === "T"
+        digitt === "0" ||
+        digitt === "1" ||
+        digitt === "2" ||
+        digitt === "3" ||
+        digitt === "4" ||
+        digitt === "5" ||
+        digitt === "6" ||
+        digitt === "7" ||
+        digitt === "T"
       ) {
         tegQuantity = true;
       }
       if (
-        digit === "K" ||
-        digit === "P" ||
-        digit === "Y" ||
-        digit === "B" ||
-        digit === "C"
-      ) {
-        Quantity = true;
-      }
-      if (
-        (digit === "N" || digit === "2") &&
+        (digitt === "N" || digitt === "E" || digitt === "2") &&
         !stoneQualityCheck(dataRowInformation)
       ) {
         TypeSet2 = true;
       }
-      return (data = {
+      if (
+        digitt === "3" ||
+        digitt === "5" ||
+        digitt === "6" ||
+        digitt === "7"
+      ) {
+        tegSelect = true;
+        setSelect = true;
+        Quantity = false;
+      }
+
+      return {
         tagSelect: tegSelect ? true : false,
         setSelect: setSelect && setSelectState[0] ? true : false,
         Quantity: Quantity ? true : false,
         tegQuantityRes: tegQuantity ? true : false,
         typeSet2Res: TypeSet2 ? true : false,
         stoneQuality: stoneQualityCheck(dataRowInformation) ? true : false,
-      });
+      };
     } else {
       let findings, stoneQuality, Quantity;
+
+      if (digitt === "S" || digitt === "J") {
+        findings = true;
+      }
       if (stoneQualityCheck(dataRowInformation)) {
         stoneQuality = true;
       }
-      if (
-        digit === "K" ||
-        digit === "P" ||
-        digit === "Y" ||
-        digit === "B" ||
-        digit === "J" ||
-        digit === "D" ||
-        digit === "N" ||
-        digit === "X" ||
-        digit === "O" ||
-        digit === "H" ||
-        digit === "S" ||
-        digit === "C"
-      ) {
-        Quantity = true;
-      }
-      return (data = {
+      Quantity = true;
+      return {
         quantityRes: Quantity ? true : false,
         findingsRes: findings ? true : false,
         stoneQualityRes: stoneQualityCheck(dataRowInformation) ? true : false,
-      });
+      };
     }
   }
+
   const onClickSubmitBtnHandler = (event) => {
     let msg = {};
     const data = NewDisplayValidation();
