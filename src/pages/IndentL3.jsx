@@ -169,32 +169,17 @@ const IndentL3 = () => {
   const onBarClick = () => {};
   function NewDisplayValidation() {
     let data = {};
-    if (
-      digit === "C" ||
-      digit === "F" ||
-      digit === "R" ||
-      digit === "V" ||
-      digit === "W" ||
-      digit === "B" ||
-      digit === "Y"
-    ) {
+    if (digit === "F" || digit === "R" || digit === "V" || digit === "W") {
       let sizeUomQuantity, sizeQuantity, Quantity;
       if (digit === "V" && feedShowState.category === "BANGLE") {
         sizeUomQuantity = true;
       } else if (
-        (digit === "V" ||
-          digit === "C" ||
-          digit === "F" ||
-          digit === "B" ||
-          digit === "Y") &&
+        (digit === "V" || digit === "F") &&
         stoneQualityCheck(feedShowState)
       ) {
         sizeQuantity = true;
         Quantity = true;
-      } else if (
-        (digit === "C" || digit === "F" || digit === "Y" || digit === "B") &&
-        !stoneQualityCheck(feedShowState)
-      ) {
+      } else if (digit === "F" && !stoneQualityCheck(feedShowState)) {
         sizeQuantity = true;
         Quantity = true;
       }
@@ -214,7 +199,7 @@ const IndentL3 = () => {
       digit === "7" ||
       digit === "T"
     ) {
-      let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect, findings;
+      let tegQuantity, TypeSet2, Quantity, tegSelect, setSelect;
       if (
         digit === "0" ||
         digit === "1" ||
@@ -228,7 +213,13 @@ const IndentL3 = () => {
       ) {
         tegQuantity = true;
       }
-      if (digit === "K") {
+      if (
+        digit === "K" ||
+        digit === "P" ||
+        digit === "Y" ||
+        digit === "B" ||
+        digit === "C"
+      ) {
         Quantity = true;
       }
       if (
@@ -247,13 +238,23 @@ const IndentL3 = () => {
       });
     } else {
       let findings, stoneQuality, Quantity;
-      if (digit === "S") {
-        findings = true;
-      }
       if (stoneQualityCheck(feedShowState)) {
         stoneQuality = true;
       }
-      if (digit === "D" || digit === "E" || digit === "K") {
+      if (
+        digit === "K" ||
+        digit === "P" ||
+        digit === "Y" ||
+        digit === "B" ||
+        digit === "J" ||
+        digit === "D" ||
+        digit === "N" ||
+        digit === "X" ||
+        digit === "O" ||
+        digit === "H" ||
+        digit === "S" ||
+        digit === "C"
+      ) {
         Quantity = true;
       }
       return (data = {
