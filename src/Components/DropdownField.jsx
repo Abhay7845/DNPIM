@@ -24,7 +24,6 @@ const DropdownField = (props) => {
         {option}
       </option>
     ));
-
     return optionItems;
   };
   return (

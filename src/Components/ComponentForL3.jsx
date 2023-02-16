@@ -377,7 +377,7 @@ function MultiselectUomAndSize(props) {
                 <td>
                   <input
                     type="text"
-                    maxlength="1"
+                    maxLength="1"
                     id={`${row.lableValue}8`}
                     name={`${row.lableValue}8`}
                     className={classes.inputField}
@@ -391,7 +391,7 @@ function MultiselectUomAndSize(props) {
                 <td>
                   <input
                     type="text"
-                    maxlength="1"
+                    maxLength="1"
                     id={`${row.lableValue}6`}
                     name={`${row.lableValue}6`}
                     className={classes.inputField}
@@ -405,7 +405,7 @@ function MultiselectUomAndSize(props) {
                 <td>
                   <input
                     type="text"
-                    maxlength="1"
+                    maxLength="1"
                     id={`${row.lableValue}4`}
                     name={`${row.lableValue}4`}
                     className={classes.inputField}
@@ -419,7 +419,7 @@ function MultiselectUomAndSize(props) {
                 <td>
                   <input
                     type="text"
-                    maxlength="1"
+                    maxLength="1"
                     id={`${row.lableValue}2`}
                     name={`${row.lableValue}2`}
                     className={classes.inputField}
@@ -433,7 +433,7 @@ function MultiselectUomAndSize(props) {
                 <td>
                   <input
                     type="text"
-                    maxlength="1"
+                    maxLength="1"
                     id={`${row.lableValue}1`}
                     name={`${row.lableValue}1`}
                     className={classes.inputField}
@@ -899,7 +899,7 @@ function MultiSelectCoupleBand(props) {
                   <b style={{ fontSize: "12px" }}>Quantity</b>
                   <input
                     type="text"
-                    maxlength="1"
+                    maxLength="1"
                     id={`${row.lableValue}sq`}
                     name={`${row.lableValue}sq`}
                     className={classes.inputField}
@@ -1355,7 +1355,7 @@ function DynamicMultiSelectAndInput(props) {
           placeholder="Choose Tag"
           disablePreSelectedValues={true}
         />
-        <table style={{ width: "100%", padding: 1, margin: 0 }}>
+        <table className="w-100">
           <tbody className="d-flex">
             {options.map((row, index) => (
               <tr
@@ -1370,7 +1370,7 @@ function DynamicMultiSelectAndInput(props) {
                   <b style={{ fontSize: "12px" }}>Quantity</b>
                   <input
                     type="text"
-                    maxlength="1"
+                    maxLength="1"
                     id={`${row.lableValue}sq`}
                     name={`${row.lableValue}sq`}
                     className={classes.inputField}

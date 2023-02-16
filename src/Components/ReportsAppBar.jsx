@@ -13,10 +13,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import DropdownField from "./DropdownField";
 
 const useStyles = makeStyles({
-  reportDrop: {
-    width: "50%",
-    marginTop: "1%",
-  },
   appBar: {
     flexGrow: 1,
     backgroundColor: "#f2feff",
@@ -52,7 +48,7 @@ function ReportsAppBar(props) {
   return (
     <>
       <div className={classes.appBar}>
-        <AppBar position="static" color="default">
+        <AppBar position="static" color="inherit">
           <Toolbar>
             <div className={classes.menuButton}>
               <IconButton
@@ -64,45 +60,35 @@ function ReportsAppBar(props) {
                 <MenuIcon />
               </IconButton>
             </div>
-            <Grid container>
-              <Grid item xs={12} sm={6}>
-                {reportOptions ? (
-                  <div className={classes.title}>
-                    <div className={classes.reportDrop}>
-                      <DropdownField
-                        name="Report"
-                        // value={selectReport}
-                        lableName="Report"
-                        bigSmall={false}
-                        dropList={reportOptions}
-                        myChangeHandler={(event) => {
-                          reportDropHandler(event.target.value);
-                        }}
+            <Grid container className="d-flex justify-content-between">
+              {reportOptions ? (
+                <DropdownField
+                  name="Report"
+                  labelName="Report"
+                  dropList={reportOptions}
+                  myChangeHandler={(event) => {
+                    reportDropHandler(event.target.value);
+                  }}
+                />
+              ) : null}
+              {showInformationHandler ? (
+                <FormGroup row>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={showinfo}
+                        onChange={showInformationHandler}
+                        name="feedbackSwitch"
+                        color="secondary"
+                        disabled={switchEnable}
                       />
-                    </div>
-                  </div>
-                ) : null}
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                {showInformationHandler ? (
-                  <FormGroup row className={classes.feedbackSwitch}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={showinfo}
-                          onChange={showInformationHandler}
-                          name="feedbackSwitch"
-                          color="secondary"
-                          disabled={switchEnable}
-                        />
-                      }
-                      label="Product Description"
-                    />
-                  </FormGroup>
-                ) : (
-                  ""
-                )}{" "}
-              </Grid>
+                    }
+                    label="Product Description"
+                  />
+                </FormGroup>
+              ) : (
+                ""
+              )}
             </Grid>
           </Toolbar>
         </AppBar>
