@@ -406,21 +406,20 @@ const ReportL3 = () => {
       setLoading(true);
     });
     DisplayValidationRunner();
-
     const inputData = {
       itemCode: dataRowInformation.itemCode,
       strCode: storeCode,
       saleable: "",
-      size: "0",
-      uom: "0",
+      size: "",
+      uom: "",
       reasons: "",
       findings: allDataFromValidation.findingsRes,
-      indQty: "0",
-      indCategory: "0",
+      indQty: "",
+      indCategory: "",
       submitStatus: "report",
       set2Type: allDataFromValidation.typeSet2Res,
-      stoneQuality: "0",
-      stoneQualityVal: "0",
+      stoneQuality: "",
+      stoneQualityVal: "",
       rsoName: rsoName,
       npimEventNo: dataRowInformation.npimEventNo,
       IndentLevelType: dataRowInformation.indentLevelType,
@@ -429,7 +428,6 @@ const ReportL3 = () => {
       exIndCategory: dataRowInformation.indCategory,
       exStonequality: dataRowInformation.stoneQuality,
     };
-
     setTimeout(() => {
       axios
         .post(`${HostManager.mainHostL3}/npim/update/responses`, inputData)
