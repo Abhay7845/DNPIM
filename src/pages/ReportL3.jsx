@@ -160,7 +160,6 @@ const ReportL3 = () => {
       });
     }, 3000);
   }, [statusCloserOpener, reportLabel, modification, popupOpen]);
-  // showInfo
   useEffect(async () => {
     if (dataRowInformation.itemCode !== "") {
       try {
@@ -432,7 +431,6 @@ const ReportL3 = () => {
       axios
         .post(`${HostManager.mainHostL3}/npim/update/responses`, inputData)
         .then((response) => {
-          console.log("response.data==>", response.data);
           setImmediate(() => {
             setShowInfo(false);
             setModification(!modification);

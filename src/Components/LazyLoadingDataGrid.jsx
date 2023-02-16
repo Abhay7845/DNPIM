@@ -195,10 +195,8 @@ const LazyLoadingDataGrid = (props) => {
     handelOpen,
   } = props;
   const [searchValue, setSearchValue] = useState("");
-  const role = localStorage.getItem("store_value");
   const column = col.map((element) => {
     let fieldRes;
-
     if (element === "Action") {
       fieldRes = {
         field: "Action",
