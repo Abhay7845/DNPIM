@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import UpperHeader from "./Components/UpperHeader";
 import Login from "./pages/Login";
+import loadingGif from "../src/images/Loading_icon.gif";
 const Error = React.lazy(() => import("./pages/Error"));
 const FeedbackL1AndL2 = React.lazy(() => import("./pages/FeedbackL1AndL2"));
 const ReportL1AndL2 = React.lazy(() => import("./pages/ReportL1AndL2"));
@@ -25,9 +26,9 @@ function App() {
           fallback={
             <>
               <UpperHeader />
-              <center>
-                <h1 className="mt-5 pt-5">Loading...</h1>
-              </center>
+              <div className="text-center">
+                <img src={loadingGif} alt="" />
+              </div>
             </>
           }
         >
@@ -66,7 +67,7 @@ function App() {
             />
             <Route
               exact
-              path="/dayEndreportForAdmin/:storeCode/:rsoName/"
+              path="/dayEndReportForAdmin/:storeCode/:rsoName/"
               component={DayEndReportAdmin}
             />
             <Route

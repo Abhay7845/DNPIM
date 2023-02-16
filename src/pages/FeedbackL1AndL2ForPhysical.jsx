@@ -343,7 +343,7 @@ const FeedbackL1AndL2ForPhysical = () => {
                         videoLink={feedShowState.videoLink}
                       />
                     ) : (
-                      "Loading Images... "
+                      "Loading Images..."
                     )}
                   </div>
                 </div>

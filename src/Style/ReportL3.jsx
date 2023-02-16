@@ -36,5 +36,11 @@ export const useStyle = makeStyles({
     padding: "5px",
     backgroundColor: "#832729",
     color: "#ffff",
+    width: "100%",
+  },
+  btnCan: {
+    fontSize: "14px",
+    padding: "5px",
+    width: "100%",
   },
 });

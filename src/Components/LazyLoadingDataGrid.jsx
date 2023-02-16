@@ -187,7 +187,7 @@ const LazyLoadingDataGrid = (props) => {
   const {
     col,
     rows,
-    reportLable,
+    reportLabel,
     rowDataHandler,
     popupopen,
     handelYes,
@@ -208,9 +208,9 @@ const LazyLoadingDataGrid = (props) => {
         renderCell: (params) => {
           return (
             <>
-              {params?.row?.confirmationStatus === "" ? (
+              {params.row.confirmationStatus === "" ? (
                 <Button
-                  onClick={(data) => {
+                  onClick={() => {
                     rowDataHandler(params.row);
                   }}
                 >
@@ -219,9 +219,9 @@ const LazyLoadingDataGrid = (props) => {
               ) : (
                 ""
               )}
-              {reportLable === "Cancel_Item_List" ? (
+              {reportLabel === "Cancel_Item_List" ? (
                 <Button
-                  onClick={(data) => {
+                  onClick={() => {
                     rowDataHandler(params.row);
                   }}
                 >
@@ -284,7 +284,7 @@ const LazyLoadingDataGrid = (props) => {
   };
   console.log(rows, "rowsRows");
   const DataRows =
-    reportLable === "Item_Wise_Report"
+    reportLabel === "Item_Wise_Report"
       ? rows?.filter((eachRow) =>
           eachRow?.itemCode?.includes(searchValue.toUpperCase())
         )
@@ -293,7 +293,7 @@ const LazyLoadingDataGrid = (props) => {
     <>
       <Container maxWidth="xl">
         <Typography align="center" variant="h5" color="secondary">
-          {reportLable.toUpperCase()}
+          {reportLabel.toUpperCase()}
         </Typography>
         <Suspense fallback={<Typography>Data is loading </Typography>}>
           <DataGrid
@@ -309,7 +309,7 @@ const LazyLoadingDataGrid = (props) => {
             componentsProps={{
               toolbar: {
                 handelSearch: handelSearch,
-                reportLable: reportLable,
+                reportLable: reportLabel,
                 rows: rows,
                 popupopen: popupopen,
                 handelYes: handelYes,

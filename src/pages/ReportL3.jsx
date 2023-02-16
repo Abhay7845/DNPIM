@@ -432,7 +432,7 @@ const ReportL3 = () => {
       axios
         .post(`${HostManager.mainHostL3}/npim/update/responses`, inputData)
         .then((response) => {
-          console.log(response.data);
+          console.log("response.data==>", response.data);
           setImmediate(() => {
             setShowInfo(false);
             setModification(!modification);
@@ -714,20 +714,17 @@ const ReportL3 = () => {
         findingsRes: "",
       });
     });
-
     setTimeout(() => {
       setImmediate(() => {
         setDigit(true);
       });
     }, 1500);
   }
-
   function showInformationHandler() {
     setImmediate(() => {
       setShowInfo(!showInfo);
     });
   }
-
   return (
     <>
       <CssBaseline />
@@ -739,7 +736,6 @@ const ReportL3 = () => {
         discardHandler=""
         closeHandler={closeHandler}
       />
-
       <Drawer
         anchor="left"
         open={barOpener}
@@ -775,7 +771,6 @@ const ReportL3 = () => {
               switchEnable={switchEnable}
             />
           </Grid>
-
           {dataRowInformation && showInfo ? (
             <Grid item xs={12}>
               <Grid container spacing={3}>
@@ -866,8 +861,8 @@ const ReportL3 = () => {
                               <Button
                                 variant="outlined"
                                 color="primary"
-                                fullWidth
                                 onClick={onClickCancelBtnHandler}
+                                className={classes.btnCan}
                               >
                                 Cancel Indent
                               </Button>
@@ -881,7 +876,6 @@ const ReportL3 = () => {
                             <Button
                               variant="outlined"
                               className={classes.btnSub}
-                              fullWidth
                               onClick={onClickSubmitBtnHandler}
                             >
                               {loading === true ? (
@@ -905,14 +899,14 @@ const ReportL3 = () => {
               </Grid>
             </Grid>
           ) : null}
-          <Grid item xs={12} sm={12} fullWidth>
+          <Grid item xs={12} sm={12}>
             {rows.length > 0 && col.length > 0 ? (
               <LazyLoadingDataGrid
                 col={col}
                 rows={rows}
                 autoHeight={true}
                 autoPageSize={true}
-                reportLable={reportLabel}
+                reportLabel={reportLabel}
                 rowDataHandler={rowDataHandler}
                 handelOpen={handelOpen}
                 handelClose={handelClose}
