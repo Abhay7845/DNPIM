@@ -23,7 +23,6 @@ export default function DisplayValidationComponent(props) {
     itemCode,
     stoneOptionList,
     setType2option,
-    tegOfItemOption,
     allDataFromValidation,
     sizeUomQuantityResHandler,
     sizeQuantityResHandler,
@@ -34,8 +33,6 @@ export default function DisplayValidationComponent(props) {
     quantityResHandler,
     findingsResHandler,
     findingsOption,
-    setSelectResHandler,
-    setSelectOptions,
   } = props;
   const optionForSet0 = [
     "Single_Tag",

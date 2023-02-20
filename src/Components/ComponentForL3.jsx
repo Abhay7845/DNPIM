@@ -1252,11 +1252,6 @@ function DynamicMultiSelectAndInput(props) {
       });
   }, [props.optionsList]);
 
-  let setData = props.optionsList.reduce(
-    (total, value) => ({ ...total, [value]: false }),
-    {}
-  );
-
   const findings = feedShowState.findings;
   const findingsOptions = !findings ? "" : findings.split(",");
   const options = props.optionsList.map((element) => {
@@ -1303,9 +1298,7 @@ function DynamicMultiSelectAndInput(props) {
       if (sizeRow[rowName]) {
         getData[count++] = {
           size: rowName,
-          quantity: document.getElementById(`${rowName}sq`).value
-            ? document.getElementById(`${rowName}sq`).value
-            : "",
+          quantity: document.getElementById(`${rowName}sq`).value,
         };
       }
     }
