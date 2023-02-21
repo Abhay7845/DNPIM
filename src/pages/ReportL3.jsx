@@ -290,9 +290,6 @@ const ReportL3 = () => {
     } else {
       let findings, stoneQuality, Quantity;
 
-      if (digitt === "S" || digitt === "J") {
-        findings = true;
-      }
       if (stoneQualityCheck(dataRowInformation)) {
         stoneQuality = true;
       }
