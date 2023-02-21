@@ -414,7 +414,7 @@ const ReportL3 = () => {
       reasons: "",
       findings: allDataFromValidation.findingsRes,
       indQty: "0",
-      indCategory: "",
+      indCategory: allDataFromValidation.indCategory,
       submitStatus: "report",
       set2Type: allDataFromValidation.typeSet2Res,
       stoneQuality: "0",
@@ -431,6 +431,7 @@ const ReportL3 = () => {
       axios
         .post(`${HostManager.mainHostL3}/npim/update/responses`, inputData)
         .then((response) => {
+          alert(response.data.value);
           setImmediate(() => {
             setShowInfo(false);
             setModification(!modification);
@@ -592,7 +593,6 @@ const ReportL3 = () => {
     // getAll("stoneQualityRes", stoneQualityData.target.value)
   }
   function tegQuantityResHandler(tegQuantityData) {
-    console.log("tegQuantityData==>", tegQuantityData);
     setImmediate(() => {
       setAllDataFromValidation({
         sizeUomQuantityRes: allDataFromValidation.sizeUomQuantityRes,
@@ -608,6 +608,7 @@ const ReportL3 = () => {
     // getAll("tegQuantityRes", tegQuantityData)
   }
   function typeSet2ResHandler(typeSet2Data) {
+    console.log("typeSet2Data==>", typeSet2Data.target.value);
     setImmediate(() => {
       setAllDataFromValidation({
         sizeUomQuantityRes: allDataFromValidation.sizeUomQuantityRes,
