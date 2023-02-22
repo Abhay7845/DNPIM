@@ -21,7 +21,6 @@ const useStyles = makeStyles({
   search: {
     border: 0,
     outline: "none",
-    width: "40%",
     background: "none",
     borderBottom: "1px solid #000000",
   },
@@ -117,22 +116,22 @@ function CustomToolbar(props) {
   return (
     <GridToolbarContainer>
       <GridToolbarExport csvOptions={{ fileName: `Npim-${new Date()}` }} />
+      <Grid container className="mx-3">
+        <input
+          type="text"
+          placeholder="Search ItemCode"
+          className={classes.search}
+          value={props.searchValue}
+          onChange={props.handelSearch}
+        />
+      </Grid>
       {props.reportLable === "Item_Wise_Report" && (
         <>
-          <Grid container justify="center">
-            <input
-              type="text"
-              placeholder="Search ItemCode"
-              className={classes.search}
-              value={props.searchValue}
-              onChange={props.handelSearch}
-            />
-          </Grid>
           <Grid container>
             <h6>
               Total:
               <span>
-                <b>{props?.rows.length}</b>
+                <b>{props.rows.length}</b>
               </span>
             </h6>
             <h6 className="ml-5">
@@ -280,9 +279,13 @@ const LazyLoadingDataGrid = (props) => {
   const handelSearch = (e) => {
     setSearchValue(e.target.value);
   };
-  console.log(rows, "rowsRows");
   const DataRows =
-    reportLabel === "Item_Wise_Report"
+    reportLabel === "Item_Wise_Report" ||
+    "NeedSate" ||
+    "Collection" ||
+    "ItGroup" ||
+    "Category" ||
+    "Cancel_item_List"
       ? rows?.filter((eachRow) =>
           eachRow?.itemCode?.includes(searchValue.toUpperCase())
         )
