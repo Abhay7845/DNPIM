@@ -942,6 +942,7 @@ function MultiSelectCoupleBand(props) {
 
 function ProductDetailsTabularL3(props) {
   const classes = useStyles();
+  console.log("props123==>", props.information);
   return (
     <>
       <Typography className={classes.hadingCss} align="center">
@@ -1013,11 +1014,7 @@ function ProductDetailsTabularL3(props) {
             <tr>
               <th>IND-CATEGORY</th>
               <td>-</td>
-              <td>
-                {props.information.indCategory === "Single_Teg"
-                  ? "Single_Tag"
-                  : props.information.indCategory}
-              </td>
+              <td>{props.information.indCategory}</td>
             </tr>
           ) : null}
           {props.information.colourWt ? (

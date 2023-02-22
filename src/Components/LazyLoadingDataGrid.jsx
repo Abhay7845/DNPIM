@@ -259,7 +259,7 @@ const LazyLoadingDataGrid = (props) => {
         renderCell: (params) => {
           return (
             <>
-              {params?.row?.confirmationStatus === "" ? (
+              {params.row.confirmationStatus === "" ? (
                 ""
               ) : (
                 <p style={{ color: "green" }}>Success</p>

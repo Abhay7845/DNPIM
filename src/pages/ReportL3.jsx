@@ -58,8 +58,7 @@ const ReportL3 = () => {
     quantityRes: "",
     findingsRes: "",
   });
-
-  console.log("allDataFromValidation==>", allDataFromValidation);
+  console.log("dataRowInformation==>", dataRowInformation);
   const reportDropHandler = (input) => {
     setReportLabel(input);
     // setImmediate(() => {
@@ -206,27 +205,21 @@ const ReportL3 = () => {
       digitt === "F" ||
       digitt === "R" ||
       digitt === "V" ||
-      digitt === "W" ||
-      digitt === "Y"
+      digitt === "W"
     ) {
       let sizeUomQuantity, sizeQuantity;
-
       if (digitt === "V" && dataRowInformation?.category === "BANGLE") {
         sizeUomQuantity = true;
       } else if (
         (digitt === "V" ||
           digitt === "C" ||
           digitt === "F" ||
-          digitt === "Y" ||
           digitt === "B") &&
         stoneQualityCheck(dataRowInformation)
       ) {
         sizeQuantity = true;
       } else if (
-        (digitt === "C" ||
-          digitt === "F" ||
-          digitt === "Y" ||
-          digitt === "B") &&
+        (digitt === "C" || digitt === "F" || digitt === "B") &&
         !stoneQualityCheck(dataRowInformation)
       ) {
         sizeQuantity = true;
@@ -345,7 +338,7 @@ const ReportL3 = () => {
         childNodesN: dataRowInformation.childNodesN,
         findings: allDataFromValidation.findingsRes,
         indQty: allDataFromValidation.quantityRes,
-        indCategory: dataRowInformation.indCategory,
+        indCategory: dataRowInformation.category,
         submitStatus: "report",
         set2Type: allDataFromValidation.typeSet2Res,
         stoneQuality: allDataFromValidation.stoneQualityRes
@@ -473,7 +466,7 @@ const ReportL3 = () => {
   };
 
   const rowDataHandler = (input) => {
-    setDataRowInformation(input);
+    console.log("input123==>", input);
     setImmediate(() => {
       setLoading(true);
       setDataRowInformation(input);
@@ -486,7 +479,7 @@ const ReportL3 = () => {
       setImmediate(() => {
         setLoading(false);
       });
-    }, 1500);
+    });
   };
 
   function stoneQualityCheck(inputObj) {
