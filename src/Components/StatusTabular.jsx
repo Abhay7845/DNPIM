@@ -1,6 +1,5 @@
 import {
   makeStyles,
-  TableContainer,
   Table,
   TableHead,
   TableRow,
@@ -16,7 +15,6 @@ const useStyles = makeStyles({
     minWidth: 1,
     margin: "0%",
     marginBottom: "1%",
-
     pending: "0%",
   },
   tableHeader: {
@@ -43,6 +41,7 @@ const StatusTabular = (props) => {
     }
     return rows;
   };
+  console.log("statusData==>", statusData);
   const columns =
     storeValue !== "L3"
       ? [...statusData.coloum, "REMAINING SKU COUNT"]

@@ -48,7 +48,6 @@ const ReportL3 = () => {
     contain: "",
   });
   const [SizeState, setSizeState] = useState([]);
-
   const [allDataFromValidation, setAllDataFromValidation] = useState({
     sizeUomQuantityRes: [],
     sizeQuantityRes: [],
@@ -58,7 +57,7 @@ const ReportL3 = () => {
     quantityRes: "",
     findingsRes: "",
   });
-  console.log("dataRowInformation==>", dataRowInformation);
+  console.log("statusData123==>", statusData);
   const reportDropHandler = (input) => {
     setReportLabel(input);
     // setImmediate(() => {
@@ -140,6 +139,7 @@ const ReportL3 = () => {
 
     axios.get(`${HostManager.mainHostL3}/npim/get/status/L3/${storeCode}`).then(
       (response) => {
+        console.log("response1234==>", response);
         if (response.data.code === "1001") {
           alert(response.data.value);
         } else {
@@ -149,7 +149,7 @@ const ReportL3 = () => {
         }
       },
       (error) => {
-        console.log(error);
+        console.log("errorStatus==>", error);
       }
     );
 
