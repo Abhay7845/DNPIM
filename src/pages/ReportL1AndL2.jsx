@@ -116,14 +116,11 @@ const ReportL1AndL2 = (props) => {
           console.log("error==>", error);
         }
       );
-
       axios.get(`${HostManager.mainHost}/npim/status/L1/${storeCode}`).then(
         (response) => {
-          console.log(response);
-
           if (response.data.code === "1001") {
             console.log("response.data.value==>", response.data.value);
-          } else {
+          } else if (response.data.code === "1000") {
             setStatusData(response.data);
           }
         },
@@ -131,7 +128,6 @@ const ReportL1AndL2 = (props) => {
           console.log("error==>", error);
         }
       );
-
       setShowInfo(false);
       setImmediate(() => {
         setLoading(false);
@@ -189,7 +185,7 @@ const ReportL1AndL2 = (props) => {
       return;
     }
     if (input.qualityRating === 0) {
-      alert("Please select Quality Rating ...");
+      alert("Please select Quality Rating");
       return;
     }
     if (
@@ -197,7 +193,7 @@ const ReportL1AndL2 = (props) => {
       input.qualityRating <= 3 &&
       input.multiSelectQltyfeed.toString().length === 0
     ) {
-      alert("Please select reason for QA ...");
+      alert("Please select reason for QA");
       return;
     }
     setProductInfo((old) => {
@@ -214,38 +210,29 @@ const ReportL1AndL2 = (props) => {
       old.strCode = storeCode;
       old.quality_Reasons = input.multiSelectQltyfeed.toString();
       old.quality_Rating = input.qualityRating.toString();
-
       return old;
     });
-    setTimeout(
-      () => {
-        axios
-          .post(`${HostManager.mainHost}/npim/insert/responses`, productInfo)
-          .then((responce) => {
-            console.log(responce.data);
-
-            setSelectReport(selectReport);
-            setShowInfo(false);
-          })
-          .catch((error) => {
-            console.log(error);
-            alert(error);
-          });
-        setImmediate(() => {
-          setLoading(false);
-        });
-
-        setImmediate(() => {
+    setTimeout(() => {
+      axios
+        .post(`${HostManager.mainHost}/npim/insert/responses`, productInfo)
+        .then((response) => {
+          console.log(response.data);
           setSelectReport(selectReport);
+          setShowInfo(false);
+        })
+        .catch((error) => {
+          console.log(error);
         });
-
-        setImmediate(() => {
-          setEditState(!editState);
-        });
-      },
-
-      1500
-    );
+      setImmediate(() => {
+        setLoading(false);
+      });
+      setImmediate(() => {
+        setSelectReport(selectReport);
+      });
+      setImmediate(() => {
+        setEditState(!editState);
+      });
+    }, 1500);
   };
 
   return (
@@ -253,11 +240,9 @@ const ReportL1AndL2 = (props) => {
       <Drawer anchor="left" open={barOpener} onClose={myBarClickHandler}>
         <SideAppBar navBarList={navBarList} statusOpener={statusOpener} />
       </Drawer>
-
       <Drawer anchor="top" open={statusCloserOpener} onClose={statusOpener}>
         <StatusTabular statusData={statusData} />
       </Drawer>
-
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <UpperHeader storeCode={storeCode} />
@@ -311,7 +296,6 @@ const ReportL1AndL2 = (props) => {
             </AppBar>
           </div>
         </Grid>
-
         <Grid item xs={12} className={showInfo ? classes.show : classes.hidden}>
           {report.length > 0 && colum.length > 0 ? (
             <ProductInfo
@@ -333,7 +317,7 @@ const ReportL1AndL2 = (props) => {
               reportName={selectReport}
             />
           ) : (
-            "no data"
+            "NO DATA"
           )}
         </Grid>
       </Grid>
