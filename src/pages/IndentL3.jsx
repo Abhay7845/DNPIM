@@ -405,7 +405,7 @@ const IndentL3 = () => {
         setImmediate(() => {
           setLoading(false);
         });
-      }, 1000);
+      });
     }
     setImmediate(() => {
       setLoading(false);
@@ -434,7 +434,6 @@ const IndentL3 = () => {
         contain: "",
         mode: false,
       });
-
       SetResetDrop(resetDrop);
     });
     setImmediate(() => {
