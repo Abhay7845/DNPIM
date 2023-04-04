@@ -78,10 +78,10 @@ const Login = () => {
     };
 
     if (inputData.userID && inputData.password && inputData.region) {
+      setValidUser(true);
       axios
         .post(`${HostManager.mainHost}/npim/user/login`, inputData)
         .then((response) => {
-          setValidUser(false);
           localStorage.setItem("store_value", response.data.value.role);
           localStorage.setItem("store_code", response.data.value.userID);
           setImmediate(() => {
@@ -129,25 +129,11 @@ const Login = () => {
               setFlag(true);
             });
           }
+          setValidUser(false);
         })
         .catch((error) => {
           console.log("error from login page==>", error);
-          setValidUser(true);
           setErrorSms("Please Enter Valid Username and Password!");
-          // switch (error.response.status) {
-          //   case 401:
-          //     setValidUser(true)
-          //     break;
-          //   case 500:
-          //     alert(error.status, error);
-          //     break;
-          //   case 400:
-          //     alert(error.status, error);
-          //     break;
-          //   default:
-          //     alert(error);
-          //     break;
-          // }
         });
     }
   };
@@ -264,13 +250,20 @@ const Login = () => {
                 onHendler={OnChangeInput}
                 type="text"
               />
-              <Button
-                className={classes.submitBtn}
-                variant="contained"
+              <button
+                className="btn btn-warning w-100"
                 onClick={() => OnClickHandler("PNPIM")}
               >
-                LOGIN
-              </Button>
+                {ValidUser ? (
+                  <span
+                    className="spinner-border spinner-border-sm text-light"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <span>LOGIN</span>
+                )}
+              </button>
             </div>
           </div>
         </Container>

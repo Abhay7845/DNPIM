@@ -25,6 +25,7 @@ import UpperHeader from "../Components/UpperHeader";
 import HostManager from "../HostManager/HostManager";
 import UrlManager from "../HostManager/UrlManager";
 import { useStyle } from "../Style/ReportL3";
+import "../Style/CssStyle/LazyLoadingDataGrid.css";
 
 const ReportL3 = () => {
   const classes = useStyle();
@@ -116,7 +117,6 @@ const ReportL3 = () => {
         urlReport = urlReport = `${UrlManager.itemWiseReportL3}${storeCode}`;
         break;
     }
-
     axios.get(urlReport).then(
       (response) => {
         console.log(response);
@@ -152,7 +152,6 @@ const ReportL3 = () => {
         console.log("errorStatus==>", error);
       }
     );
-
     setTimeout(() => {
       setImmediate(() => {
         setLoading(false);
@@ -224,7 +223,6 @@ const ReportL3 = () => {
       ) {
         sizeQuantity = true;
       }
-
       return {
         sizeUomQuantityRes: sizeUomQuantity && SizeState[0] ? true : false,
         sizeQuantityRes: sizeQuantity && SizeState[0] ? true : false,
@@ -294,7 +292,6 @@ const ReportL3 = () => {
       };
     }
   }
-
   const onClickSubmitBtnHandler = (event) => {
     let msg = {};
     const data = NewDisplayValidation();
@@ -323,7 +320,6 @@ const ReportL3 = () => {
     seventhDigits = dataRowInformation.itemCode[6];
     let displayData = { status: true };
     let stdUcpNotSelectData;
-
     if (!msg.status && Object.keys(msg).length > 0) {
       Error(msg.message);
     } else {
@@ -360,7 +356,6 @@ const ReportL3 = () => {
         sizeQuantitys: allDataFromValidation.sizeQuantityRes,
         tagQuantitys: allDataFromValidation.tegQuantityRes,
       };
-
       setTimeout(() => {
         axios
           .post(
@@ -381,7 +376,6 @@ const ReportL3 = () => {
           .catch((error) => {
             console.log("error==>", error);
           });
-
         reportDropHandler(reportLabel);
       });
     }
@@ -389,7 +383,6 @@ const ReportL3 = () => {
       setLoading(false);
     });
   };
-
   const onClickCancelBtnHandler = (event) => {
     setImmediate(() => {
       setLoading(true);
@@ -439,7 +432,6 @@ const ReportL3 = () => {
       setLoading(false);
     });
   };
-
   function closeHandler(params) {
     setImmediate(() => {
       setAlertPopupStatus({
@@ -452,19 +444,16 @@ const ReportL3 = () => {
       setLoading(false);
     });
   }
-
   const barHandler = () => {
     setImmediate(() => {
       setBarOpener(!barOpener);
     });
   };
-
   const statusOpener = () => {
     setImmediate(() => {
       setStatusCloserOpener(!statusCloserOpener);
     });
   };
-
   const rowDataHandler = (input) => {
     console.log("input123==>", input);
     setImmediate(() => {
@@ -479,6 +468,50 @@ const ReportL3 = () => {
       setImmediate(() => {
         setLoading(false);
       });
+    });
+  };
+  const DeleteRowData = (event) => {
+    console.log("event==>", event);
+    setImmediate(() => {
+      setLoading(true);
+      setDataRowInformation(event);
+    });
+    const inputFiled = {
+      exIndCategory: event.category,
+      exSize: "",
+      exStonequality: event.stoneQuality,
+      exUOM: "",
+      findings: "",
+      indCategory: "0",
+      indQty: "",
+      itemCode: event.itemCode,
+      reasons: "",
+      rsoName: "6",
+      saleable: "",
+      set2Type: "",
+      size: "0",
+      stoneQuality: "0",
+      stoneQualityVal: "0",
+      strCode: "NAT1",
+      submitStatus: "report",
+      uom: "0",
+    };
+    console.log("inputFiled==>", inputFiled);
+    axios
+      .post(`${HostManager.mainHostL3}/npim/update/responses`, inputFiled)
+      .then((response) => {
+        alert(response.data.value);
+        setImmediate(() => {
+          setShowInfo(false);
+          setModification(!modification);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    reportDropHandler(reportLabel);
+    setImmediate(() => {
+      setLoading(false);
     });
   };
 
@@ -686,7 +719,6 @@ const ReportL3 = () => {
             console.log(error);
           }
         );
-    } else {
     }
   }
 
@@ -853,7 +885,7 @@ const ReportL3 = () => {
                                 onClick={onClickCancelBtnHandler}
                                 className={classes.btnCan}
                               >
-                                Cancel Indent
+                                Cancel Indent her
                               </Button>
                             </Grid>
                           ) : null}
@@ -900,11 +932,12 @@ const ReportL3 = () => {
                 handelOpen={handelOpen}
                 handelClose={handelClose}
                 handelYes={handelYes}
-                popupopen={popupOpen}
+                popupOpen={popupOpen}
+                DeleteRowData={DeleteRowData}
               />
             ) : (
               <Typography align="center" variant="h5" color="secondary">
-                No Data Found...!
+                DATA NOT AVAILABLE
               </Typography>
             )}
           </Grid>

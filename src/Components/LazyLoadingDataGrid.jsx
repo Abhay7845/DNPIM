@@ -13,6 +13,8 @@ import {
   GridToolbarExport,
 } from "@material-ui/data-grid";
 import AlertPopup, { ModelPopup } from "./AlertPopup";
+import * as Icon from "react-bootstrap-icons";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import UrlManager from "../HostManager/UrlManager";
@@ -172,7 +174,7 @@ function CustomToolbar(props) {
         }}
       />
       <ModelPopup
-        open={props.popupopen}
+        open={props.popupOpen}
         handelClose={props.handelClose}
         option1="NO"
         option2="YES"
@@ -188,10 +190,11 @@ const LazyLoadingDataGrid = (props) => {
     rows,
     reportLabel,
     rowDataHandler,
-    popupopen,
+    popupOpen,
     handelYes,
     handelClose,
     handelOpen,
+    DeleteRowData,
   } = props;
   const [searchValue, setSearchValue] = useState("");
   const column = col.map((element) => {
@@ -206,24 +209,33 @@ const LazyLoadingDataGrid = (props) => {
           return (
             <>
               {params.row.confirmationStatus === "" ? (
-                <Button
-                  onClick={() => {
-                    rowDataHandler(params.row);
-                  }}
-                >
-                  Edit
-                </Button>
+                <div className="mx-3">
+                  <Icon.PencilSquare
+                    onClick={() => {
+                      rowDataHandler(params.row);
+                    }}
+                    size={16}
+                    className="EditButton"
+                  />
+                  <DeleteRoundedIcon
+                    size={16}
+                    className="DeleteButton"
+                    onClick={() => {
+                      DeleteRowData(params.row);
+                    }}
+                  />
+                </div>
               ) : (
                 ""
               )}
               {reportLabel === "Cancel_Item_List" ? (
-                <Button
+                <Icon.PencilSquare
                   onClick={() => {
                     rowDataHandler(params.row);
                   }}
-                >
-                  Edit
-                </Button>
+                  size={16}
+                  className="EditButton"
+                />
               ) : (
                 ""
               )}
@@ -253,7 +265,6 @@ const LazyLoadingDataGrid = (props) => {
         field: "confirmationStatus",
         headerName: "confirmationStatus",
         sortable: false,
-        width: 180,
         disableClickEventBubbling: true,
         renderCell: (params) => {
           return (
@@ -271,7 +282,7 @@ const LazyLoadingDataGrid = (props) => {
       fieldRes = {
         field: element,
         sortable: false,
-        width: 160,
+        flex: 1,
       };
     }
     return fieldRes;
@@ -312,7 +323,7 @@ const LazyLoadingDataGrid = (props) => {
                 handelSearch: handelSearch,
                 reportLable: reportLabel,
                 rows: rows,
-                popupopen: popupopen,
+                popupopen: popupOpen,
                 handelYes: handelYes,
                 handelClose: handelClose,
                 handelOpen: handelOpen,

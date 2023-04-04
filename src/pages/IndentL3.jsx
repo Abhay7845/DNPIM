@@ -891,19 +891,16 @@ const IndentL3 = () => {
                       <Button
                         className={classes.btnSub}
                         onClick={onClickSubmitBtnHandler}
-                        variant="contained"
                         fullWidth
                       >
-                        {loading === true ? (
-                          <CircularProgress
-                            size={20}
-                            style={{
-                              background: "transparent",
-                              color: "#ffff",
-                            }}
+                        {loading ? (
+                          <span
+                            className="spinner-border spinner-border-sm text-light"
+                            role="status"
+                            aria-hidden="true"
                           />
                         ) : (
-                          "SUBMIT"
+                          <span>Submit</span>
                         )}
                       </Button>
                     </Grid>

@@ -1115,103 +1115,70 @@ function SmallDataTable(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {digit === "5" || digit === "6" || digit === "7" ? (
-                    <>
-                      {!props.stdUcpH ? (
-                        <tr>
-                          <td>OTHER</td>
-                          <td>
-                            {!props.stdWtO ? tableData.stdWtO : props.stdWtO}
-                          </td>
-                          <td>
-                            {!props.stdUcpO ? tableData.stdUcpO : props.stdUcpO}
-                          </td>
-                        </tr>
-                      ) : (
-                        <tr>
-                          <td>HARAM</td>
-                          <td>{props.stdWtH}</td>
-                          <td>{props.stdUcpH}</td>
-                        </tr>
-                      )}
-                    </>
-                  ) : (
+                  {props.stdWtF === "" || props.stdUcpF === "" ? (
                     ""
-                  )}
-                  <tr>
-                    <td>EAR RING</td>
-                    <td>{!props.stdWtE ? tableData.stdWtE : props.stdWtE}</td>
-                    <td>{!props.stdUcpE ? tableData.stdUcpE : props.stdWtE}</td>
-                  </tr>
-                  {digit === "0" ? (
-                    <tr>
-                      <td>CHAIN WITH PENDANT</td>
-                      <td>{!props.stdWtN ? tableData.stdWtN : props.stdWtN}</td>
-                      <td>
-                        {!props.stdUcpN ? tableData.stdUcpN : props.stdUcpN}
-                      </td>
-                    </tr>
                   ) : (
-                    <tr>
-                      {digit === "T" ? (
-                        <td>MANGLASUTRA</td>
-                      ) : (
-                        <td>
-                          {digit === "1" || digit === "2"
-                            ? "NECKWEAR OR PENDENT"
-                            : "NECKWEAR"}
-                        </td>
-                      )}
-                      <td>{!props.stdWtN ? tableData.stdWtN : props.stdWtN}</td>
-                      <td>
-                        {!props.stdUcpN ? tableData.stdUcpN : props.stdUcpN}
-                      </td>
-                    </tr>
-                  )}
-                  {digit === "3" ||
-                  digit === "4" ||
-                  digit === "5" ||
-                  digit === "6" ||
-                  digit === "7" ? (
-                    <tr>
-                      <td>BANGLE</td>
-                      <td>{props.stdWtV}</td>
-                      <td>{props.stdUcpV}</td>
-                    </tr>
-                  ) : (
-                    ""
-                  )}
-
-                  {digit === "4" ||
-                  digit === "5" ||
-                  digit === "6" ||
-                  digit === "7" ? (
-                    <tr>
-                      <td>TIKKA</td>
-                      <td>{props.stdWtK}</td>
-                      <td>{props.stdUcpK}</td>
-                    </tr>
-                  ) : (
-                    ""
-                  )}
-                  {digit === "6" || digit === "7" ? (
                     <tr>
                       <td>FINGER RING</td>
                       <td>{props.stdWtF}</td>
                       <td>{props.stdUcpF}</td>
                     </tr>
-                  ) : (
-                    ""
                   )}
-                  {/* {digit === "7" ? (
-                  <tr>
-                    <td>OTHERS</td>
-                    <td>{props.stdWtO}</td>
-                    <td>{props.stdUcpO}</td>
-                  </tr>
-                ) : (
-                  ""
-                )} */}
+                  {props.stdWtE === "" || props.stdUcpE === "" ? (
+                    ""
+                  ) : (
+                    <tr>
+                      <td>EAR RING</td>
+                      <td>{props.stdWtE}</td>
+                      <td>{props.stdUcpE}</td>
+                    </tr>
+                  )}
+
+                  {props.stdWtN === "" || props.stdUcpN === "" ? (
+                    ""
+                  ) : (
+                    <tr>
+                      <td>NECKWEAR</td>
+                      <td>{props.stdWtN}</td>
+                      <td>{props.stdUcpN}</td>
+                    </tr>
+                  )}
+                  {props.stdWtH === "" || props.stdUcpH === "" ? (
+                    ""
+                  ) : (
+                    <tr>
+                      <td>HARAM</td>
+                      <td>{props.stdWtH}</td>
+                      <td>{props.stdUcpH}</td>
+                    </tr>
+                  )}
+                  {props.stdWtK === "" || props.stdUcpK === "" ? (
+                    ""
+                  ) : (
+                    <tr>
+                      <td>TIKKA</td>
+                      <td>{props.stdWtK}</td>
+                      <td>{props.stdUcpK}</td>
+                    </tr>
+                  )}
+                  {props.stdWtV === "" || props.stdUcpV === "" ? (
+                    ""
+                  ) : (
+                    <tr>
+                      <td>BANGLE</td>
+                      <td>{props.stdWtV}</td>
+                      <td>{props.stdUcpV}</td>
+                    </tr>
+                  )}
+                  {props.stdWtO === "" || props.stdUcpO === "" ? (
+                    ""
+                  ) : (
+                    <tr>
+                      <td>OTHER</td>
+                      <td>{props.stdWtO}</td>
+                      <td>{props.stdUcpO}</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

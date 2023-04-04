@@ -122,7 +122,6 @@ const ProductInfo = (props) => {
                 <div className="img_info_show ">
                   <ImgShow
                     className="img_show"
-                    // itemCode={props.itemCode}
                     itemCode={props.productInfo.itemCode}
                     imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
                     videoLink=""

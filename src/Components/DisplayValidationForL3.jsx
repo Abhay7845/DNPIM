@@ -34,111 +34,42 @@ export default function DisplayValidationComponent(props) {
     findingsResHandler,
     findingsOption,
   } = props;
-  const optionForSet0 = [
+
+  console.log("props.feedShowState==>", props.feedShowState);
+
+  const chainWidthPendent = digit === "0" ? "Only_CHAIN_WITH_PENDANT" : "";
+  const onlyNeckWearOrPendent = digit === "1" ? "Only_Mangalsutra" : "";
+  const SetTOption = digit === "T" ? "Only_Neckwear_or_Pendant" : "";
+  const finger = !props.feedShowState.childNodeF ? "" : "Only_Finger_Ring";
+  const harm = !props.feedShowState.childNodeH ? "" : "Only_HARAM";
+  const Tikka = !props.feedShowState.childNodeK ? "" : "Only_TIKKA";
+  const other = !props.feedShowState.childNodeO ? "" : "Only_OTHER";
+  const bangle = !props.feedShowState.childNodeV ? "" : "Only_BANGLE";
+  const earing = !props.feedShowState.childNodesE ? "" : "Only_EARRING";
+  const neckwear = !props.feedShowState.childNodesN ? "" : "Only_NECKWEAR";
+
+  const optionForOtherAllSet = [
     "Single_Tag",
     "Separate_Tag",
-    "Only_EAR_RING",
-    "Only_CHAIN_WITH_PENDANT",
+    chainWidthPendent,
+    onlyNeckWearOrPendent,
+    finger,
+    earing,
+    neckwear,
+    bangle,
+    harm,
+    Tikka,
+    other,
+    SetTOption,
   ];
-  const optionForSet1 = [
-    "Single_Tag",
-    "Separate_Tag",
-    "Only_EAR_RING",
-    "Only_NECKWEAR_OR_PENDANT",
-  ];
-  const optionForSet2 = [
-    "Single_Tag",
-    "Separate_Tag",
-    "Only_EAR_RING",
-    "Only_NECKWEAR",
-  ];
-  const optionForSet3 = [
-    "Single_Tag",
-    "Separate_Tag",
-    "Only_EAR_RING",
-    "Only_NECKWEAR",
-    "Only_BANGLE",
-    "Only_TIKKA",
-    "Only_HARAM",
-  ];
-  const optionForSet4 = [
-    "Single_Tag",
-    "Separate_Tag",
-    "Only_EAR_RING",
-    "Only_NECKWEAR",
-    "Only_BANGLE",
-    "Only_TIKKA",
-    "Only_HARAM",
-  ];
-  const optionForSet5 = [
-    "Single_Tag",
-    "Separate_Tag",
-    "Only_EAR_RING",
-    "Only_NECKWEAR",
-    "Only_HARAM",
-    "Only_BANGLE",
-    "Only_TIKKA",
-  ];
-  const optionForSet6 = [
-    "Single_Tag",
-    "Separate_Tag",
-    "Only_EAR_RING",
-    "Only_NECKWEAR",
-    "Only_HARAM",
-    "Only_BANGLE",
-    "Only_TIKKA",
-    "Only_Finger_Ring",
-  ];
-  const optionForSet7 = [
-    "Single_Tag",
-    "Separate_Tag",
-    "Only_EAR_RING",
-    "Only_NECKWEAR",
-    "Only_HARAM",
-    "Only_BANGLE",
-    "Only_TIKKA",
-    "Only_Finger_Ring",
-  ];
-  const optionForSetT = [
-    "Single_Tag",
-    "Separate_Tag",
-    "Only_Mangalsutra",
-    "Only_EAR_RING",
-  ];
-  const coupleBand = ["Single_Tag", "Separate_Tag"];
+  console.log("optionForOtherAllSet==>", optionForOtherAllSet);
+
+  const tagsOptions = optionForOtherAllSet.filter((item) => !item === false);
+  console.log("tagsOptions==>", tagsOptions);
 
   useEffect(() => {
-    if (digit === "0") {
-      setOption(optionForSet0);
-    }
-    if (digit === "1") {
-      setOption(optionForSet1);
-    }
-    if (digit === "2") {
-      setOption(optionForSet2);
-    }
-    if (digit === "3") {
-      setOption(optionForSet3);
-    }
-    if (digit === "4") {
-      setOption(optionForSet4);
-    }
-    if (digit === "5") {
-      setOption(optionForSet5);
-    }
-    if (digit === "6") {
-      setOption(optionForSet6);
-    }
-    if (digit === "7") {
-      setOption(optionForSet7);
-    }
-    if (digit === "T") {
-      setOption(optionForSetT);
-    }
-    if (digit === "F") {
-      setOption(coupleBand);
-    }
-  }, []);
+    setOption(tagsOptions);
+  }, [itemCode]);
 
   const chooseOption = ["Single_Tag", "Separate_Tag"];
   useEffect(() => {
