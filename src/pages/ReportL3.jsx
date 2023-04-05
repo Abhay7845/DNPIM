@@ -477,26 +477,26 @@ const ReportL3 = () => {
       setDataRowInformation(event);
     });
     const inputFiled = {
-      itemCode: dataRowInformation.itemCode,
-      strCode: storeCode,
+      itemCode: event.itemCode,
+      strCode: "NAT1",
       saleable: "",
       size: "0",
       uom: "0",
       reasons: "",
-      findings: allDataFromValidation.findingsRes,
+      findings: "",
       indQty: "0",
-      indCategory: allDataFromValidation.indCategory,
+      indCategory: "0",
       submitStatus: "report",
-      set2Type: allDataFromValidation.typeSet2Res,
+      set2Type: "",
       stoneQuality: "0",
       stoneQualityVal: "0",
-      rsoName: rsoName,
-      npimEventNo: dataRowInformation.npimEventNo,
-      IndentLevelType: dataRowInformation.indentLevelType,
-      exSize: dataRowInformation.size,
-      exUOM: dataRowInformation.uom,
-      exIndCategory: dataRowInformation.indCategory,
-      exStonequality: dataRowInformation.stoneQuality,
+      rsoName: "6",
+      npimEventNo: "",
+      IndentLevelType: "",
+      exSize: event.size,
+      exUOM: "",
+      exIndCategory: event.indCategory,
+      exStonequality: "STDUCP",
     };
     console.log("inputFiled==>", inputFiled);
     axios
@@ -884,8 +884,8 @@ const ReportL3 = () => {
                               <Button
                                 variant="outlined"
                                 color="primary"
-                                onClick={onClickCancelBtnHandler}
                                 className={classes.btnCan}
+                                onClick={onClickCancelBtnHandler}
                               >
                                 Cancel Indent
                               </Button>
