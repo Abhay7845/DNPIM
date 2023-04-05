@@ -282,8 +282,7 @@ const LazyLoadingDataGrid = (props) => {
       fieldRes = {
         field: element,
         sortable: false,
-        // flex: 1,
-        width: 180,
+        flex: 1,
       };
     }
     return fieldRes;
