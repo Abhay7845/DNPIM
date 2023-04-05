@@ -282,7 +282,8 @@ const LazyLoadingDataGrid = (props) => {
       fieldRes = {
         field: element,
         sortable: false,
-        flex: 1,
+        // flex: 1,
+        width: 180,
       };
     }
     return fieldRes;
@@ -307,30 +308,28 @@ const LazyLoadingDataGrid = (props) => {
         <Typography align="center" variant="h5" color="secondary">
           {reportLabel.toUpperCase()}
         </Typography>
-        <Suspense fallback={<Typography>Data is loading </Typography>}>
-          <DataGrid
-            rows={DataRows}
-            columns={column}
-            autoHeight={true}
-            rowsPerPageOptions={[50]}
-            pagination
-            pageSize={50}
-            components={{
-              Toolbar: CustomToolbar,
-            }}
-            componentsProps={{
-              toolbar: {
-                handelSearch: handelSearch,
-                reportLable: reportLabel,
-                rows: rows,
-                popupopen: popupOpen,
-                handelYes: handelYes,
-                handelClose: handelClose,
-                handelOpen: handelOpen,
-              },
-            }}
-          />
-        </Suspense>
+        <DataGrid
+          rows={DataRows}
+          columns={column}
+          autoHeight={true}
+          rowsPerPageOptions={[50]}
+          pagination
+          pageSize={50}
+          components={{
+            Toolbar: CustomToolbar,
+          }}
+          componentsProps={{
+            toolbar: {
+              handelSearch: handelSearch,
+              reportLable: reportLabel,
+              rows: rows,
+              popupopen: popupOpen,
+              handelYes: handelYes,
+              handelClose: handelClose,
+              handelOpen: handelOpen,
+            },
+          }}
+        />
       </Container>
     </>
   );

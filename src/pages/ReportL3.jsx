@@ -477,24 +477,26 @@ const ReportL3 = () => {
       setDataRowInformation(event);
     });
     const inputFiled = {
-      exIndCategory: event.category,
-      exSize: "",
-      exStonequality: event.stoneQuality,
-      exUOM: "",
-      findings: "",
-      indCategory: "0",
-      indQty: "",
-      itemCode: event.itemCode,
-      reasons: "",
-      rsoName: "6",
+      itemCode: dataRowInformation.itemCode,
+      strCode: storeCode,
       saleable: "",
-      set2Type: "",
       size: "0",
+      uom: "0",
+      reasons: "",
+      findings: allDataFromValidation.findingsRes,
+      indQty: "0",
+      indCategory: allDataFromValidation.indCategory,
+      submitStatus: "report",
+      set2Type: allDataFromValidation.typeSet2Res,
       stoneQuality: "0",
       stoneQualityVal: "0",
-      strCode: "NAT1",
-      submitStatus: "report",
-      uom: "0",
+      rsoName: rsoName,
+      npimEventNo: dataRowInformation.npimEventNo,
+      IndentLevelType: dataRowInformation.indentLevelType,
+      exSize: dataRowInformation.size,
+      exUOM: dataRowInformation.uom,
+      exIndCategory: dataRowInformation.indCategory,
+      exStonequality: dataRowInformation.stoneQuality,
     };
     console.log("inputFiled==>", inputFiled);
     axios
@@ -885,7 +887,7 @@ const ReportL3 = () => {
                                 onClick={onClickCancelBtnHandler}
                                 className={classes.btnCan}
                               >
-                                Cancel Indent her
+                                Cancel Indent
                               </Button>
                             </Grid>
                           ) : null}
