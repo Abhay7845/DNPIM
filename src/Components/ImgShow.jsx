@@ -45,6 +45,7 @@ const ImgShow = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (event.target.src) {
+      console.log(imgLink);
       setImgLink(event.target.src);
     } else {
       setImgLink(props.videoLink);
@@ -52,25 +53,24 @@ const ImgShow = (props) => {
   };
 
   const imageCode = props.itemCode !== "" && props.itemCode.substring(2, 9);
-  const combineImage = props.imgLink !== "" && `${props.imgLink}${imageCode}`;
-
+  const combineImage = `${props.imgLink}${imageCode}`;
   return (
     <>
       <section className={classes.root}>
         <Card className={classes.cardStyle}>
           <CardActionArea>
-            {imgLink.search("preview") > 0 ? (
+            {combineImage.search("preview") > 0 ? (
               <iframe
                 src={props.videoLink + "?autoplay=1&mute=1"}
                 width="590"
                 height="500"
-                alt="Video is not available"
+                title="Video is not available"
               />
             ) : (
               <ReactImageMagnify
                 {...{
                   smallImage: {
-                    src: ImgLoad ? loadingGif : `${combineImage}_${value}.jpg`,
+                    src: ImgLoad ? loadingGif : `${combineImage}.jpg`,
                     height: 472,
                     width: window.innerWidth * (40.41145833 / 100),
                     alt: "Image is not available",
@@ -112,7 +112,7 @@ const ImgShow = (props) => {
             <Tab style={{ minWidth: "1%" }} icon={<PlayCircleOutlineIcon />} />
             <Tab
               style={{ minWidth: "1%" }}
-              icon={<Avatar variant="square" src={`${combineImage}_1.jpg`} />}
+              icon={<Avatar variant="square" src={`${combineImage}.jpg`} />}
             />
             <Tab
               style={{ minWidth: "1%" }}

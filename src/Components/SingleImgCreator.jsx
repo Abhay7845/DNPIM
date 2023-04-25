@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 const SingleImgCreator = (props) => {
   const { itemCode } = props;
-  const [img, setImg] = useState("");
-
+  const [img, setImg] = useState([]);
+  const imageCode = itemCode.substring(2, 9);
+  let ImageURL = `https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName=${imageCode}.jpg`;
   const getImages = async () => {
-    setImg([]);
-    const imageCode = itemCode.substring(2, 9);
-    const options = {
-      headers: {
-        ApiKey: "7C68491C-80D3-43B8-85CE-15A5DB7F9D60",
-        UserToken: "2001025",
-      },
-    };
     try {
       if (imageCode !== "") {
-        const response = await axios.get(
-          `https://jewbridge.titanjew.in/ImageFetch/api/Image?Type=ProductImages&ImageParameter=1&ImageName=${imageCode}.jpg`,
-          options
-        );
+        const response = await axios.get(``);
         if (response.status === 200) {
-          console.log(response.data.length, "buffer data");
           if (response.data.length > 0) {
             const byteCharacters = atob(response.data);
             const byteNumbers = new Array(byteCharacters.length);
@@ -32,12 +22,12 @@ const SingleImgCreator = (props) => {
             var url = window.URL.createObjectURL(blob);
             setImg(url);
           } else {
-            setImg(`${props.link}${imageCode}_1.jpg`);
+            setImg("");
           }
         }
       }
     } catch (error) {
-      setImg(`${props.link}${imageCode}_1.jpg`);
+      console.log("error==>", error);
     }
   };
   useEffect(() => {
@@ -48,13 +38,12 @@ const SingleImgCreator = (props) => {
   }, [itemCode]);
   return (
     <>
-      {img.length > 0 ? (
-        <img src={img} alt="No Image" width="100" height="100" />
+      {ImageURL ? (
+        <img src={ImageURL} alt="No_Image" width="100" height="80" />
       ) : (
         "No Image"
       )}
     </>
   );
 };
-
 export default SingleImgCreator;
