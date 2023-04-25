@@ -35,24 +35,17 @@ export default function DisplayValidationComponent(props) {
     findingsOption,
   } = props;
 
-  console.log("props.feedShowState==>", props.feedShowState);
-
-  const chainWidthPendent = digit === "0" ? "Only_CHAIN_WITH_PENDANT" : "";
-  const onlyNeckWearOrPendent = digit === "1" ? "Only_Mangalsutra" : "";
-  const SetTOption = digit === "T" ? "Only_Neckwear_or_Pendant" : "";
-  const finger = !props.feedShowState.childNodeF ? "" : "Only_Finger_Ring";
-  const harm = !props.feedShowState.childNodeH ? "" : "Only_HARAM";
-  const Tikka = !props.feedShowState.childNodeK ? "" : "Only_TIKKA";
-  const other = !props.feedShowState.childNodeO ? "" : "Only_OTHER";
-  const bangle = !props.feedShowState.childNodeV ? "" : "Only_BANGLE";
-  const earing = !props.feedShowState.childNodesE ? "" : "Only_EARRING";
-  const neckwear = !props.feedShowState.childNodesN ? "" : "Only_NECKWEAR";
+  const finger = !feedShowState.childNodeF ? "" : "Only_Finger_Ring";
+  const harm = !feedShowState.childNodeH ? "" : "Only_HARAM";
+  const Tikka = !feedShowState.childNodeK ? "" : "Only_TIKKA";
+  const other = !feedShowState.childNodeO ? "" : "Only_OTHER";
+  const bangle = !feedShowState.childNodeV ? "" : "Only_BANGLE";
+  const earing = !feedShowState.childNodesE ? "" : "Only_EARRING";
+  const neckwear = !feedShowState.childNodesN ? "" : "Only_NECKWEAR";
 
   const optionForOtherAllSet = [
     "Single_Tag",
     "Separate_Tag",
-    chainWidthPendent,
-    onlyNeckWearOrPendent,
     finger,
     earing,
     neckwear,
@@ -60,16 +53,48 @@ export default function DisplayValidationComponent(props) {
     harm,
     Tikka,
     other,
-    SetTOption,
   ];
-  console.log("optionForOtherAllSet==>", optionForOtherAllSet);
-
+  console.log("feedShowState==>", feedShowState);
   const tagsOptions = optionForOtherAllSet.filter((item) => !item === false);
-  console.log("tagsOptions==>", tagsOptions);
-
+  const optionForSet0 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EARRING",
+    "Only_CHAIN_WITH_PENDANT",
+  ];
+  const optionForSet1 = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_EARRING",
+    "Only_NECKWEAR_OR_PENDANT",
+  ];
+  const tagsTCategory = [
+    "Single_Tag",
+    "Separate_Tag",
+    "Only_Mangalsutra",
+    "Only_EARRING",
+  ];
   useEffect(() => {
-    setOption(tagsOptions);
-  }, [itemCode]);
+    if (digit === "0" || digit === "G") {
+      setOption(optionForSet0);
+    }
+    if (digit === "1") {
+      setOption(optionForSet1);
+    }
+    if (digit === "T") {
+      setOption(tagsTCategory);
+    }
+    if (
+      digit === "2" ||
+      digit === "3" ||
+      digit === "4" ||
+      digit === "5" ||
+      digit === "6" ||
+      digit === "7"
+    ) {
+      setOption(tagsOptions);
+    }
+  }, []);
 
   const chooseOption = ["Single_Tag", "Separate_Tag"];
   useEffect(() => {
@@ -86,6 +111,7 @@ export default function DisplayValidationComponent(props) {
       }
     );
   }, [itemCode]);
+
   useEffect(() => {
     axios
       .get(
@@ -101,7 +127,6 @@ export default function DisplayValidationComponent(props) {
       })
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
-
   useEffect(() => {
     axios
       .get(
@@ -233,6 +258,7 @@ export default function DisplayValidationComponent(props) {
     digit === "5" ||
     digit === "6" ||
     digit === "7" ||
+    digit === "G" ||
     digit === "T"
   ) {
     let TypeSet2, tegSelect, setSelect, findings;
@@ -244,6 +270,7 @@ export default function DisplayValidationComponent(props) {
       digit === "5" ||
       digit === "6" ||
       digit === "7" ||
+      digit === "G" ||
       digit === "T"
     )
       if ((digit === "N" || digit === "E" || digit === "2") && !cond) {
@@ -258,6 +285,7 @@ export default function DisplayValidationComponent(props) {
       digit === "5" ||
       digit === "6" ||
       digit === "7" ||
+      digit === "G" ||
       digit === "T"
     ) {
       tegSelect = true;

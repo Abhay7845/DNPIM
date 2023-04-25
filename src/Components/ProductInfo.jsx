@@ -1,19 +1,10 @@
-import {
-  Button,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import { Button, Divider } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
-import { Table } from "@material-ui/core";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@material-ui/icons/Star";
 import {
-  makeStyles,
   Grid,
-  Paper,
   Container,
-  Divider,
   FormGroup,
   FormControlLabel,
   Switch,
@@ -24,89 +15,37 @@ import ImgShow from "./ImgShow";
 import MuliSelectDropdownField, {
   MuliSelectDropdownFieldQualityFeedback,
 } from "./MuliSelectDropdownField";
-import Rating from "@mui/material/Rating";
-import StarIcon from "@material-ui/icons/Star";
+import { useStyles } from "../Style/ProductInfo";
 
-const useStyles = makeStyles({
-  feedbackSwitch: {
-    justifyContent: "center",
-  },
-  root: {},
-  proinfo: {
-    padding: "5%",
-    margin: "2%",
-  },
-  proHeading: {
-    textAlign: "center",
-    fontWeight: "bolder",
-    fontStretch: "normal",
-    fontSize: "16px",
-    lineHeight: "normal",
-    fontFamily: "Raleway, sans - serif",
-    letterSpacing: "2px",
-  },
-
-  feedback: {
-    textAlign: "center",
-    textAlign: "center",
-  },
-  hadding: {
-    fontWeight: "bold",
-    fontSize: "18px",
-    fontStretch: "normal",
-    // lineHeight: 5.4,
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "1px",
-    textAlign: "left",
-  },
-  rowData: {
-    fontWeight: "bold",
-    fontFamily: "Playfair Display,seri",
-    fontSize: "18px",
-    // lineHeight: '20px',
-    letterSpacing: "1px",
-    textAlign: "left",
-  },
-  headingColor: {
-    backgroundColor: "#c4c4c0",
-    fontWeight: "bolder",
-  },
-});
 const ProductInfo = (props) => {
   const classes = useStyles();
   const [switchData, setSwitchData] = useState(true);
   const [multiSelectDrop, setMultiSelectDrop] = useState([]);
-  const [multiSelectQltyfeed, setMultiSelectQltyFeedback] = useState([]);
+  const [multiSelectQtyFeed, setMultiSelectQtyFeedback] = useState([]);
   const [value, setValue] = useState(0);
   useEffect(() => {
     setSwitchData(true);
     if (!props.showinfo) {
       setMultiSelectDrop([]);
-      setMultiSelectQltyFeedback([]);
+      setMultiSelectQtyFeedback([]);
       setValue(0);
     }
   }, [props]);
   const handleChange = (event) => {
     setSwitchData(!switchData);
-
-    console.log(switchData);
   };
-
   const onMultiSelect = (multiSelectData) => {
     setMultiSelectDrop(multiSelectData);
-    console.log(multiSelectDrop);
   };
 
-  const onMultiSelectQltyFeedback = (multiSelectQlty) => {
-    setMultiSelectQltyFeedback(multiSelectQlty);
-    console.log(multiSelectQlty);
+  const onMultiSelectQtyFeedback = (multiSelectQlty) => {
+    setMultiSelectQtyFeedback(multiSelectQlty);
   };
-
   const onClickSubmitBtnHandler = (event) => {
-    props.getResponceFormChild({
+    props.getResponseFormChild({
       switchData: switchData,
       multiSelectDrop: multiSelectDrop,
-      multiSelectQltyfeed: multiSelectQltyfeed,
+      multiSelectQtyFeed: multiSelectQtyFeed,
       qualityRating: value,
     });
   };
@@ -114,97 +53,86 @@ const ProductInfo = (props) => {
   return (
     <>
       <Container maxWidth="xl" className={classes.root}>
-        <Paper>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={5}>
-              <br />
-              <Paper>
-                <div className="img_info_show ">
-                  <ImgShow
-                    className="img_show"
-                    itemCode={props.productInfo.itemCode}
-                    imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
-                    videoLink=""
-                  />
-                </div>
-              </Paper>
-            </Grid>
-            <Divider />
-            <Grid item xs={12} sm={7}>
-              <Paper>
-                <div className={classes.proinfo}>
-                  <Typography className={classes.headingColor} align="center">
-                    {props.productInfo.itemCode}
-                  </Typography>
-                  <br />
-
-                  <h5 className={classes.proHeading}>Product Description</h5>
-
+        <Grid container>
+          <div className="col-md-5">
+            <ImgShow
+              itemCode={props.productInfo.itemCode}
+              imgLink="https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName="
+              videoLink=""
+            />
+          </div>
+          <Divider />
+          <div className="col-md-7">
+            <Typography className={classes.headingColor} align="center">
+              {props.productInfo.itemCode}
+            </Typography>
+            <div className="row my-3">
+              <div className="col-md-6">
+                <div className="pro_info">
+                  <h5 className="text-center my-1">
+                    <b>PRODUCT DETAILS</b>
+                  </h5>
                   <table className="w-100">
                     <tbody>
                       <tr>
-                        <th className={classes.hadding}>Collection</th>
-                        <td>-&emsp;&emsp;&emsp;</td>
-                        <td className={classes.rowData}>
-                          {props.productInfo.collection}
-                        </td>
+                        <th>COLLECTION</th>
+                        <td>- &nbsp;&nbsp;</td>
+                        <td>{props.productInfo.collection}</td>
                       </tr>
                       <tr>
-                        <th className={classes.hadding}>Consumer Base</th>
+                        <th>NEED STATE</th>
                         <td>-</td>
-                        <td className={classes.rowData}>
-                          {" "}
-                          {props.productInfo.consumerBase}
-                        </td>
+                        <td>{props.productInfo.consumerBase}</td>
                       </tr>
                       <tr>
-                        <th className={classes.hadding}>Group</th>
+                        <th>GROUP</th>
                         <td>-</td>
-                        <td className={classes.rowData}>
-                          {props.productInfo.itGroup}
-                        </td>
+                        <td>{props.productInfo.itGroup}</td>
                       </tr>
                       <tr>
-                        <th className={classes.hadding}>Category</th>
+                        <th>CATEGORY</th>
                         <td>-</td>
-                        <td className={classes.rowData}>
-                          {props.productInfo.category}
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th className={classes.hadding}>Std Wt</th>
-                        <td>-</td>
-                        <td className={classes.rowData}>
-                          {props.productInfo.stdWt}
-                        </td>
+                        <td>{props.productInfo.category}</td>
                       </tr>
                       <tr>
-                        <th className={classes.hadding}>Std UCp</th>
+                        <th>GENDER</th>
                         <td>-</td>
-                        <td className={classes.rowData}>
-                          {props.productInfo.stdUCP}
-                        </td>
+                        <td>{props.productInfo.gender}</td>
                       </tr>
                       <tr>
-                        <th className={classes.hadding}>Saleable</th>
+                        <th>COMPLEXITY</th>
                         <td>-</td>
-                        <td className={classes.rowData}>
-                          {props.productInfo.saleable}
-                        </td>
+                        <td>{props.productInfo.complexity}</td>
                       </tr>
                       <tr>
-                        <th className={classes.hadding}>Reasons</th>
+                        <th>STD WT</th>
                         <td>-</td>
-                        <td className={classes.rowData}>
-                          {props.productInfo.reasons}
-                        </td>
+                        <td>{props.productInfo.stdWt}</td>
+                      </tr>
+                      <tr>
+                        <th>STD UCP</th>
+                        <td>-</td>
+                        <td>{props.productInfo.stdUCP}</td>
+                      </tr>
+                      <tr>
+                        <th>METAL COLOR</th>
+                        <td>-</td>
+                        <td>{props.productInfo.colourWt}</td>
+                      </tr>
+                      <tr>
+                        <th>FINDING</th>
+                        <td>-</td>
+                        <td>{props.productInfo.findings}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <div className={classes.feedback}>
-                  <Typography color="primary">Feedback</Typography>
+              </div>
+              <div className="col-md-6">
+                <div className="feed_info">
+                  <h5 className="text-center my-1">
+                    <b>FEEDBACK</b>
+                  </h5>
                   <FormGroup row className={classes.feedbackSwitch}>
                     <FormControlLabel
                       control={
@@ -239,12 +167,11 @@ const ProductInfo = (props) => {
                     {value > 0 && value <= 3 && (
                       <div className="mutli_select_drop">
                         <MuliSelectDropdownFieldQualityFeedback
-                          onMultiSelectQlty={onMultiSelectQltyFeedback}
-                          value={multiSelectQltyfeed}
+                          onMultiSelectQlty={onMultiSelectQtyFeedback}
+                          value={multiSelectQtyFeed}
                         />
                       </div>
                     )}
-                    <br />
                     <Typography component="legend" align="left">
                       Quality Feedback
                     </Typography>
@@ -254,23 +181,25 @@ const ProductInfo = (props) => {
                       onChange={(event, newValue) => {
                         setValue(newValue);
                       }}
-                      precision={0.5}
-                      emptyIcon={<StarIcon style={{ opacity: 0.55 }} />}
+                      emptyIcon={<StarIcon />}
                     />
                   </div>
-                  <Button
-                    onClick={onClickSubmitBtnHandler}
-                    variant="outlined"
-                    color="secondary"
-                    fullWidth
-                  >
-                    Submit
-                  </Button>
                 </div>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Paper>
+              </div>
+            </div>
+            <div className="row-cols-1 btn_feed_show">
+              <Button
+                onClick={onClickSubmitBtnHandler}
+                variant="outlined"
+                color="secondary"
+                fullWidth
+                className={classes.buttonStyle}
+              >
+                Submit
+              </Button>
+            </div>
+          </div>
+        </Grid>
       </Container>
     </>
   );

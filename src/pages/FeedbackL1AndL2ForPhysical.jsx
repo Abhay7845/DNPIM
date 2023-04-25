@@ -360,7 +360,7 @@ const FeedbackL1AndL2ForPhysical = () => {
                       className="col-md-6 border"
                       style={{ margin: "0%", padding: "0%" }}
                     >
-                      <div className="pro_info ">
+                      <div className="pro_info">
                         <Typography
                           className={classes.headingCss}
                           align="center"
@@ -459,7 +459,6 @@ const FeedbackL1AndL2ForPhysical = () => {
                         >
                           Feedback
                         </Typography>
-
                         <div className="text-lg-center">
                           <FormGroup row className={classes.feedbackSwitch}>
                             <FormControlLabel

@@ -14,7 +14,7 @@ import { useHistory } from "react-router";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    backgroundColor: "#832729;",
+    backgroundColor: "#832729",
     color: "#FFFF",
   },
 
@@ -29,7 +29,6 @@ const useStyles = makeStyles({
 export default function UpperHeader(props) {
   const classes = useStyles();
   const history = useHistory();
-
   const signOutHandler = (event) => {
     history.push("/");
   };

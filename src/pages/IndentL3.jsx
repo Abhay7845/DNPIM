@@ -46,7 +46,7 @@ const IndentL3 = () => {
     quantityRes: "",
     findingsRes: "",
   });
-  console.log("allDataFromValidation==>", allDataFromValidation);
+  console.log("feedShowState==>", feedShowState);
   const [productDetails, setProductDetails] = useState({
     storeCode: storeCode,
     collection: "ALL",
@@ -266,25 +266,25 @@ const IndentL3 = () => {
   }
   const onClickSubmitBtnHandler = (event) => {
     let msg = {};
-    const data = NewDisplayValidation();
-    const result = Object.keys(data).filter(
-      (eachKey) => data[eachKey] === true
-    );
-    console.log("result==>", result);
-    for (let key of result) {
-      for (let resultKey of Object.keys(allDataFromValidation)) {
-        if (
-          key === resultKey &&
-          allDataFromValidation[resultKey].length === 0
-        ) {
-          msg = {
-            ...msg,
-            status: false,
-            message: `${result.join("/")} is required`,
-          };
-        }
-      }
-    }
+    // const data = NewDisplayValidation();
+    // // const result = Object.keys(data).filter(
+    // //   (eachKey) => data[eachKey] === true
+    // // );
+    // console.log("result==>", result);
+    // for (let key of result) {
+    //   for (let resultKey of Object.keys(allDataFromValidation)) {
+    //     if (
+    //       key === resultKey &&
+    //       allDataFromValidation[resultKey].length === 0
+    //     ) {
+    //       msg = {
+    //         ...msg,
+    //         status: false,
+    //         message: `${result.join("/")} is required`,
+    //       };
+    //     }
+    //   }
+    // }
     let stdUcpNotSelectData;
     if (!msg.status && Object.keys(msg).length > 0) {
       Error(msg.message);
@@ -300,6 +300,26 @@ const IndentL3 = () => {
         reasons: "",
         childNodesE: feedShowState.childNodesE,
         childNodesN: feedShowState.childNodesN,
+        childNodeF:
+          feedShowState.childNodesF === undefined
+            ? ""
+            : feedShowState.childNodesF,
+        childNodeK:
+          feedShowState.childNodesK === undefined
+            ? ""
+            : feedShowState.childNodeK,
+        childNodeV:
+          feedShowState.childNodeV === undefined
+            ? ""
+            : feedShowState.childNodeV,
+        childNodeH:
+          feedShowState.childNodesH === undefined
+            ? ""
+            : feedShowState.childNodeH,
+        childNodeO:
+          feedShowState.childNodeO === undefined
+            ? ""
+            : feedShowState.childNodeO,
         findings: allDataFromValidation.findingsRes,
         indQty: allDataFromValidation.quantityRes,
         indCategory: feedShowState.category,
@@ -320,6 +340,7 @@ const IndentL3 = () => {
         sizeQuantitys: allDataFromValidation.sizeQuantityRes,
         tagQuantitys: allDataFromValidation.tegQuantityRes,
       };
+      console.log("inputData==>", inputData);
       DisplayValidationRunner();
       setTimeout(() => {
         axios
@@ -328,6 +349,7 @@ const IndentL3 = () => {
             inputData
           )
           .then((response) => {
+            console.log("response==>", response);
             let mailSms = "";
             if (response.data.code === "1001") {
               if (
@@ -349,6 +371,7 @@ const IndentL3 = () => {
                 mailSms = response.data.value;
               }
               setImmediate(() => {
+                alert("Data Saved successfully");
                 setAlertPopupStatus({
                   status: true,
                   main: mailSms,
@@ -400,7 +423,7 @@ const IndentL3 = () => {
             }
           })
           .catch((error) => {
-            console.log(error);
+            console.log("error==>", error);
           });
         setImmediate(() => {
           setLoading(false);

@@ -61,10 +61,6 @@ const ReportL3 = () => {
   console.log("statusData123==>", statusData);
   const reportDropHandler = (input) => {
     setReportLabel(input);
-    // setImmediate(() => {
-    //     setLoading(true);
-    //     setShowInfo(false)
-    // });
   };
   const [popupOpen, setPopupOpen] = useState(false);
   const handelOpen = () => {
@@ -73,19 +69,27 @@ const ReportL3 = () => {
   const handelClose = () => {
     setPopupOpen(false);
   };
-  const handelYes = async () => {
+  const handelYes = () => {
+    setImmediate(() => {
+      setLoading(true);
+    });
     const confirmURL = `https://tanishqdigitalnpim.titan.in:8443/PNPIM/NPIML3//npim/item/wise/rpt/edr/L3/${storeCode}`;
-    try {
-      const response = await axios.post(confirmURL, rows);
-      if (response.status === 200) {
-        setPopupOpen(false);
-        //setSuccessCount(response.data)
-      } else {
-        alert("something went Wrong");
-      }
-    } catch (e) {
-      alert("something went Wrong");
-    }
+    axios
+      .post(confirmURL, rows)
+      .then((res) => res)
+      .then((response) => {
+        if (response.data.code === "1000") {
+          setAlertPopupStatus({
+            status: true,
+            main: response.data.value.updation_Status,
+            contain: "",
+          });
+        }
+        setImmediate(() => {
+          setLoading(false);
+        });
+      })
+      .catch((error) => console.log("error==>", error));
   };
   let seventhDigits;
   useEffect(() => {
@@ -292,27 +296,28 @@ const ReportL3 = () => {
       };
     }
   }
+  console.log("dataRowInformation==>", dataRowInformation);
   const onClickSubmitBtnHandler = (event) => {
     let msg = {};
-    const data = NewDisplayValidation();
-    const result = Object.keys(data).filter(
-      (eachKey) => data[eachKey] === true
-    );
-    console.log("result==>", result);
-    for (let key of result) {
-      for (let resultKey of Object.keys(allDataFromValidation)) {
-        if (
-          key === resultKey &&
-          allDataFromValidation[resultKey].length === 0
-        ) {
-          msg = {
-            ...msg,
-            status: false,
-            message: `${result.join("/")} is required`,
-          };
-        }
-      }
-    }
+    // const data = NewDisplayValidation();
+    // const result = Object.keys(data).filter(
+    //   (eachKey) => data[eachKey] === true
+    // );
+    // console.log("result==>", result);
+    // for (let key of result) {
+    //   for (let resultKey of Object.keys(allDataFromValidation)) {
+    //     if (
+    //       key === resultKey &&
+    //       allDataFromValidation[resultKey].length === 0
+    //     ) {
+    //       msg = {
+    //         ...msg,
+    //         status: false,
+    //         message: `${result.join("/")} is required`,
+    //       };
+    //     }
+    //   }
+    // }
     setImmediate(() => {
       setLoading(true);
     });
@@ -330,8 +335,34 @@ const ReportL3 = () => {
         strCode: storeCode,
         saleable: "",
         reasons: "",
-        childNodesE: dataRowInformation.childNodesE,
-        childNodesN: dataRowInformation.childNodesN,
+        childNodesE:
+          dataRowInformation.childNodesE === undefined
+            ? ""
+            : dataRowInformation.childNodesE,
+        childNodesN:
+          dataRowInformation.childNodesN === undefined
+            ? ""
+            : dataRowInformation.childNodesN,
+        childNodeF:
+          dataRowInformation.childNodesF === undefined
+            ? ""
+            : dataRowInformation.childNodesF,
+        childNodeK:
+          dataRowInformation.childNodesK === undefined
+            ? ""
+            : dataRowInformation.childNodeK,
+        childNodeV:
+          dataRowInformation.childNodeV === undefined
+            ? ""
+            : dataRowInformation.childNodeV,
+        childNodeH:
+          dataRowInformation.childNodesH === undefined
+            ? ""
+            : dataRowInformation.childNodeH,
+        childNodeO:
+          dataRowInformation.childNodeO === undefined
+            ? ""
+            : dataRowInformation.childNodeO,
         findings: allDataFromValidation.findingsRes,
         indQty: allDataFromValidation.quantityRes,
         indCategory: dataRowInformation.category,
@@ -356,6 +387,7 @@ const ReportL3 = () => {
         sizeQuantitys: allDataFromValidation.sizeQuantityRes,
         tagQuantitys: allDataFromValidation.tegQuantityRes,
       };
+      console.log("inputData==>", inputData);
       setTimeout(() => {
         axios
           .post(
@@ -363,7 +395,7 @@ const ReportL3 = () => {
             inputData
           )
           .then((response) => {
-            console.log(response.data);
+            console.log("response==>", response.data);
             alert(response.data.value);
             setImmediate(() => {
               setShowInfo(false);
@@ -922,7 +954,7 @@ const ReportL3 = () => {
               </Grid>
             </Grid>
           ) : null}
-          <Grid item xs={12} sm={12}>
+          <Grid item xs={12}>
             {rows.length > 0 && col.length > 0 ? (
               <LazyLoadingDataGrid
                 col={col}

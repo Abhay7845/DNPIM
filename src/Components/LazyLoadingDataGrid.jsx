@@ -39,7 +39,6 @@ function CustomToolbar(props) {
   const successCountArray = props?.rows.filter(
     (row) => row.confirmationStatus !== ""
   );
-
   const [alertPopupStatus, setAlertPopupStatus] = useState({
     status: false,
     main: "",
@@ -68,12 +67,12 @@ function CustomToolbar(props) {
     });
   }
   const handelClick = () => {
-    props.handelOpen();
+    props.handelYes();
   };
+
   const errorHandling = async () => {
     try {
       const response = await axios.get(`${UrlManager.mailError}${storeCode}`);
-      console.log(response, "error mail");
       if (response.status === 200) {
         setAlertPopupStatus({
           status: true,
@@ -91,7 +90,6 @@ function CustomToolbar(props) {
     try {
       const response = await axios.get(`${UrlManager.sendMail}${storeCode}`);
       if (response.status === 200) {
-        console.log(response, "mails");
         if (response.data.code === "1000") {
           const success = `Thankyou for completing the Indent Confirmation Process successfully`;
           const error = `There was an error in Triggering email please try again ..`;
@@ -265,6 +263,7 @@ const LazyLoadingDataGrid = (props) => {
         field: "confirmationStatus",
         headerName: "confirmationStatus",
         sortable: false,
+        flex: 1,
         disableClickEventBubbling: true,
         renderCell: (params) => {
           return (

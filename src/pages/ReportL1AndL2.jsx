@@ -71,11 +71,8 @@ const ReportL1AndL2 = (props) => {
       setLoading(true);
     });
 
-    // Rename: Scanned to "submitted" Un scanned to "Yet to Submit" in Reports page for L1 / L2
-
     setTimeout(() => {
       let reportUrl = "/npim/unscanned/report/L1/";
-
       switch (selectReport) {
         case "yet to submit":
           reportUrl = "/npim/unscanned/report/L1/";
@@ -176,6 +173,7 @@ const ReportL1AndL2 = (props) => {
   };
 
   const getResponseFormChild = (input) => {
+    console.log("input==>", input);
     setImmediate(() => {
       setLoading(true);
     });
@@ -191,7 +189,7 @@ const ReportL1AndL2 = (props) => {
     if (
       input.qualityRating > 0 &&
       input.qualityRating <= 3 &&
-      input.multiSelectQltyfeed.toString().length === 0
+      input.multiSelectQtyFeed.toString().length === 0
     ) {
       alert("Please select reason for QA");
       return;
@@ -208,7 +206,7 @@ const ReportL1AndL2 = (props) => {
       }
       old.submitStatus = "report";
       old.strCode = storeCode;
-      old.quality_Reasons = input.multiSelectQltyfeed.toString();
+      old.quality_Reasons = input.multiSelectQtyFeed.toString();
       old.quality_Rating = input.qualityRating.toString();
       return old;
     });
@@ -248,7 +246,7 @@ const ReportL1AndL2 = (props) => {
           <UpperHeader storeCode={storeCode} />
           <Loading flag={loading} />
           <div className={classes.appBar}>
-            <AppBar position="static" color="#f2feff">
+            <AppBar position="static" color="default">
               <Toolbar>
                 <div className={classes.menuButton}>
                   <IconButton
@@ -300,11 +298,11 @@ const ReportL1AndL2 = (props) => {
           {report.length > 0 && colum.length > 0 ? (
             <ProductInfo
               productInfo={productInfo}
-              getResponceFormChild={getResponseFormChild}
+              getResponseFormChild={getResponseFormChild}
               showinfo={showInfo}
             />
           ) : (
-            "NO DATA"
+            <p className="text-center">No Date</p>
           )}
         </Grid>
         <Grid item xs={12}>

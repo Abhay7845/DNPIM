@@ -37,6 +37,7 @@ const useStyles = makeStyles({
   },
   feedbackSwitch: {
     justifyContent: "center",
+    marginTop: "15px",
   },
   btnGroup: {
     minWidth: "100%",
@@ -47,12 +48,8 @@ const useStyles = makeStyles({
   show: {
     display: "block",
   },
-  btnGroupContaincer: {
+  btnGroupContainer: {
     paddingTop: "13%",
-  },
-
-  image_data_show: {
-    maxWidth: "25rem",
   },
   card: {
     maxWidth: "22rem",
@@ -68,13 +65,9 @@ const useStyles = makeStyles({
   img_info_show: {
     padding: "1%",
   },
-  product_disc_show: {
-    marginTop: "2 %",
-  },
   feedback_show: {
     marginTop: "2 %",
   },
-
   pro_info: {
     marginTop: "8%",
     height: "20rem",
@@ -84,26 +77,11 @@ const useStyles = makeStyles({
     height: "20rem",
   },
   headingColor: {
-    backgroundColor: "#c4c4c0",
+    backgroundColor: "#832729",
     fontWeight: "bolder",
-    padding: 0,
+    color: "#ffff",
   },
 
-  hadding: {
-    fontWeight: "bold",
-    fontSize: "18px",
-    fontStretch: "normal",
-    fontFamily: "Raleway, sans-serif",
-    letterSpacing: "5px",
-    textAlign: "left",
-  },
-  rowData: {
-    fontWeight: "bold",
-    fontFamily: "Playfair Display,seri",
-    fontSize: "18px",
-    letterSpacing: "1px",
-    textAlign: "left",
-  },
   headingCss: {
     fontWeight: "bolder",
     fontStretch: "normal",
@@ -122,11 +100,8 @@ const useStyles = makeStyles({
 
   btnSub: {
     fontWeight: "bold",
-    fontSize: "14px",
-    fontFamily: "Raleway, sans-serif",
     letterSpacing: "2px",
-    padding: "5px",
-    backgroundColor: "black",
+    backgroundColor: "#832729",
     color: "white",
   },
 });
@@ -134,7 +109,6 @@ const useStyles = makeStyles({
 const FeedbackL1AndL2 = () => {
   const classes = useStyles();
   const { storeCode, rsoName } = useParams();
-
   const [feedShowState, setFeedShowState] = useState(NpimDataDisplay);
   const [multiSelectDrop, setMultiSelectDrop] = useState([]);
   const [multiSelectQltyfeed, setMultiSelectQltyFeedback] = useState([]);
@@ -187,11 +161,10 @@ const FeedbackL1AndL2 = () => {
           `${HostManager.mainHost}/npim/get/product/details`,
           productDetails
         )
-        .then((responce) => {
-          console.log(responce.data);
+        .then((response) => {
+          console.log("response==>", response.data);
           let mailSms = "";
-
-          if (responce.data.code === "1001") {
+          if (response.data.code === "1001") {
             mailSms = "No more data available for the selected category.";
 
             setImmediate(() => {
@@ -202,20 +175,19 @@ const FeedbackL1AndL2 = () => {
                 mode: true,
               });
             });
-          } else if (responce.data.code === "1003") {
+          } else if (response.data.code === "1003") {
             setAlertPopupStatus({
               status: true,
-              main: responce.data.value,
+              main: response.data.value,
               contain: "",
               mode: true,
             });
           } else {
-            setFeedShowState(responce.data.value);
+            setFeedShowState(response.data.value);
           }
         })
         .catch((error) => {
           console.log(error);
-          alert(error);
         });
 
       axios.get(`${HostManager.mainHost}/npim/status/L1/${storeCode}`).then(
@@ -230,7 +202,6 @@ const FeedbackL1AndL2 = () => {
         },
         (error) => {
           console.log(error);
-          alert(error);
         }
       );
 
@@ -251,7 +222,7 @@ const FeedbackL1AndL2 = () => {
     console.log(productDetails);
   };
   const onBarClick = () => {
-    console.log("click bbar *****************");
+    console.log("click bar *****************");
   };
   function closeHandler() {
     setImmediate(() => {
@@ -458,7 +429,6 @@ const FeedbackL1AndL2 = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-
       <WarningPopup
         flag={warningPopupState}
         headerSms="No more data available for the selected category"
@@ -484,7 +454,6 @@ const FeedbackL1AndL2 = () => {
             storeCode={storeCode}
           />
           <Loading flag={loading} />
-
           {resetDrop ? (
             <LowerHeader
               onBar={onBarClick}
@@ -494,14 +463,14 @@ const FeedbackL1AndL2 = () => {
               L3={false}
             />
           ) : (
-            "LOding...!"
+            "Loading...!"
           )}
         </Grid>
         <Grid item xs={12}>
-          <div className="container-fluid section-details border ">
-            <div className=" p-3 p-md-0 row">
-              <div className="col-md-5 border">
-                <div className="img_info_show ">
+          <div className="container-fluid section-details">
+            <div className="p-3 p-md-0 row">
+              <div className="col-md-5">
+                <div className="img_info_show">
                   {feedShowState.itemCode !== "" ? (
                     <ImgShow
                       className="img_show"
@@ -511,166 +480,131 @@ const FeedbackL1AndL2 = () => {
                       videoLink={feedShowState.videoLink || ""}
                     />
                   ) : (
-                    "Loding Images... "
+                    "Loading Images"
                   )}
                 </div>
               </div>
-              <div
-                className="col-md-6  mt-3 mt-md-0 ml-md-3 "
-                style={{ margin: "0%", padding: "0%" }}
-              >
+              <div className="col-md-7">
                 <Typography className={classes.headingColor} align="center">
                   {feedShowState.itemCode}
                 </Typography>
-                <div className="row">
-                  <div
-                    className="col-md-6 border"
-                    style={{ margin: "0%", padding: "0%" }}
-                  >
-                    <div className="pro_info ">
-                      <Typography className={classes.headingCss} align="center">
-                        Product Details
-                      </Typography>
+                <div className="row my-3">
+                  <div className="col-md-6">
+                    <div className="pro_info">
+                      <h5 className="text-center my-1">
+                        <b>PRODUCT DETAILS</b>
+                      </h5>
                       <table className="w-100">
                         <tbody>
                           <tr>
-                            <th classNme={classes.hadding}>Collection</th>
+                            <th>COLLECTION</th>
                             <td>- &nbsp;&nbsp;</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.collection}
-                            </td>
+                            <td>{feedShowState.collection}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Consumer Base</th>
+                            <th>NEED STATE</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.consumerBase}
-                            </td>
+                            <td>{feedShowState.consumerBase}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Group</th>
+                            <th>GROUP</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.itGroup}
-                            </td>
+                            <td>{feedShowState.itGroup}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Category</th>
+                            <th>CATEGORY</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.category}
-                            </td>
+                            <td>{feedShowState.category}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Gender</th>
+                            <th>GENDER</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.gender}
-                            </td>
+                            <td>{feedShowState.gender}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Complexity</th>
+                            <th>COMPLEXITY</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.complexity}
-                            </td>
+                            <td>{feedShowState.complexity}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Std Wt</th>
+                            <th>STD WT</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.stdWt}
-                            </td>
+                            <td>{feedShowState.stdWt}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Std UCp</th>
+                            <th>STD UCP</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.stdUCP}
-                            </td>
+                            <td>{feedShowState.stdUCP}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Metal Colour</th>
+                            <th>METAL COLOR</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.colourWt}
-                            </td>
+                            <td>{feedShowState.colourWt}</td>
                           </tr>
                           <tr>
-                            <th classNme={classes.hadding}>Findings</th>
+                            <th>FINDING</th>
                             <td>-</td>
-                            <td className={classes.rowData}>
-                              {feedShowState.findings}
-                            </td>
+                            <td>{feedShowState.findings}</td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
-                  <div
-                    className="col-md-6 border"
-                    style={{ margin: "0%", padding: "0%" }}
-                  >
-                    <div className="feed_info  ">
-                      {/* <h5 className="text-center">Feedback</h5> */}
-                      <Typography className={classes.headingCss} align="center">
-                        Feedback
-                      </Typography>
-
-                      <div className="text-lg-center">
-                        <FormGroup row className={classes.feedbackSwitch}>
-                          <FormControlLabel
-                            control={
-                              <Switch
-                                checked={switchData}
-                                onChange={handleChange}
-                                name="feedbackSwitch"
-                                color="primary"
-                              />
-                            }
-                            label={
-                              switchData ? (
-                                <Typography color="primary">YES</Typography>
-                              ) : (
-                                <Typography color="secondary">NO</Typography>
-                              )
-                            }
-                          />
-                        </FormGroup>
-                        <br />
-
-                        {!switchData ? (
-                          <div className="mutli_select_drop">
-                            <MuliSelectDropdownField
-                              onMultiSelect={onMultiSelect}
-                              value={multiSelectDrop}
+                  <div className="col-md-6">
+                    <div className="feed_info">
+                      <h5 className="text-center my-1">
+                        <b>FEEDBACK</b>
+                      </h5>
+                      <FormGroup row className={classes.feedbackSwitch}>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={switchData}
+                              onChange={handleChange}
+                              name="feedbackSwitch"
+                              color="primary"
                             />
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                        <div>
-                          {value > 0 && value <= 3 && (
-                            <div className="mutli_select_drop">
-                              <MuliSelectDropdownFieldQualityFeedback
-                                onMultiSelectQlty={onMultiSelectQltyFeedback}
-                                value={multiSelectQltyfeed}
-                              />
-                            </div>
-                          )}
-                          <br />
-                          <Typography component="legend" align="left">
-                            Quality Feedback
-                          </Typography>
-                          <Rating
-                            name="simple-controlled"
-                            value={value}
-                            onChange={(event, newValue) => {
-                              setValue(newValue);
-                            }}
-                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} />}
+                          }
+                          label={
+                            switchData ? (
+                              <Typography color="primary">YES</Typography>
+                            ) : (
+                              <Typography color="secondary">NO</Typography>
+                            )
+                          }
+                        />
+                      </FormGroup>
+                      <br />
+                      {!switchData ? (
+                        <div className="mutli_select_drop">
+                          <MuliSelectDropdownField
+                            onMultiSelect={onMultiSelect}
+                            value={multiSelectDrop}
                           />
                         </div>
+                      ) : (
+                        ""
+                      )}
+                      <div>
+                        {value > 0 && value <= 3 && (
+                          <div className="mutli_select_drop">
+                            <MuliSelectDropdownFieldQualityFeedback
+                              onMultiSelectQlty={onMultiSelectQltyFeedback}
+                              value={multiSelectQltyfeed}
+                            />
+                          </div>
+                        )}
+                        <Typography component="legend" align="left">
+                          Quality Feedback
+                        </Typography>
+                        <Rating
+                          name="simple-controlled"
+                          value={value}
+                          onChange={(event, newValue) => {
+                            setValue(newValue);
+                          }}
+                          emptyIcon={<StarIcon />}
+                        />
                       </div>
                     </div>
                   </div>
@@ -691,7 +625,7 @@ const FeedbackL1AndL2 = () => {
                   ""
                 )}
                 <div className="row-cols-1 btn_feed_show">
-                  <Container className={classes.btnGroupContaincer}>
+                  <Container className={classes.btnGroupContainer}>
                     <Grid container spacing={4}>
                       <Grid item xs={12} sm={4}>
                         <Button

@@ -1071,7 +1071,6 @@ function SmallDataTable(props) {
     itemCode: props.itemCode,
   };
   console.log("tableData==>", tableData);
-  console.log("props==>", props);
   useEffect(() => {
     axios
       .post(`${HostManager.mainHost}/npim/get/product/details`, productDetails)
@@ -1097,91 +1096,87 @@ function SmallDataTable(props) {
       digit == "6" ||
       digit == "7" ||
       digit == "T" ||
+      digit == "G" ||
       digit == "N"
     ) {
       if (props.childNodesE || props.childNodesN) {
         return (
           <>
-            <div className="table-responsive">
-              <table
-                className="table table-bordered my-3"
-                style={{ marginLeft: "0px" }}
-              >
-                <thead>
+            <br />
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">CATEGORY</th>
+                  <th scope="col">StdWt</th>
+                  <th scope="col">UCP</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData.childNodeF === "" ? (
+                  ""
+                ) : (
                   <tr>
-                    <th scope="col">CATEGORY</th>
-                    <th scope="col">StdWt</th>
-                    <th scope="col">UCP</th>
+                    <td>FINGER RING</td>
+                    <td>{tableData.stdWtF}</td>
+                    <td>{tableData.stdUcpF}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {props.stdWtF === "" || props.stdUcpF === "" ? (
-                    ""
-                  ) : (
-                    <tr>
-                      <td>FINGER RING</td>
-                      <td>{props.stdWtF}</td>
-                      <td>{props.stdUcpF}</td>
-                    </tr>
-                  )}
-                  {props.stdWtE === "" || props.stdUcpE === "" ? (
-                    ""
-                  ) : (
-                    <tr>
-                      <td>EAR RING</td>
-                      <td>{props.stdWtE}</td>
-                      <td>{props.stdUcpE}</td>
-                    </tr>
-                  )}
-
-                  {props.stdWtN === "" || props.stdUcpN === "" ? (
-                    ""
-                  ) : (
-                    <tr>
-                      <td>NECKWEAR</td>
-                      <td>{props.stdWtN}</td>
-                      <td>{props.stdUcpN}</td>
-                    </tr>
-                  )}
-                  {props.stdWtH === "" || props.stdUcpH === "" ? (
-                    ""
-                  ) : (
-                    <tr>
-                      <td>HARAM</td>
-                      <td>{props.stdWtH}</td>
-                      <td>{props.stdUcpH}</td>
-                    </tr>
-                  )}
-                  {props.stdWtK === "" || props.stdUcpK === "" ? (
-                    ""
-                  ) : (
-                    <tr>
-                      <td>TIKKA</td>
-                      <td>{props.stdWtK}</td>
-                      <td>{props.stdUcpK}</td>
-                    </tr>
-                  )}
-                  {props.stdWtV === "" || props.stdUcpV === "" ? (
-                    ""
-                  ) : (
-                    <tr>
-                      <td>BANGLE</td>
-                      <td>{props.stdWtV}</td>
-                      <td>{props.stdUcpV}</td>
-                    </tr>
-                  )}
-                  {props.stdWtO === "" || props.stdUcpO === "" ? (
-                    ""
-                  ) : (
-                    <tr>
-                      <td>OTHER</td>
-                      <td>{props.stdWtO}</td>
-                      <td>{props.stdUcpO}</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                )}
+                {tableData.childNodesE === "" ? (
+                  ""
+                ) : (
+                  <tr>
+                    <td>EAR RING</td>
+                    <td>{tableData.stdWtE}</td>
+                    <td>{tableData.stdUcpE}</td>
+                  </tr>
+                )}
+                {tableData.childNodesN === "" ? (
+                  ""
+                ) : (
+                  <tr>
+                    <td>NECKWEAR</td>
+                    <td>{tableData.stdWtN}</td>
+                    <td>{tableData.stdUcpN}</td>
+                  </tr>
+                )}
+                {tableData.childNodeH === "" ? (
+                  ""
+                ) : (
+                  <tr>
+                    <td>HARAM</td>
+                    <td>{tableData.stdWtH}</td>
+                    <td>{tableData.stdUcpH}</td>
+                  </tr>
+                )}
+                {tableData.childNodeK === "" ? (
+                  ""
+                ) : (
+                  <tr>
+                    <td>TIKKA</td>
+                    <td>{tableData.stdWtK}</td>
+                    <td>{tableData.stdUcpK}</td>
+                  </tr>
+                )}
+                {tableData.childNodeV === "" ? (
+                  ""
+                ) : (
+                  <tr>
+                    <td>BANGLE</td>
+                    <td>{tableData.stdWtV}</td>
+                    <td>{tableData.stdUcpV}</td>
+                  </tr>
+                )}
+                {tableData.childNodeO === "" ? (
+                  ""
+                ) : (
+                  <tr>
+                    <td>OTHER</td>
+                    <td>{tableData.stdWtO}</td>
+                    <td>{tableData.stdUcpO}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </>
         );
       } else {

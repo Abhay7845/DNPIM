@@ -165,7 +165,7 @@ export const MuliSelectDropdownFieldQualityFeedback = (props) => {
   return (
     <>
       <div>
-        <label>Choose reasons</label>
+        <label>Choose Reasons</label>
         <div className="drop_multi">
           <Multiselect
             options={dataQlty}
