@@ -115,7 +115,6 @@ const FeedbackL1AndL2 = () => {
   const [loading, setLoading] = useState(false);
   const [switchData, setSwitchData] = useState(true);
   const [resetDrop, SetResetDrop] = useState(true);
-
   const [value, setValue] = useState(0);
   const [warningPopupState, setWarningPopupState] = useState(false);
   const [alertPopupStatus, setAlertPopupStatus] = useState({
@@ -166,7 +165,6 @@ const FeedbackL1AndL2 = () => {
           let mailSms = "";
           if (response.data.code === "1001") {
             mailSms = "No more data available for the selected category.";
-
             setImmediate(() => {
               setAlertPopupStatus({
                 status: true,
@@ -192,10 +190,8 @@ const FeedbackL1AndL2 = () => {
 
       axios.get(`${HostManager.mainHost}/npim/status/L1/${storeCode}`).then(
         (response) => {
-          console.log(response);
-
           if (response.data.code === "1001") {
-            // alert(response.data.value);
+            console.log("Data Not Found");
           } else {
             setStatusData(response.data);
           }
@@ -204,7 +200,6 @@ const FeedbackL1AndL2 = () => {
           console.log(error);
         }
       );
-
       setImmediate(() => {
         setLoading(false);
       });
@@ -246,15 +241,7 @@ const FeedbackL1AndL2 = () => {
         contain: "",
         mode: false,
       });
-
       SetResetDrop(!resetDrop);
-      // setProductDetails({
-      //     storeCode: storeCode,
-      //     collection: 'ALL',
-      //     consumerBase: 'ALL',
-      //     group: 'ALL',
-      //     category: 'ALL',
-      // });
     });
 
     setImmediate(() => {
@@ -262,27 +249,23 @@ const FeedbackL1AndL2 = () => {
       SetResetDrop(true);
     });
   }
-
   const onClickSubmitBtnHandler = (event) => {
     setImmediate(() => {
       setLoading(true);
     });
 
     if (!switchData && multiSelectDrop.toString().length == 0) {
-      alert("Please select reason for NO..  !");
+      alert("Please Select Reason for NO");
       return;
     }
     if (value === 0) {
-      alert("Please select Quality Rating !");
+      alert("Please Select Quality Rating");
       return;
     }
-    if (value > 0 && value <= 3 && multiSelectQltyfeed.toString().length == 0) {
-      alert("Please select reason for  QA..  !");
+    if (value > 0 && value <= 4 && multiSelectQltyfeed.toString().length == 0) {
+      alert("Please Select for Low Quality Reason QA");
       return;
     }
-
-    // setTimeout(() => {
-
     setFeedShowState((old) => {
       if (!switchData) {
         old.reasons = multiSelectDrop.toString();
@@ -302,28 +285,28 @@ const FeedbackL1AndL2 = () => {
       old.quality_Rating = value.toString();
       return old;
     });
-
-    // }, 1000);
-
+    setImmediate(() => {
+      setLoading(true);
+    });
     setTimeout(() => {
       axios
         .post(`${HostManager.mainHost}/npim/insert/responses`, feedShowState)
-        .then((responce) => {
-          console.log(responce.data);
+        .then((response) => {
+          console.log("responseL1L2==>", response);
           let mailSms = "";
-          if (responce.data.code === "1001") {
-            // alert(responce.data.value)
-            setValue(0);
+          if (response.data.code === "1001") {
             setMultiSelectDrop([]);
             setMultiSelectQltyFeedback([]);
+            setValue(0);
+            document.getElementById("result").style.visibility = "hidden";
             if (
-              productDetails.collection == "ALL" ||
-              productDetails.consumerBase == "ALL" ||
-              productDetails.group == "ALL" ||
-              productDetails.category == "ALL"
+              productDetails.collection === "ALL" ||
+              productDetails.consumerBase === "ALL" ||
+              productDetails.group === "ALL" ||
+              productDetails.category === "ALL"
             ) {
               mailSms =
-                "You have successfully completed the Indented. Thankyou.";
+                "You have successfully completed the Indented. Thankyou";
             } else if (
               productDetails.collection !== "ALL" ||
               productDetails.consumerBase !== "ALL" ||
@@ -331,10 +314,7 @@ const FeedbackL1AndL2 = () => {
               productDetails.category !== "ALL"
             ) {
               mailSms = "No more data available for the selected category.";
-            } else {
-              mailSms = responce.data.value;
             }
-
             setImmediate(() => {
               setAlertPopupStatus({
                 status: true,
@@ -343,19 +323,26 @@ const FeedbackL1AndL2 = () => {
                 mode: true,
               });
             });
-          } else {
+          } else if (response.data.code === "1000") {
+            setImmediate(() => {
+              setAlertPopupStatus({
+                status: true,
+                main: "Data has been saved Successfully",
+                contain: "",
+                mode: true,
+              });
+            });
             setValue(0);
             setMultiSelectDrop([]);
             setMultiSelectQltyFeedback([]);
-            setFeedShowState(responce.data.value);
+            setFeedShowState(response.data.value);
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log("error==>", error);
           setValue(0);
           setMultiSelectDrop([]);
           setMultiSelectQltyFeedback([]);
-          alert(error);
         });
       setSwitchData(true);
       setImmediate(() => {
@@ -390,10 +377,9 @@ const FeedbackL1AndL2 = () => {
     setTimeout(() => {
       axios
         .post(`${HostManager.mainHost}/npim/get/product/details/PreNex`, Input)
-        .then((responce) => {
-          console.log(responce.data);
+        .then((response) => {
           let mailSms = "";
-          if (responce.data.code === "1001") {
+          if (response.data.code === "1001") {
             mailSms = "No more data available for the selected category.";
             setImmediate(() => {
               setAlertPopupStatus({
@@ -403,16 +389,16 @@ const FeedbackL1AndL2 = () => {
                 mode: true,
               });
             });
-          } else if (responce.data.code === "1003") {
-            // document.getElementById("result").style.visibility = "hidden";
+          } else if (response.data.code === "1003") {
+            document.getElementById("result").style.visibility = "hidden";
             setAlertPopupStatus({
               status: true,
-              main: responce.data.value,
+              main: response.data.value,
               contain: "",
               mode: true,
             });
           } else {
-            setFeedShowState(responce.data.value);
+            setFeedShowState(response.data.value);
           }
         })
         .catch((error) => {
@@ -586,7 +572,7 @@ const FeedbackL1AndL2 = () => {
                         ""
                       )}
                       <div>
-                        {value > 0 && value <= 3 && (
+                        {value > 0 && value <= 4 && (
                           <div className="mutli_select_drop">
                             <MuliSelectDropdownFieldQualityFeedback
                               onMultiSelectQlty={onMultiSelectQltyFeedback}

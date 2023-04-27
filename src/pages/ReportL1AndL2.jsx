@@ -179,7 +179,7 @@ const ReportL1AndL2 = (props) => {
     });
 
     if (!input.switchData && input.multiSelectDrop.toString().length === 0) {
-      alert("Please select reason for NO ...");
+      alert("Please select reason for NO");
       return;
     }
     if (input.qualityRating === 0) {
