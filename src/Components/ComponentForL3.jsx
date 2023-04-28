@@ -1103,7 +1103,10 @@ function SmallDataTable(props) {
         return (
           <>
             <br />
-            <table className="table table-bordered">
+            <table
+              className="table table-bordered"
+              style={{ marginLeft: "0px" }}
+            >
               <thead>
                 <tr>
                   <th scope="col">CATEGORY</th>
