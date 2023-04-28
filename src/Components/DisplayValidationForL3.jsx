@@ -301,6 +301,7 @@ export default function DisplayValidationComponent(props) {
               feedShowState={feedShowState}
               onChangeHandler={tegQuantityResHandler}
               sizeUomQuantityResHandler={sizeUomQuantityResHandler}
+              typeSet2ResHandler={typeSet2ResHandler}
             />
           </Grid>
         ) : null}

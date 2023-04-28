@@ -862,7 +862,7 @@ function MultiSelectCoupleBand(props) {
     }
     return false;
   };
-  const optionsOnlyE = ["Only_EAR_RING"];
+  const optionsOnlyE = ["Only_EARRING"];
   const optionE = optionsOnlyE.map((element) => {
     return {
       valueData: element,
@@ -1198,6 +1198,7 @@ function DynamicMultiSelectAndInput(props) {
     onChangeHandler,
     sizeUomQuantityResHandler,
     labelName,
+    typeSet2ResHandler,
   } = props;
   useEffect(() => {
     if (props.optionsList)
@@ -1219,7 +1220,7 @@ function DynamicMultiSelectAndInput(props) {
       lableValue: element,
     };
   });
-  const optionsOnlyE = ["Only_EAR_RING"];
+  const optionsOnlyE = ["Only_EARRING"];
   const optionE = optionsOnlyE.map((element) => {
     return {
       valueData: element,
@@ -1233,6 +1234,15 @@ function DynamicMultiSelectAndInput(props) {
       lableValue: element,
     };
   });
+  const optionsOnlyN = ["Only_NECKWEAR"];
+  const optionN = optionsOnlyN.map((element) => {
+    return {
+      valueData: element,
+      lableValue: element,
+    };
+  });
+  const setType2option = ["Chain", "Dori"];
+
   const enableRows = (name, value) => {
     setSizeRow(function (old) {
       return {
@@ -1370,6 +1380,26 @@ function DynamicMultiSelectAndInput(props) {
               <MultiselectUomAndSize
                 optionsList={ChildNodeV}
                 sizeUomQuantityResHandler={sizeUomQuantityResHandler}
+              />
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <table className="w-100">
+        <tbody>
+          {optionN.map((row, index) => (
+            <tr
+              key={index}
+              onChange={rowHandlerChange}
+              id={row.lableValue}
+              className={
+                enableRow(row.lableValue) ? classes.showDropdown : classes.hide
+              }
+            >
+              <DropDownMaterialUI
+                labelName="Type Set-2"
+                onChangeHandler={typeSet2ResHandler}
+                optionsList={setType2option}
               />
             </tr>
           ))}
