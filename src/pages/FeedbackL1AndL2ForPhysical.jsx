@@ -339,7 +339,7 @@ const FeedbackL1AndL2ForPhysical = () => {
                       <ImgShow
                         className="img_show"
                         itemCode={feedShowState.itemCode}
-                        imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
+                        imgLink="https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName="
                         videoLink={feedShowState.videoLink}
                       />
                     ) : (

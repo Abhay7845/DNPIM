@@ -253,7 +253,7 @@ const LazyLoadingDataGrid = (props) => {
               itemCode={
                 params.row.itemCode ? params.row.itemCode : "not item code"
               }
-              link="https://tanishqdigitalnpim.titan.in/NpimImages/"
+              link="https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName="
             />
           );
         },
