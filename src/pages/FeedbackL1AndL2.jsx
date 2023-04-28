@@ -185,7 +185,8 @@ const FeedbackL1AndL2 = () => {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.log("error==>", error);
+          alert("Data Not Found");
         });
 
       axios.get(`${HostManager.mainHost}/npim/status/L1/${storeCode}`).then(

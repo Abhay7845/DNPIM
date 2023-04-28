@@ -896,7 +896,7 @@ function MultiSelectCoupleBand(props) {
                 }
               >
                 <td>
-                  <b style={{ fontSize: "12px" }}>Quantity</b>
+                  <b style={{ fontSize: "12px" }}></b>
                   <input
                     type="text"
                     maxLength="1"
@@ -1307,7 +1307,7 @@ function DynamicMultiSelectAndInput(props) {
           placeholder="Choose Tag"
           disablePreSelectedValues={true}
         />
-        <table className="w-100">
+        <table style={{ width: "100%", padding: 1, margin: 0 }}>
           <tbody className="d-flex">
             {options.map((row, index) => (
               <tr
@@ -1318,17 +1318,14 @@ function DynamicMultiSelectAndInput(props) {
                   enableRow(row.lableValue) ? classes.show : classes.hide
                 }
               >
-                <td>
-                  <b style={{ fontSize: "12px" }}>Quantity</b>
-                  <input
-                    type="text"
-                    maxLength="1"
-                    id={`${row.lableValue}sq`}
-                    name={`${row.lableValue}sq`}
-                    className={classes.inputField}
-                    placeholder={row.lableValue}
-                  />
-                </td>
+                <input
+                  type="text"
+                  maxlength="1"
+                  id={`${row.lableValue}sq`}
+                  name={`${row.lableValue}sq`}
+                  className={classes.inputField}
+                  placeholder={row.lableValue}
+                />
               </tr>
             ))}
           </tbody>
