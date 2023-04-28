@@ -10,7 +10,7 @@ export const useStyles = makeStyles({
     marginTop: "5px",
     outline: "none",
     padding: "5px",
-    marginBottom: "5px",
+    marginBottom: "8px",
   },
   formControl: {
     minWidth: "100%",

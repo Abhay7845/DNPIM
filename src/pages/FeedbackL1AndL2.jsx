@@ -572,7 +572,7 @@ const FeedbackL1AndL2 = () => {
                       ) : (
                         ""
                       )}
-                      <div>
+                      <div className="text-center">
                         {value > 0 && value <= 4 && (
                           <div className="mutli_select_drop">
                             <MuliSelectDropdownFieldQualityFeedback
@@ -581,9 +581,9 @@ const FeedbackL1AndL2 = () => {
                             />
                           </div>
                         )}
-                        <Typography component="legend" align="left">
-                          Quality Feedback
-                        </Typography>
+                        <h6 className="my-2">
+                          <b>Quality Feedback</b>
+                        </h6>
                         <Rating
                           name="simple-controlled"
                           value={value}
