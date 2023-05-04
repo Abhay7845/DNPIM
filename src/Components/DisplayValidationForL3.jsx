@@ -264,7 +264,6 @@ export default function DisplayValidationComponent(props) {
     let TypeSet2, tegSelect, setSelect, findings;
     if (
       digit === "1" ||
-      digit === "2" ||
       digit === "3" ||
       digit === "4" ||
       digit === "5" ||

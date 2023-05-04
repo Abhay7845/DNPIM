@@ -162,7 +162,7 @@ const ReportL1AndL2 = (props) => {
 
   const getProductData = (data) => {
     scrollTop();
-    console.log(data);
+    console.log("Data==>", data);
     setProductInfo(data);
     setShowInfo(true);
     setSwitchEnable(false);
@@ -173,11 +173,9 @@ const ReportL1AndL2 = (props) => {
   };
 
   const getResponseFormChild = (input) => {
-    console.log("input==>", input);
     setImmediate(() => {
       setLoading(true);
     });
-
     if (!input.switchData && input.multiSelectDrop.toString().length === 0) {
       alert("Please select reason for NO");
       return;
@@ -188,7 +186,7 @@ const ReportL1AndL2 = (props) => {
     }
     if (
       input.qualityRating > 0 &&
-      input.qualityRating <= 3 &&
+      input.qualityRating <= 4 &&
       input.multiSelectQtyFeed.toString().length === 0
     ) {
       alert("Please select reason for QA");
@@ -214,12 +212,15 @@ const ReportL1AndL2 = (props) => {
       axios
         .post(`${HostManager.mainHost}/npim/insert/responses`, productInfo)
         .then((response) => {
-          console.log(response.data);
+          console.log("responseReports==>", response.data);
           setSelectReport(selectReport);
           setShowInfo(false);
+          if (response.code === "1000") {
+            alert("Updated Successfully");
+          }
         })
         .catch((error) => {
-          console.log(error);
+          console.log("error==>", error);
         });
       setImmediate(() => {
         setLoading(false);
@@ -230,7 +231,7 @@ const ReportL1AndL2 = (props) => {
       setImmediate(() => {
         setEditState(!editState);
       });
-    }, 1500);
+    }, 1000);
   };
 
   return (
