@@ -177,11 +177,11 @@ const ReportL1AndL2 = (props) => {
       setLoading(true);
     });
     if (!input.switchData && input.multiSelectDrop.toString().length === 0) {
-      alert("Please select reason for NO");
+      alert("Please Select Reason for NO");
       return;
     }
     if (input.qualityRating === 0) {
-      alert("Please select Quality Rating");
+      alert("Please Select Quality Rating");
       return;
     }
     if (
@@ -189,7 +189,7 @@ const ReportL1AndL2 = (props) => {
       input.qualityRating <= 4 &&
       input.multiSelectQtyFeed.toString().length === 0
     ) {
-      alert("Please select reason for QA");
+      alert("Please Select Reason for QA");
       return;
     }
     setProductInfo((old) => {
@@ -215,7 +215,7 @@ const ReportL1AndL2 = (props) => {
           console.log("responseReports==>", response.data);
           setSelectReport(selectReport);
           setShowInfo(false);
-          if (response.code === "1000") {
+          if (response.data.code === "1000") {
             alert("Updated Successfully");
           }
         })
