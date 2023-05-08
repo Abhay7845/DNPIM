@@ -34,8 +34,7 @@ export default function DisplayValidationComponent(props) {
     findingsResHandler,
     findingsOption,
   } = props;
-
-  const finger = !feedShowState.childNodeF ? "" : "Only_Finger_Ring";
+  const finger = !feedShowState.childNodeF ? "" : "Only_FINGER_RING";
   const harm = !feedShowState.childNodeH ? "" : "Only_HARAM";
   const Tikka = !feedShowState.childNodeK ? "" : "Only_TIKKA";
   const other = !feedShowState.childNodeO ? "" : "Only_OTHER";
@@ -101,6 +100,7 @@ export default function DisplayValidationComponent(props) {
     axios.get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`).then(
       (response) => {
         if (response.data.code === "1000") {
+          console.log("response==>", response);
           setSizeState(response.data.value);
         } else {
           console.log("Data Not Found");
@@ -301,6 +301,7 @@ export default function DisplayValidationComponent(props) {
               onChangeHandler={tegQuantityResHandler}
               sizeUomQuantityResHandler={sizeUomQuantityResHandler}
               typeSet2ResHandler={typeSet2ResHandler}
+              FingerRingSize={SizeState}
             />
           </Grid>
         ) : null}

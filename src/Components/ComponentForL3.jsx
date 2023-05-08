@@ -613,6 +613,7 @@ function MultiSelectCoupleBand(props) {
     optionsList,
     labelName,
   } = props;
+  console.log("props==>", props);
   const options = optionsList.map((element) => {
     return {
       valueData: element,
@@ -1199,22 +1200,31 @@ function DynamicMultiSelectAndInput(props) {
     sizeUomQuantityResHandler,
     labelName,
     typeSet2ResHandler,
+    optionsList,
+    FingerRingSize,
   } = props;
+  console.log("optionsList==>", props);
   useEffect(() => {
-    if (props.optionsList)
+    if (optionsList)
       setImmediate(() => {
         setSizeRow(
-          props.optionsList.reduce(
+          optionsList.reduce(
             (total, value) => ({ ...total, [value[1]]: false }),
             {}
           )
         );
       });
-  }, [props.optionsList]);
+  }, [optionsList]);
 
   const findings = feedShowState.findings;
   const findingsOptions = !findings ? "" : findings.split(",");
-  const options = props.optionsList.map((element) => {
+  const options = optionsList.map((element) => {
+    return {
+      valueData: element,
+      lableValue: element,
+    };
+  });
+  const fingerRingSize = FingerRingSize.map((element) => {
     return {
       valueData: element,
       lableValue: element,
@@ -1222,6 +1232,13 @@ function DynamicMultiSelectAndInput(props) {
   });
   const optionsOnlyE = ["Only_EARRING"];
   const optionE = optionsOnlyE.map((element) => {
+    return {
+      valueData: element,
+      lableValue: element,
+    };
+  });
+  const optionsOnlyF = ["Only_FINGER_RING"];
+  const optionF = optionsOnlyF.map((element) => {
     return {
       valueData: element,
       lableValue: element,
@@ -1341,7 +1358,7 @@ function DynamicMultiSelectAndInput(props) {
           </tbody>
         </table>
       </div>
-      <table style={{ width: "100%", padding: 1, margin: 0 }}>
+      <table style={{ width: "100%", margin: 0 }}>
         <tbody>
           {optionE.map((row, index) => (
             <tr
@@ -1357,7 +1374,6 @@ function DynamicMultiSelectAndInput(props) {
                   labelName="Findings"
                   onChangeHandler={findingsResHandler}
                   optionsList={findingsOptions}
-                  // valueData=""
                 />
               ) : (
                 ""
@@ -1366,7 +1382,55 @@ function DynamicMultiSelectAndInput(props) {
           ))}
         </tbody>
       </table>
-      <table style={{ width: "100%", padding: 1, margin: 0 }}>
+      <table style={{ width: "100%", margin: 0 }}>
+        <tbody>
+          {optionF.map((row, index) => (
+            <tr
+              key={index}
+              onChange={rowHandlerChange}
+              id={row.lableValue}
+              className={
+                enableRow(row.lableValue) ? classes.showDropdown : classes.hide
+              }
+            >
+              <Multiselect
+                options={fingerRingSize}
+                displayValue="lableValue"
+                onSelect={onInternalSelectChange}
+                onRemove={onInternalRemoveChange}
+                showCheckbox={true}
+                closeOnSelect={true}
+                placeholder="Choose Size"
+                disablePreSelectedValues={true}
+              />
+              <table className="w-100">
+                <tbody className="d-flex">
+                  {fingerRingSize.map((row, index) => (
+                    <tr
+                      key={index}
+                      onChange={rowHandlerChange}
+                      id={row.lableValue}
+                      className={
+                        enableRow(row.lableValue) ? classes.show : classes.hide
+                      }
+                    >
+                      <input
+                        type="text"
+                        maxlength="1"
+                        id={`${row.lableValue}sq`}
+                        name={`${row.lableValue}sq`}
+                        className={classes.inputField}
+                        placeholder={row.lableValue}
+                      />
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <table style={{ width: "100%", margin: 0 }}>
         <tbody>
           {optionV.map((row, index) => (
             <tr
