@@ -29,11 +29,9 @@ const Login = () => {
     rso: "",
   });
   const [flag, setFlag] = useState(false);
-  console.log(ValidUser);
   const [level, setLevel] = useState("");
   const OnChangeInput = (event) => {
     const { name, value } = event.target;
-
     setImmediate(() => {
       setLoginData(function (preData) {
         switch (name) {
@@ -132,8 +130,9 @@ const Login = () => {
           setValidUser(false);
         })
         .catch((error) => {
-          console.log("error from login page==>", error);
+          console.log("login page==>", error);
           setErrorSms("Please Enter Valid Username and Password!");
+          setValidUser(false);
         });
     }
   };

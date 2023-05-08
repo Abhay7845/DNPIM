@@ -884,7 +884,7 @@ function MultiSelectCoupleBand(props) {
           placeholder="Choose Size"
           disablePreSelectedValues={true}
         />
-        <table style={{ width: "100%", padding: 1, margin: 0 }}>
+        <table className="w-100">
           <tbody className="d-flex">
             {options.map((row, index) => (
               <tr
@@ -895,17 +895,14 @@ function MultiSelectCoupleBand(props) {
                   enableRow(row.lableValue) ? classes.show : classes.hide
                 }
               >
-                <td>
-                  <b style={{ fontSize: "12px" }}></b>
-                  <input
-                    type="text"
-                    maxLength="1"
-                    id={`${row.lableValue}sq`}
-                    name={`${row.lableValue}sq`}
-                    className={classes.inputField}
-                    placeholder={row.lableValue}
-                  />
-                </td>
+                <input
+                  type="text"
+                  maxLength="1"
+                  id={`${row.lableValue}sq`}
+                  name={`${row.lableValue}sq`}
+                  className={classes.inputField}
+                  placeholder={row.lableValue}
+                />
               </tr>
             ))}
           </tbody>
@@ -1320,7 +1317,7 @@ function DynamicMultiSelectAndInput(props) {
           placeholder="Choose Tag"
           disablePreSelectedValues={true}
         />
-        <table style={{ width: "100%", padding: 1, margin: 0 }}>
+        <table className="w-100">
           <tbody className="d-flex">
             {options.map((row, index) => (
               <tr
