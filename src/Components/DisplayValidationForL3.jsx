@@ -45,13 +45,13 @@ export default function DisplayValidationComponent(props) {
   const optionForOtherAllSet = [
     "Single_Tag",
     "Separate_Tag",
-    finger,
     earing,
     neckwear,
-    bangle,
     harm,
     Tikka,
     other,
+    finger,
+    bangle,
   ];
   console.log("feedShowState==>", feedShowState);
   const tagsOptions = optionForOtherAllSet.filter((item) => !item === false);
@@ -164,7 +164,7 @@ export default function DisplayValidationComponent(props) {
     }
     return (
       <>
-        {feedShowState.category === "BANGLE" ? (
+        {digit === "V" ? (
           <Grid item xs={12} sm={12}>
             <MultiselectUomAndSize
               labelName="Size/UOM/Quantity"
@@ -223,9 +223,7 @@ export default function DisplayValidationComponent(props) {
               feedShowState={feedShowState}
               findingsResHandler={findingsResHandler}
               findingsOptions={findingsOption}
-              //put props
             />
-            <br />
             <MultiSelectCoupleBand
               labelName="FOR LADIES"
               optionsList={CoupleLadiesSize}
@@ -246,7 +244,9 @@ export default function DisplayValidationComponent(props) {
               optionsList={stoneOptionList}
             />
           </Grid>
-        ) : null}
+        ) : (
+          ""
+        )}
       </>
     );
   } else if (

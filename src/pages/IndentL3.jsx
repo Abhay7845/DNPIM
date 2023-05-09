@@ -46,7 +46,6 @@ const IndentL3 = () => {
     quantityRes: "",
     findingsRes: "",
   });
-  console.log("feedShowState==>", feedShowState);
   const [productDetails, setProductDetails] = useState({
     storeCode: storeCode,
     collection: "ALL",

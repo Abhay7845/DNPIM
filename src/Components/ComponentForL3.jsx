@@ -1350,7 +1350,12 @@ function DynamicMultiSelectAndInput(props) {
                   maxlength="1"
                   id={`${row.lableValue}sq`}
                   name={`${row.lableValue}sq`}
-                  className={classes.inputField}
+                  className={
+                    row.lableValue === "Only_BANGLE" ||
+                    row.lableValue === "Only_FINGER_RING"
+                      ? classes.hide
+                      : classes.inputField
+                  }
                   placeholder={row.lableValue}
                 />
               </tr>
