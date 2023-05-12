@@ -143,7 +143,13 @@ export default function DisplayValidationComponent(props) {
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
 
-  if (digit === "F" || digit === "R" || digit === "V") {
+  if (
+    digit === "F" ||
+    digit === "R" ||
+    digit === "V" ||
+    digit === "X" ||
+    digit === "L"
+  ) {
     let sizeUomQuantity, sizeQuantity;
     if (digit === "V" && feedShowState.category === "BANGLE") {
       sizeUomQuantity = true;
@@ -176,7 +182,19 @@ export default function DisplayValidationComponent(props) {
         ) : (
           ""
         )}
-        {feedShowState.category === "FINGER RING" ? (
+
+        {feedShowState.category
+          .toUpperCase()
+          .replace(/\s{2,}/g, " ")
+          .trim() === "FINGER RING" ||
+        feedShowState.category
+          .toUpperCase()
+          .replace(/\s{2,}/g, " ")
+          .trim() === "TOE RING" ||
+        feedShowState.category
+          .toUpperCase()
+          .replace(/\s{2,}/g, " ")
+          .trim() === "ANKLETS" ? (
           <Grid item xs={12} sm={12}>
             <MultiSelectCoupleBand
               optionsList={SizeState}
@@ -185,11 +203,14 @@ export default function DisplayValidationComponent(props) {
               feedShowState={feedShowState}
               findingsResHandler={findingsResHandler}
               findingsOptions={findingsOption}
-              //put props
             />
           </Grid>
         ) : null}
-        {feedShowState.category === "COUPLE BAND" ? (
+
+        {feedShowState.category
+          .toUpperCase()
+          .replace(/\s{2,}/g, " ")
+          .trim() === "COUPLE BAND" ? (
           <div className="mx-1 w-100 my-2">
             <DropDownMaterialUI
               labelName="Choose Tag"
@@ -353,7 +374,6 @@ export default function DisplayValidationComponent(props) {
               labelName="Stone Quality"
               onChangeHandler={stoneQualityResHandler}
               optionsList={stoneOptionList}
-              // valueData=""
             />
           </Grid>
         ) : null}
