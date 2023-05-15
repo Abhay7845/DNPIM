@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
-  makeStyles,
   Typography,
   Button,
   Accordion,
@@ -30,15 +29,8 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import UpdateIcon from "@material-ui/icons/Update";
 import { AdminLoginHeading } from "../DataCenter/DataList";
-const useStyle = makeStyles({
-  root: {
-    margin: "0%",
-    padding: "0%",
-  },
-});
 
-function AdminHome(props) {
-  const classes = useStyle();
+function AdminHome() {
   const { storeCode, rsoName } = useParams();
   const [barOpener, setBarOpener] = useState(false);
   const [adminLoginData, setAdminLoginData] = useState([]);
@@ -58,6 +50,7 @@ function AdminHome(props) {
     alertSeverity: "",
     alertMessage: "",
   });
+  console.log("alertState==>", alertState);
   const [loading, setLoading] = useState(false);
   const [storeList, setStoreList] = useState([]);
   const [toStoreList, setToStoreList] = useState([]);
@@ -300,7 +293,7 @@ function AdminHome(props) {
       formData.append("masterFile", masterFile);
       axios({
         method: "post",
-        url: `${HostManager.mailHostAdmin}npim/insert/sku/master`,
+        url: `${HostManager.mailHostAdmin}/npim/insert/sku/master`,
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -323,7 +316,15 @@ function AdminHome(props) {
             setLoading(false);
           }
         })
-        .catch((error) => console.log("error==>", error));
+        .catch((error) => {
+          setAlertState({
+            alertFlag2: true,
+            alertSeverity: "error",
+            alertMessage: "File Not Uploaded",
+          });
+          console.log("error==>", error);
+          setLoading(false);
+        });
     }
   };
 
@@ -382,404 +383,399 @@ function AdminHome(props) {
           // statusOpener={statusOpener}
         />
       </Drawer>
-
-      <Container maxWidth="xl" className={classes.root}>
-        <Grid container>
-          <Grid item xs={12} sm={12}>
-            <UpperHeader itemCode="NO Available" storeCode={storeCode} />
-            <Loading flag={loading} />
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <ReportsAppBar
-              barHandler={() => {
-                setImmediate(() => {
-                  setBarOpener(true);
-                });
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <Container maxWidth="xl" style={{ marginTop: "2%" }}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={12}>
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<AddSharpIcon />}
-                      aria-controls="panel1a-content"
-                      id="panel1a-header"
-                    >
-                      <Typography
-                        color="secondary"
-                        variant="subtitle1"
-                        align="left"
-                      >
-                        Copy Store Indents
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Container maxWidth="sm">
-                        <Grid container spacing={3}>
-                          <Grid item xs={12} sm={12}>
-                            {alertState.alertFlag1 ? (
-                              <Alert severity={alertState.alertSeverity}>
-                                {alertState.alertMessage}
-                              </Alert>
-                            ) : (
-                              ""
-                            )}
-                          </Grid>
-                          <Grid item xs={12} sm={12}>
-                            <TextFieldOfMUI
-                              label="From Date"
-                              type="date"
-                              textFieldHandlerChange={onChangeInputHandler}
-                              value={adminDeskBoardInput.fromDate}
-                              name="fromDate"
-                              required={true}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={12}>
-                            <SelectOfMUI
-                              label="From Store Code"
-                              optionList={storeList.map(
-                                (element) => element.strCode
-                              )}
-                              selectHandleChange={onChangeInputHandler}
-                              value={adminDeskBoardInput.fromStoreCode}
-                              name="fromStoreCode"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={12}>
-                            <SelectOfMUI
-                              label="To Store Code"
-                              optionList={toStoreList}
-                              selectHandleChange={onChangeInputHandler}
-                              value={adminDeskBoardInput.toStoreCode}
-                              name="toStoreCode"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={12}>
-                            <button
-                              className="btn btn-primary w-100"
-                              onClick={copyIndentsStore}
-                            >
-                              {loading ? (
-                                <span
-                                  className="spinner-border spinner-border-sm text-light"
-                                  role="status"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <span>
-                                  COPY
-                                  <FileCopyIcon
-                                    className="mx-1 "
-                                    style={{ fontSize: "18px" }}
-                                  />
-                                </span>
-                              )}
-                            </button>
-                          </Grid>
-                        </Grid>
-                      </Container>
-                    </AccordionDetails>
-                  </Accordion>
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<AddSharpIcon />}
-                      aria-controls="panel2a-content"
-                      id="panel2a-header"
-                    >
-                      <Typography
-                        color="secondary"
-                        variant="subtitle1"
-                        align="left"
-                      >
-                        Master File Upload
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Grid container spacing={4}>
-                        <Grid item xs={12} sm={12}>
-                          <Container maxWidth="sm">
-                            <Grid className="text-danger">
-                              <h6 className="text-justify">
-                                <b className="text-dark">1.</b> **Please make
-                                sure that GENDER column is not blank for
-                                Categories like BRACELET, COUPLE BAND, FINGER
-                                RING, ANKLETS, TOE RING, MANGALSUTRA, CHAIN &
-                                WAIST BELT.
-                              </h6>
-                              <h6 className="text-justify">
-                                <b className="text-dark">2.</b> **Please make
-                                sure that GENDER & SHAPE column is not blank for
-                                BANGLE CATEGORY.
-                              </h6>
-                              <h6 className="text-justify">
-                                <b className="text-dark">3.</b> **Please make
-                                sure that FINDINGS column is not blank for
-                                Categories like DROP EARRING JHUMKA, & STUD
-                                EARRING.
-                              </h6>
-                              <h6 className="text-justify">
-                                <b className="text-dark">4.</b> **Please make
-                                sure that ChildNodes_N & ChildNodes_E column is
-                                not blank for Categories like G-CATEGORY, SET0,
-                                SET1, SET2 & T-CATEGORY.
-                              </h6>
-                              <hr />
-                            </Grid>
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={12}>
-                                {alertState.alertFlag2 ? (
-                                  <Alert severity={alertState.alertSeverity}>
-                                    {alertState.alertMessage}
-                                  </Alert>
-                                ) : (
-                                  ""
-                                )}
-                              </Grid>
-                              <Grid item xs={12} sm={12}>
-                                <Typography color="initial" variant="subtitle2">
-                                  If you want to master SKU template then please
-                                  click &nbsp;
-                                  <a
-                                    href="https://docs.google.com/spreadsheets/d/1AoThWIV-h0xRdn1ONW_qABM_CvIsVicBx2JiehwODeA/edit#gid=0"
-                                    target="_blank"
-                                  >
-                                    Master Template
-                                  </a>
-                                </Typography>
-                                <br />
-                                <TextFieldOfMUI
-                                  label="Master File"
-                                  type="file"
-                                  textFieldHandlerChange={(e) =>
-                                    setMasterFile(e.target.files[0])
-                                  }
-                                  value={adminDeskBoardInput.masterFile}
-                                  name="masterFile"
-                                  required={true}
-                                />
-                              </Grid>
-                              <Grid item xs={12} sm={12}>
-                                <button
-                                  className="btn btn-primary w-100"
-                                  onClick={uploadFileData}
-                                >
-                                  {loading ? (
-                                    <span
-                                      className="spinner-border spinner-border-sm text-light"
-                                      role="status"
-                                      aria-hidden="true"
-                                    />
-                                  ) : (
-                                    <span>
-                                      UPLOAD
-                                      <CloudUploadIcon
-                                        style={{ marginTop: "-5px" }}
-                                      />
-                                    </span>
-                                  )}
-                                </button>
-                              </Grid>
-                            </Grid>
-                          </Container>
-                        </Grid>
-                      </Grid>
-                    </AccordionDetails>
-                  </Accordion>
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<AddSharpIcon />}
-                      aria-controls="panel1a-content"
-                      id="panel1a-header"
-                    >
-                      <Typography
-                        color="secondary"
-                        variant="subtitle1"
-                        align="left"
-                      >
-                        Update Portal Status
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Container maxWidth="sm">
-                        <Grid container spacing={3}>
-                          <Grid item xs={12} sm={12}>
-                            {alertState.alertFlag3 ? (
-                              <Alert severity={alertState.alertSeverity}>
-                                {alertState.alertMessage}
-                              </Alert>
-                            ) : (
-                              ""
-                            )}
-                          </Grid>
-
-                          <Grid item xs={12} sm={12}>
-                            <SelectOfMUI
-                              label="Level"
-                              optionList={["L1", "L2", "L3"]}
-                              selectHandleChange={onChangeInputHandler}
-                              value={adminDeskBoardInput.level}
-                              name="level"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={12}>
-                            <SelectOfMUI
-                              label="Status"
-                              optionList={["Open", "Close"]}
-                              selectHandleChange={onChangeInputHandler}
-                              value={adminDeskBoardInput.status}
-                              name="status"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={12}>
-                            <Button
-                              onClick={() => {
-                                restServicesCaller("status");
-                              }}
-                              color="inherit"
-                              variant="contained"
-                              fullWidth
-                              style={{ minHeight: "100%" }}
-                              endIcon={<UpdateIcon />}
-                            >
-                              Update Status
-                            </Button>
-                          </Grid>
-                        </Grid>
-                      </Container>
-                    </AccordionDetails>
-                  </Accordion>
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<AddSharpIcon />}
-                      aria-controls="panel1a-content"
-                      id="panel1a-header"
-                    >
-                      <Typography
-                        color="secondary"
-                        variant="subtitle1"
-                        align="left"
-                      >
-                        Get Master SKU
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Grid container spacing={4}>
-                        <Grid item xs={12} sm={12}>
-                          <Container maxWidth="sm">
-                            <Grid container spacing={3}>
-                              <Grid item xs={12} sm={12}>
-                                {alertState.alertFlag4 ? (
-                                  <Alert severity={alertState.alertSeverity}>
-                                    {alertState.alertMessage}
-                                  </Alert>
-                                ) : (
-                                  ""
-                                )}
-                              </Grid>
-                              <Grid item xs={12} sm={12}>
-                                <button
-                                  className="btn btn-primary w-100"
-                                  onClick={GetSKUMasterData}
-                                >
-                                  {loading ? (
-                                    <span
-                                      className="spinner-border spinner-border-sm text-light"
-                                      role="status"
-                                      aria-hidden="true"
-                                    />
-                                  ) : (
-                                    <span>SEE MASTER</span>
-                                  )}
-                                </button>
-                              </Grid>
-                            </Grid>
-                          </Container>
-                        </Grid>
-                        {masterExcels.rows.length > 0 && (
-                          <Grid item xs={12} sm={12}>
-                            <Container maxWidth="xl">
-                              <DataGridForAdmin
-                                col={masterExcels.cols}
-                                rows={masterExcels.rows}
-                              />
-                            </Container>
-                          </Grid>
-                        )}
-                      </Grid>
-                    </AccordionDetails>
-                  </Accordion>
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<AddSharpIcon />}
-                      aria-controls="panel1a-content"
-                      id="panel1a-header"
-                    >
-                      <Typography
-                        color="secondary"
-                        variant="subtitle1"
-                        align="left"
-                      >
-                        Login Credentials
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Container maxWidth="sm">
-                        <Grid container spacing={3}>
-                          <Grid item xs={12} sm={12}>
-                            <SelectOfMUI
-                              label="Level"
-                              optionList={["L1", "L2", "L3"]}
-                              selectHandleChange={(e) =>
-                                setLabelValue(e.target.value)
-                              }
-                              value={labelValue}
-                              name="level"
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={12}>
-                            <button
-                              className="btn btn-primary w-100"
-                              onClick={FetchCredentials}
-                            >
-                              {loading ? (
-                                <span
-                                  className="spinner-border spinner-border-sm text-light"
-                                  role="status"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <span>FETCH CREDENTIALS</span>
-                              )}
-                            </button>
-                          </Grid>
-                        </Grid>
-                        {adminLoginData.length > 0 && (
-                          <AdminLoginCredentials
-                            col={AdminLoginHeading}
-                            rows={adminLoginData}
-                          />
-                        )}
-                      </Container>
-                    </AccordionDetails>
-                  </Accordion>
-                </Grid>
-              </Grid>
-            </Container>
-          </Grid>
+      <Grid container>
+        <Grid item xs={12} sm={12}>
+          <UpperHeader itemCode="NO Available" storeCode={storeCode} />
+          <Loading flag={loading} />
         </Grid>
-      </Container>
+        <Grid item xs={12} sm={12}>
+          <ReportsAppBar
+            barHandler={() => {
+              setImmediate(() => {
+                setBarOpener(true);
+              });
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12}>
+          <Container maxWidth="xl" style={{ marginTop: "2%" }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={12}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<AddSharpIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography
+                      color="secondary"
+                      variant="subtitle1"
+                      align="left"
+                    >
+                      Copy Store Indents
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Container maxWidth="sm">
+                      <Grid container spacing={3}>
+                        <Grid item xs={12} sm={12}>
+                          {alertState.alertFlag1 ? (
+                            <Alert severity={alertState.alertSeverity}>
+                              {alertState.alertMessage}
+                            </Alert>
+                          ) : (
+                            ""
+                          )}
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextFieldOfMUI
+                            label="From Date"
+                            type="date"
+                            textFieldHandlerChange={onChangeInputHandler}
+                            value={adminDeskBoardInput.fromDate}
+                            name="fromDate"
+                            required={true}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <SelectOfMUI
+                            label="From Store Code"
+                            optionList={storeList.map(
+                              (element) => element.strCode
+                            )}
+                            selectHandleChange={onChangeInputHandler}
+                            value={adminDeskBoardInput.fromStoreCode}
+                            name="fromStoreCode"
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <SelectOfMUI
+                            label="To Store Code"
+                            optionList={toStoreList}
+                            selectHandleChange={onChangeInputHandler}
+                            value={adminDeskBoardInput.toStoreCode}
+                            name="toStoreCode"
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <button
+                            className="btn btn-primary w-100"
+                            onClick={copyIndentsStore}
+                          >
+                            {loading ? (
+                              <span
+                                className="spinner-border spinner-border-sm text-light"
+                                role="status"
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <span>
+                                COPY
+                                <FileCopyIcon
+                                  className="mx-1 "
+                                  style={{ fontSize: "18px" }}
+                                />
+                              </span>
+                            )}
+                          </button>
+                        </Grid>
+                      </Grid>
+                    </Container>
+                  </AccordionDetails>
+                </Accordion>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<AddSharpIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <Typography
+                      color="secondary"
+                      variant="subtitle1"
+                      align="left"
+                    >
+                      Master File Upload
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} sm={12}>
+                        <Container maxWidth="sm">
+                          <Grid className="text-danger">
+                            <h6 className="text-justify">
+                              <b className="text-dark">1.</b> **Please make sure
+                              that GENDER column is not blank for Categories
+                              like BRACELET, COUPLE BAND, FINGER RING, ANKLETS,
+                              TOE RING, MANGALSUTRA, CHAIN & WAIST BELT.
+                            </h6>
+                            <h6 className="text-justify">
+                              <b className="text-dark">2.</b> **Please make sure
+                              that GENDER & SHAPE column is not blank for BANGLE
+                              CATEGORY.
+                            </h6>
+                            <h6 className="text-justify">
+                              <b className="text-dark">3.</b> **Please make sure
+                              that FINDINGS column is not blank for Categories
+                              like DROP EARRING JHUMKA, & STUD EARRING.
+                            </h6>
+                            <h6 className="text-justify">
+                              <b className="text-dark">4.</b> **Please make sure
+                              that ChildNodes_N & ChildNodes_E column is not
+                              blank for Categories like G-CATEGORY, SET0, SET1,
+                              SET2 & T-CATEGORY.
+                            </h6>
+                            <hr />
+                          </Grid>
+                          <Grid container spacing={3}>
+                            {alertState.alertFlag2 && (
+                              <Alert severity={alertState.alertSeverity}>
+                                {alertState.alertMessage}
+                              </Alert>
+                            )}
+                            <Grid item xs={12} sm={12}>
+                              <Typography color="initial" variant="subtitle2">
+                                If you want to master SKU template then please
+                                click &nbsp;
+                                <a
+                                  href="https://docs.google.com/spreadsheets/d/1AoThWIV-h0xRdn1ONW_qABM_CvIsVicBx2JiehwODeA/edit#gid=0"
+                                  target="_blank"
+                                >
+                                  Master Template
+                                </a>
+                              </Typography>
+                              <br />
+                              <TextFieldOfMUI
+                                label="Master File"
+                                type="file"
+                                textFieldHandlerChange={(e) =>
+                                  setMasterFile(e.target.files[0])
+                                }
+                                value={adminDeskBoardInput.masterFile}
+                                name="masterFile"
+                                required={true}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <button
+                                className="btn btn-primary w-100"
+                                onClick={uploadFileData}
+                              >
+                                {loading ? (
+                                  <span
+                                    className="spinner-border spinner-border-sm text-light"
+                                    role="status"
+                                    aria-hidden="true"
+                                  />
+                                ) : (
+                                  <span>
+                                    UPLOAD
+                                    <CloudUploadIcon
+                                      style={{
+                                        marginTop: "-5px",
+                                        marginLeft: "5px",
+                                      }}
+                                    />
+                                  </span>
+                                )}
+                              </button>
+                            </Grid>
+                          </Grid>
+                        </Container>
+                      </Grid>
+                    </Grid>
+                  </AccordionDetails>
+                </Accordion>
+              </Grid>
+
+              <Grid item xs={12} sm={12}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<AddSharpIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography
+                      color="secondary"
+                      variant="subtitle1"
+                      align="left"
+                    >
+                      Update Portal Status
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Container maxWidth="sm">
+                      <Grid container spacing={3}>
+                        <Grid item xs={12} sm={12}>
+                          {alertState.alertFlag3 ? (
+                            <Alert severity={alertState.alertSeverity}>
+                              {alertState.alertMessage}
+                            </Alert>
+                          ) : (
+                            ""
+                          )}
+                        </Grid>
+
+                        <Grid item xs={12} sm={12}>
+                          <SelectOfMUI
+                            label="Level"
+                            optionList={["L1", "L2", "L3"]}
+                            selectHandleChange={onChangeInputHandler}
+                            value={adminDeskBoardInput.level}
+                            name="level"
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <SelectOfMUI
+                            label="Status"
+                            optionList={["Open", "Close"]}
+                            selectHandleChange={onChangeInputHandler}
+                            value={adminDeskBoardInput.status}
+                            name="status"
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <Button
+                            onClick={() => {
+                              restServicesCaller("status");
+                            }}
+                            color="inherit"
+                            variant="contained"
+                            fullWidth
+                            style={{ minHeight: "100%" }}
+                            endIcon={<UpdateIcon />}
+                          >
+                            Update Status
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </Container>
+                  </AccordionDetails>
+                </Accordion>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<AddSharpIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography
+                      color="secondary"
+                      variant="subtitle1"
+                      align="left"
+                    >
+                      Get Master SKU
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={4}>
+                      <Grid item xs={12} sm={12}>
+                        <Container maxWidth="sm">
+                          <Grid container spacing={3}>
+                            <Grid item xs={12} sm={12}>
+                              {alertState.alertFlag4 ? (
+                                <Alert severity={alertState.alertSeverity}>
+                                  {alertState.alertMessage}
+                                </Alert>
+                              ) : (
+                                ""
+                              )}
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <button
+                                className="btn btn-primary w-100"
+                                onClick={GetSKUMasterData}
+                              >
+                                {loading ? (
+                                  <span
+                                    className="spinner-border spinner-border-sm text-light"
+                                    role="status"
+                                    aria-hidden="true"
+                                  />
+                                ) : (
+                                  <span>SEE MASTER</span>
+                                )}
+                              </button>
+                            </Grid>
+                          </Grid>
+                        </Container>
+                      </Grid>
+                      {masterExcels.rows.length > 0 && (
+                        <Grid item xs={12} sm={12}>
+                          <Container maxWidth="xl">
+                            <DataGridForAdmin
+                              col={masterExcels.cols}
+                              rows={masterExcels.rows}
+                            />
+                          </Container>
+                        </Grid>
+                      )}
+                    </Grid>
+                  </AccordionDetails>
+                </Accordion>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<AddSharpIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography
+                      color="secondary"
+                      variant="subtitle1"
+                      align="left"
+                    >
+                      Login Credentials
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Container maxWidth="sm">
+                      <Grid container spacing={3}>
+                        <Grid item xs={12} sm={12}>
+                          <SelectOfMUI
+                            label="Level"
+                            optionList={["L1", "L2", "L3"]}
+                            selectHandleChange={(e) =>
+                              setLabelValue(e.target.value)
+                            }
+                            value={labelValue}
+                            name="level"
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <button
+                            className="btn btn-primary w-100"
+                            onClick={FetchCredentials}
+                          >
+                            {loading ? (
+                              <span
+                                className="spinner-border spinner-border-sm text-light"
+                                role="status"
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <span>FETCH CREDENTIALS</span>
+                            )}
+                          </button>
+                        </Grid>
+                      </Grid>
+                      {adminLoginData.length > 0 && (
+                        <AdminLoginCredentials
+                          col={AdminLoginHeading}
+                          rows={adminLoginData}
+                        />
+                      )}
+                    </Container>
+                  </AccordionDetails>
+                </Accordion>
+              </Grid>
+            </Grid>
+          </Container>
+        </Grid>
+      </Grid>
     </>
   );
 }

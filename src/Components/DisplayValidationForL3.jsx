@@ -70,8 +70,8 @@ export default function DisplayValidationComponent(props) {
   const tagsTCategory = [
     "Single_Tag",
     "Separate_Tag",
-    "Only_Mangalsutra",
     "Only_EARRING",
+    "Only_MANGALSUTRA",
   ];
   useEffect(() => {
     if (digit === "0" || digit === "G") {
@@ -143,13 +143,7 @@ export default function DisplayValidationComponent(props) {
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
 
-  if (
-    digit === "F" ||
-    digit === "R" ||
-    digit === "V" ||
-    digit === "X" ||
-    digit === "L"
-  ) {
+  if (digit === "F" || digit === "R" || digit === "V" || digit === "L") {
     let sizeUomQuantity, sizeQuantity;
     if (digit === "V" && feedShowState.category === "BANGLE") {
       sizeUomQuantity = true;
@@ -257,6 +251,7 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
+
         {cond ? (
           <Grid item xs={12} sm={12} className="my-3">
             <DropDownMaterialUI

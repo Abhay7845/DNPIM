@@ -112,7 +112,7 @@ const DayEndReportAdmin = () => {
                   activity: eachRow.activity,
                   itgroup: eachRow.itgroup,
                   category: eachRow.category,
-                  saleable: eachRow.sealable,
+                  saleable: eachRow.saleable,
                   reasons: eachRow.reasons,
                   rsoName: eachRow.rsoName,
                   qualityRating: eachRow.qualityRating,
@@ -144,7 +144,7 @@ const DayEndReportAdmin = () => {
                   activity: eachRow.activity,
                   itgroup: eachRow.itgroup,
                   category: eachRow.category,
-                  saleable: eachRow.sealable,
+                  saleable: eachRow.saleable,
                   reasons: eachRow.reasons,
                   rsoName: eachRow.rsoName,
                   qualityRating: eachRow.qualityRating,
@@ -300,7 +300,7 @@ const DayEndReportAdmin = () => {
       <Grid className="ReportGenerateStyle">
         <Grid item xs={6} sm={3} className="mx-2 Level_Style">
           <SelectOfMUI
-            lable="Level"
+            label="Level"
             optionList={levelDropDown}
             selectHandleChange={onChangeInputHandler}
             value={endDayReportInput.level}

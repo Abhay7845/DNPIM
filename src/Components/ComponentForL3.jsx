@@ -1244,6 +1244,13 @@ function DynamicMultiSelectAndInput(props) {
       lableValue: element,
     };
   });
+  const optionsOnlyM = ["Only_MANGALSUTRA"];
+  const optionM = optionsOnlyM.map((element) => {
+    return {
+      valueData: element,
+      lableValue: element,
+    };
+  });
   const optionsOnlyV = ["Only_BANGLE"];
   const optionV = optionsOnlyV.map((element) => {
     return {
@@ -1352,7 +1359,8 @@ function DynamicMultiSelectAndInput(props) {
                   name={`${row.lableValue}sq`}
                   className={
                     row.lableValue === "Only_BANGLE" ||
-                    row.lableValue === "Only_FINGER_RING"
+                    row.lableValue === "Only_FINGER_RING" ||
+                    row.lableValue === "Only_MANGALSUTRA"
                       ? classes.hide
                       : classes.inputField
                   }
@@ -1390,6 +1398,54 @@ function DynamicMultiSelectAndInput(props) {
       <table style={{ width: "100%", margin: 0 }}>
         <tbody>
           {optionF.map((row, index) => (
+            <tr
+              key={index}
+              onChange={rowHandlerChange}
+              id={row.lableValue}
+              className={
+                enableRow(row.lableValue) ? classes.showDropdown : classes.hide
+              }
+            >
+              <Multiselect
+                options={fingerRingSize}
+                displayValue="lableValue"
+                onSelect={onInternalSelectChange}
+                onRemove={onInternalRemoveChange}
+                showCheckbox={true}
+                closeOnSelect={true}
+                placeholder="Choose Size"
+                disablePreSelectedValues={true}
+              />
+              <table className="w-100">
+                <tbody className="d-flex">
+                  {fingerRingSize.map((row, index) => (
+                    <tr
+                      key={index}
+                      onChange={rowHandlerChange}
+                      id={row.lableValue}
+                      className={
+                        enableRow(row.lableValue) ? classes.show : classes.hide
+                      }
+                    >
+                      <input
+                        type="text"
+                        maxlength="1"
+                        id={`${row.lableValue}sq`}
+                        name={`${row.lableValue}sq`}
+                        className={classes.inputField}
+                        placeholder={row.lableValue}
+                      />
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <table style={{ width: "100%", margin: 0 }}>
+        <tbody>
+          {optionM.map((row, index) => (
             <tr
               key={index}
               onChange={rowHandlerChange}

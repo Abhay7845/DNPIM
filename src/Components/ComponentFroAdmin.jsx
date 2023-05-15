@@ -124,11 +124,11 @@ function CustomToolbar(props) {
 function DataGridForAdmin(props) {
   const classes = useStyles();
   const { col, rows, reportLable } = props;
-  const coloum = col.map((element) => {
+  const colum = col.map((element) => {
     return {
       field: element,
       sortable: false,
-      width: 140,
+      flex: 1,
     };
   });
 
@@ -144,7 +144,7 @@ function DataGridForAdmin(props) {
 
         <DataGrid
           rows={rows}
-          columns={coloum}
+          columns={colum}
           autoHeight={true}
           pageSize={10}
           disableColumnSelector
