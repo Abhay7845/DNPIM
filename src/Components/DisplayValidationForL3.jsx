@@ -143,7 +143,13 @@ export default function DisplayValidationComponent(props) {
       .catch((error) => console.log("error==>", error));
   }, [itemCode]);
 
-  if (digit === "F" || digit === "R" || digit === "V" || digit === "L") {
+  if (
+    digit === "F" ||
+    digit === "R" ||
+    digit === "V" ||
+    digit === "X" ||
+    digit === "L"
+  ) {
     let sizeUomQuantity, sizeQuantity;
     if (digit === "V" && feedShowState.category === "BANGLE") {
       sizeUomQuantity = true;
@@ -200,6 +206,17 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
+
+        {feedShowState.category === "OTHERS" ? (
+          <InputFieldMaterialUI
+            labelName="Quantity"
+            typeName="number"
+            onChangeHandler={quantityResHandler}
+            allDataFromValidation={allDataFromValidation}
+          />
+        ) : (
+          ""
+        )}
 
         {feedShowState.category
           .toUpperCase()
@@ -305,7 +322,6 @@ export default function DisplayValidationComponent(props) {
     ) {
       tegSelect = true;
       setSelect = true;
-      // Quantity = true;
     }
     return (
       <>
