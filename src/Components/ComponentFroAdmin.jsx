@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FormControl,
   Grid,
@@ -25,6 +25,14 @@ const useStyles = makeStyles({
     width: "100%",
     margin: "0%",
     padding: "0%",
+  },
+  search: {
+    border: 0,
+    outline: "none",
+    background: "none",
+    borderBottom: "1px solid #000000",
+    marginLeft: "-15px",
+    marginBottom: "10px",
   },
 });
 
@@ -79,19 +87,18 @@ const TextFieldOfMUI = (props) => {
 };
 
 const SelectOfMUI = (props) => {
-  const { lable, optionList, selectHandleChange, value, name } = props;
+  const { label, optionList, selectHandleChange, value, name } = props;
   return (
     <>
       <FormControl variant="outlined" fullWidth>
-        <InputLabel id="demo-simple-select-outlined-label">{lable} </InputLabel>
+        <InputLabel id="demo-simple-select-outlined-label">{label} </InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={value}
           onChange={selectHandleChange}
           name={name}
-          // placeholder="dartaagagy"
-          label={lable}
+          label={label}
         >
           {optionList.map((element) => {
             return (
@@ -116,16 +123,12 @@ function CustomToolbar(props) {
 
 function DataGridForAdmin(props) {
   const classes = useStyles();
-
   const { col, rows, reportLable } = props;
-
   const coloum = col.map((element) => {
     return {
       field: element,
-      // flex: 1,
       sortable: false,
       width: 140,
-      // headerName: element.toUpperCase(),
     };
   });
 
@@ -143,21 +146,63 @@ function DataGridForAdmin(props) {
           rows={rows}
           columns={coloum}
           autoHeight={true}
-          //autoPageSize={true}
-
-          // columnHeader={classes.header}
-
-          // onRowSelected={(data) => {
-          //   console.log("selected data",data);
-          // } }
-          // onCellDoubleClick={(data) => {
-          //   console.log("selected data",data);
-          // }}
           pageSize={10}
-          // loading={true}
           disableColumnSelector
           components={{
             Toolbar: CustomToolbar,
+          }}
+        />
+      </Container>
+    </>
+  );
+}
+
+function AdminLoginCredentials(props) {
+  const classes = useStyles();
+  const { col, rows } = props;
+  const [loginValue, SetLoginValue] = useState("");
+  const column = col.map((element) => {
+    return {
+      field: element,
+      sortable: false,
+      flex: 150,
+    };
+  });
+  const DataRows = rows.filter((eachRow) =>
+    eachRow.loginId.includes(loginValue.toUpperCase())
+  );
+  return (
+    <>
+      <Container maxWidth="xl" className={classes.report}>
+        <br />
+        <div className="d-flex justify-content-between my-1 mx-3">
+          <input
+            type="text"
+            placeholder="Search By Login ID"
+            className={classes.search}
+            onChange={(e) => SetLoginValue(e.target.value)}
+          />
+          <Typography>
+            COUNT:-
+            {DataRows.length === 0 ? (
+              <b className="text-danger">DATA NOT FOUND</b>
+            ) : (
+              <b className="text-success"> {DataRows.length}</b>
+            )}
+          </Typography>
+        </div>
+        <DataGrid
+          rows={DataRows}
+          columns={column}
+          autoHeight={true}
+          pageSize={50}
+          components={{
+            Toolbar: CustomToolbar,
+          }}
+          componentsProps={{
+            toolbar: {
+              rows: rows,
+            },
           }}
         />
       </Container>
@@ -219,4 +264,10 @@ function MultiSelectFroAdmin(props) {
 }
 
 export default ComponentFroAdmin;
-export { TextFieldOfMUI, SelectOfMUI, DataGridForAdmin, MultiSelectFroAdmin };
+export {
+  TextFieldOfMUI,
+  SelectOfMUI,
+  DataGridForAdmin,
+  MultiSelectFroAdmin,
+  AdminLoginCredentials,
+};
