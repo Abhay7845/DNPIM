@@ -14,6 +14,7 @@ import {
 export default function DisplayValidationComponent(props) {
   const [option, setOption] = useState([]);
   const [SizeState, setSizeState] = useState([]);
+  const [ChildNodeN, setChildNodeN] = useState([]);
   const [CoupleGentsSize, setCoupleGentsSize] = useState([]);
   const [CoupleLadiesSize, setCoupleLadiesSize] = useState([]);
   const [tagOption, setTagOption] = useState("");
@@ -96,21 +97,35 @@ export default function DisplayValidationComponent(props) {
   }, []);
 
   const chooseOption = ["Single_Tag", "Separate_Tag"];
+  const childNodeN = feedShowState.childNodesN;
   useEffect(() => {
-    axios.get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`).then(
-      (response) => {
+    axios
+      .get(`${HostManager.mainHostL3}/npim/size/dropdown/${itemCode}`)
+      .then((res) => res)
+      .then((response) => {
         if (response.data.code === "1000") {
           console.log("response==>", response);
           setSizeState(response.data.value);
         } else {
           console.log("Data Not Found");
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      })
+      .catch((error) => console.log("error==>", error));
   }, [itemCode]);
+
+  useEffect(() => {
+    axios
+      .get(`${HostManager.mainHostL3}/npim/size/dropdown/${childNodeN}`)
+      .then((res) => res)
+      .then((response) => {
+        if (response.data.code === "1000") {
+          setChildNodeN(response.data.value);
+        } else {
+          console.log("Data Not Found");
+        }
+      })
+      .catch((error) => console.log("error==>", error));
+  }, [childNodeN]);
 
   useEffect(() => {
     axios
@@ -235,7 +250,6 @@ export default function DisplayValidationComponent(props) {
               feedShowState={feedShowState}
               findingsResHandler={findingsResHandler}
               findingsOptions={findingsOption}
-              //put props
             />
           </Grid>
         ) : null}
@@ -328,6 +342,7 @@ export default function DisplayValidationComponent(props) {
               sizeUomQuantityResHandler={sizeUomQuantityResHandler}
               typeSet2ResHandler={typeSet2ResHandler}
               FingerRingSize={SizeState}
+              ChildNodeNSize={ChildNodeN}
             />
           </Grid>
         ) : null}

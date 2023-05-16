@@ -1202,8 +1202,8 @@ function DynamicMultiSelectAndInput(props) {
     typeSet2ResHandler,
     optionsList,
     FingerRingSize,
+    ChildNodeNSize,
   } = props;
-  console.log("optionsList==>", props);
   useEffect(() => {
     if (optionsList)
       setImmediate(() => {
@@ -1230,6 +1230,13 @@ function DynamicMultiSelectAndInput(props) {
       lableValue: element,
     };
   });
+  const ChildNodeN = ChildNodeNSize.map((element) => {
+    return {
+      valueData: element,
+      lableValue: element,
+    };
+  });
+
   const optionsOnlyE = ["Only_EARRING"];
   const optionE = optionsOnlyE.map((element) => {
     return {
@@ -1308,7 +1315,6 @@ function DynamicMultiSelectAndInput(props) {
   };
 
   const childNodeV = feedShowState.childNodeV;
-  // const childNodeF = feedShowState.childNodeF;
 
   useEffect(() => {
     axios
@@ -1323,7 +1329,7 @@ function DynamicMultiSelectAndInput(props) {
         }
       })
       .catch((error) => console.log("error==>", error));
-  }, []);
+  }, [childNodeV]);
 
   return (
     <>
@@ -1455,7 +1461,7 @@ function DynamicMultiSelectAndInput(props) {
               }
             >
               <Multiselect
-                options={fingerRingSize}
+                options={ChildNodeN}
                 displayValue="lableValue"
                 onSelect={onInternalSelectChange}
                 onRemove={onInternalRemoveChange}
@@ -1466,7 +1472,7 @@ function DynamicMultiSelectAndInput(props) {
               />
               <table className="w-100">
                 <tbody className="d-flex">
-                  {fingerRingSize.map((row, index) => (
+                  {ChildNodeN.map((row, index) => (
                     <tr
                       key={index}
                       onChange={rowHandlerChange}
