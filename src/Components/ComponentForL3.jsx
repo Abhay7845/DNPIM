@@ -851,7 +851,7 @@ function MultiSelectCoupleBand(props) {
         };
       }
     }
-    console.log("get data ", getData);
+    console.log("get data==>", getData);
     return onChangeHandler(getData);
   };
 

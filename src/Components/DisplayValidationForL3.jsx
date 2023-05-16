@@ -148,24 +148,18 @@ export default function DisplayValidationComponent(props) {
     digit === "R" ||
     digit === "V" ||
     digit === "X" ||
+    digit === "Y" ||
     digit === "L"
   ) {
     let sizeUomQuantity, sizeQuantity;
-    if (digit === "V" && feedShowState.category === "BANGLE") {
+    if (digit === "V") {
       sizeUomQuantity = true;
     } else if (
-      (digit === "V" ||
-        digit === "C" ||
-        digit === "F" ||
-        digit === "Y" ||
-        digit === "B") &&
+      (digit === "V" || digit === "C" || digit === "F" || digit === "B") &&
       cond
     ) {
       sizeQuantity = true;
-    } else if (
-      (digit === "C" || digit === "F" || digit === "Y" || digit === "B") &&
-      !cond
-    ) {
+    } else if ((digit === "C" || digit === "F" || digit === "B") && !cond) {
       sizeQuantity = true;
     }
     return (
@@ -176,14 +170,14 @@ export default function DisplayValidationComponent(props) {
               labelName="Size/UOM/Quantity"
               optionsList={SizeState}
               sizeUomQuantityResHandler={sizeUomQuantityResHandler}
-              //put props
             />
           </Grid>
         ) : (
           ""
         )}
 
-        {feedShowState.category
+        {digit === "Y" ||
+        feedShowState.category
           .toUpperCase()
           .replace(/\s{2,}/g, " ")
           .trim() === "FINGER RING" ||
@@ -337,13 +331,13 @@ export default function DisplayValidationComponent(props) {
             />
           </Grid>
         ) : null}
+
         {TypeSet2 ? (
           <Grid item xs={12} sm={12}>
             <DropDownMaterialUI
               labelName="Type Set-2"
               onChangeHandler={typeSet2ResHandler}
               optionsList={setType2option}
-              // valueData=""
             />
           </Grid>
         ) : null}
@@ -353,7 +347,6 @@ export default function DisplayValidationComponent(props) {
               labelName="Stone Quality"
               onChangeHandler={stoneQualityResHandler}
               optionsList={stoneOptionList}
-              // valueData=""
             />
           </Grid>
         ) : null}
