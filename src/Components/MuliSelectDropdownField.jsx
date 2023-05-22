@@ -48,7 +48,6 @@ const MuliSelectDropdownField = (props) => {
     let selectedData = selectedList.map((data) => {
       return data.valueData;
     });
-
     return props.onMultiSelect(selectedData);
   };
 
@@ -56,17 +55,7 @@ const MuliSelectDropdownField = (props) => {
     let selectedData = selectedList.map((data) => {
       return data.valueData;
     });
-
     return props.onMultiSelect(selectedData);
-  };
-
-  const cssdata = {
-    searchBox: {
-      // border: "none",
-      // fontSize: "10px",
-      // minHeight: "50px",
-      // width: "50%"
-    },
   };
 
   return (
@@ -81,7 +70,6 @@ const MuliSelectDropdownField = (props) => {
             onSelect={onInternalSelectChange}
             onRemove={onInternalRemoveChange}
             showCheckbox={true}
-            // selectedValues={[]}
             closeOnSelect={true}
             selectionLimit={3}
             placeholder="Click here to Choose reasons for no"
@@ -154,14 +142,6 @@ export const MuliSelectDropdownFieldQualityFeedback = (props) => {
     return props.onMultiSelectQlty(selectedData);
   };
 
-  const cssdata = {
-    searchBox: {
-      // border: "none",
-      // fontSize: "10px",
-      // minHeight: "50px",
-      // width: "50%"
-    },
-  };
   return (
     <>
       <div>
@@ -173,13 +153,10 @@ export const MuliSelectDropdownFieldQualityFeedback = (props) => {
             onSelect={onInternalSelectChange}
             onRemove={onInternalRemoveChange}
             showCheckbox={true}
-            // selectedValues={[]}
             closeOnSelect={true}
             selectionLimit={3}
             placeholder="Click here to choose reasons for QA"
             className="searchbox"
-
-            //hidePlaceholder={true}
           />
         </div>
       </div>

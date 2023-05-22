@@ -150,6 +150,8 @@ const FeedbackL1AndL2 = () => {
     setSwitchData(!switchData);
     console.log(switchData);
   };
+
+  console.log("productDetails==>", productDetails);
   useEffect(() => {
     setImmediate(() => {
       setLoading(true);
@@ -157,13 +159,15 @@ const FeedbackL1AndL2 = () => {
     setTimeout(() => {
       axios
         .post(
-          `${HostManager.mainHost}/npim/get/product/details`,
+          `${HostManager.mainHost}/npim/get/product/details/`,
           productDetails
         )
         .then((response) => {
-          console.log("response==>", response.data);
+          console.log("responseProducts==>", response.data);
           let mailSms = "";
-          if (response.data.code === "1001") {
+          if (response.data.code === "1000") {
+            setFeedShowState(response.data.value);
+          } else if (response.data.code === "1001") {
             mailSms = "No more data available for the selected category.";
             setImmediate(() => {
               setAlertPopupStatus({
@@ -180,8 +184,6 @@ const FeedbackL1AndL2 = () => {
               contain: "",
               mode: true,
             });
-          } else {
-            setFeedShowState(response.data.value);
           }
         })
         .catch((error) => {
@@ -207,12 +209,12 @@ const FeedbackL1AndL2 = () => {
     }, 1000);
   }, [productDetails]);
   const onSearchClick = (dropState) => {
-    console.log(dropState);
+    console.log("dropState==>", dropState);
     setProductDetails({
       storeCode: storeCode,
       collection: dropState.collection,
       consumerBase: dropState.consumerBase,
-      group: dropState.groupdata,
+      group: dropState.groupData,
       category: dropState.category,
     });
     console.log(productDetails);
@@ -374,6 +376,7 @@ const FeedbackL1AndL2 = () => {
       itemCode: feedShowState.itemCode,
       direction: direction,
     };
+    console.log("InputNext==>", Input);
 
     setTimeout(() => {
       axios

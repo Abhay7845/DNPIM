@@ -63,6 +63,7 @@ const IndentL3 = () => {
       setLoading(true);
     });
     setDigit();
+    console.log("productDetails==>", productDetails);
     await axios
       .post(`${HostManager.mainHost}/npim/get/product/details`, productDetails)
       .then((response) => {
