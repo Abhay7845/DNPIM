@@ -8,7 +8,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import Logo from "../images/Tanishq_Logo1.png";
 import axios from "axios";
 import { Button, Container, Typography } from "@material-ui/core";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 import HostManager from "../HostManager/HostManager";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -19,7 +19,7 @@ import useStyles from "../Style/Login";
 
 const Login = () => {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [errorSms, setErrorSms] = useState("");
   const [ValidUser, setValidUser] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -92,15 +92,15 @@ const Login = () => {
                 response.data.value.role === "L1" ||
                 response.data.value.role === "L2"
               ) {
-                history.push(
+                navigate(
                   `/feedbackL1andL2/${response.data.value.userID}/${loginData.rso}`
                 );
               } else if (response.data.value.role === "L3") {
-                history.push(
+                navigate(
                   `/indentL3/${response.data.value.userID}/${loginData.rso}`
                 );
               } else if (response.data.value.role === "Admin") {
-                history.push(
+                navigate(
                   `/AdminHome/${response.data.value.userID}/${loginData.rso}`
                 );
               }
@@ -109,15 +109,15 @@ const Login = () => {
                 response.data.value.role === "L1" ||
                 response.data.value.role === "L2"
               ) {
-                history.push(
+                navigate(
                   `/FeedbackL1AndL2/${response.data.value.userID}/${loginData.rso}`
                 );
               } else if (response.data.value.role === "L3") {
-                history.push(
+                navigate(
                   `/indentL3/${response.data.value.userID}/${loginData.rso}`
                 );
               } else if (response.data.value.role === "Admin") {
-                history.push(
+                navigate(
                   `/AdminHome/${response.data.value.userID}/${loginData.rso}`
                 );
               }
@@ -143,9 +143,7 @@ const Login = () => {
     });
   };
   const goHandler = () => {
-    history.push(
-      `/PortelCloseReport/${loginData.uname}/${loginData.rso}/${level}`
-    );
+    navigate(`/PortelCloseReport/${loginData.uname}/${loginData.rso}/${level}`);
   };
 
   // SHOW AND HIDE PASSWORD

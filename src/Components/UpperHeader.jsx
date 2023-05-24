@@ -9,7 +9,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import Logo from "../images/Tanishq_Logo.png";
 import { Tooltip } from "@material-ui/core";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -28,9 +28,10 @@ const useStyles = makeStyles({
 
 export default function UpperHeader(props) {
   const classes = useStyles();
-  const history = useHistory();
-  const signOutHandler = (event) => {
-    history.push("/");
+  let navigate = useNavigate();
+  const signOutHandler = () => {
+    localStorage.removeItem("store_code");
+    navigate("/DNpimPortal");
   };
 
   return (

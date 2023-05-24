@@ -148,7 +148,6 @@ const FeedbackL1AndL2 = () => {
 
   const handleChange = (event) => {
     setSwitchData(!switchData);
-    console.log(switchData);
   };
 
   console.log("productDetails==>", productDetails);
@@ -288,6 +287,8 @@ const FeedbackL1AndL2 = () => {
       old.quality_Rating = value.toString();
       return old;
     });
+
+    console.log("feedShowStateData==>", feedShowState);
     setImmediate(() => {
       setLoading(true);
     });

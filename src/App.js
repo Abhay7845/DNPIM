@@ -1,8 +1,9 @@
 import React, { Suspense } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UpperHeader from "./Components/UpperHeader";
 import Login from "./pages/Login";
 import loadingGif from "../src/images/Loading_icon.gif";
+import PrivateComponent from "./Components/PrivateComponent";
 const Error = React.lazy(() => import("./pages/Error"));
 const FeedbackL1AndL2 = React.lazy(() => import("./pages/FeedbackL1AndL2"));
 const ReportL1AndL2 = React.lazy(() => import("./pages/ReportL1AndL2"));
@@ -21,7 +22,7 @@ const FeedbackL1AndL2ForPhysical = React.lazy(() =>
 function App() {
   return (
     <>
-      <BrowserRouter basename="/DNpimPortal">
+      <BrowserRouter>
         <Suspense
           fallback={
             <>
@@ -32,62 +33,52 @@ function App() {
             </>
           }
         >
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route
-              exact
-              path="/feedbackL1andL2/:storeCode/:rsoName/"
-              component={FeedbackL1AndL2}
-            />
-            <Route
-              exact
-              path="/FeedbackL1AndL2ForPhysical/:storeCode/:rsoName/"
-              component={FeedbackL1AndL2ForPhysical}
-            />
-
-            <Route
-              exact
-              path="/reportL1andL2/:storeCode/:rsoName/"
-              component={ReportL1AndL2}
-            />
-            <Route
-              exact
-              path="/favoriteL3/:storeCode/:rsoName/"
-              component={FavoriteL3}
-            />
-            <Route
-              exact
-              path="/indentL3/:storeCode/:rsoName/"
-              component={IndentL3}
-            />
-            <Route
-              exact
-              path="/reportL3/:storeCode/:rsoName/"
-              component={ReportL3}
-            />
-            <Route
-              exact
-              path="/dayEndReportForAdmin/:storeCode/:rsoName/"
-              component={DayEndReportAdmin}
-            />
-            <Route
-              exact
-              path="/SendStoreReportAdmin/:storeCode/:rsoName/"
-              component={SendStoreReportAdmin}
-            />
-            <Route
-              exact
-              path="/AdminHome/:storeCode/:rsoName/"
-              component={AdminHome}
-            />
-            <Route
-              exact
-              path="/PortalCloseReport/:storeCode/:rsoName/:level/"
-              component={PortalCloseReport}
-            />
-            <Route exact path="/error" component={Error} />
-            <Route component={Error} />
-          </Switch>
+          <Routes>
+            <Route index path="/DNpimPortal" element={<Login />} />
+            <Route element={<PrivateComponent />}>
+              <Route
+                path="/feedbackL1andL2/:storeCode/:rsoName/"
+                element={<FeedbackL1AndL2 />}
+              />
+              <Route
+                path="/FeedbackL1AndL2ForPhysical/:storeCode/:rsoName/"
+                element={<FeedbackL1AndL2ForPhysical />}
+              />
+              <Route
+                path="/reportL1andL2/:storeCode/:rsoName/"
+                element={<ReportL1AndL2 />}
+              />
+              <Route
+                path="/favoriteL3/:storeCode/:rsoName/"
+                element={<FavoriteL3 />}
+              />
+              <Route
+                path="/indentL3/:storeCode/:rsoName/"
+                element={<IndentL3 />}
+              />
+              <Route
+                path="/reportL3/:storeCode/:rsoName/"
+                element={<ReportL3 />}
+              />
+              <Route
+                path="/dayEndReportForAdmin/:storeCode/:rsoName/"
+                element={<DayEndReportAdmin />}
+              />
+              <Route
+                path="/SendStoreReportAdmin/:storeCode/:rsoName/"
+                element={<SendStoreReportAdmin />}
+              />
+              <Route
+                path="/AdminHome/:storeCode/:rsoName/"
+                element={<AdminHome />}
+              />
+              <Route
+                path="/PortalCloseReport/:storeCode/:rsoName/:level/"
+                element={<PortalCloseReport />}
+              />
+              <Route path="/error" element={<Error />} />
+            </Route>
+          </Routes>
         </Suspense>
       </BrowserRouter>
     </>
