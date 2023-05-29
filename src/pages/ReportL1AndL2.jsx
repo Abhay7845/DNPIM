@@ -22,7 +22,6 @@ import NpimDataDisplay from "../Components/NpimDataDisplay";
 import HostManager from "../HostManager/HostManager";
 import StatusTabular from "../Components/StatusTabular";
 import Loading from "../Components/Loading";
-import swal from "sweetalert";
 
 const useStyles = makeStyles({
   root: {
@@ -63,6 +62,7 @@ const ReportL1AndL2 = (props) => {
   const [showInfo, setShowInfo] = useState(false);
   const [switchEnable, setSwitchEnable] = useState(true);
   const [statusData, setStatusData] = useState({});
+  const [updateRow, setUpdateRow] = useState({});
   const [statusCloserOpener, setStatusCloserOpener] = useState(false);
   const selectReportList = ["yet to submit", "submitted"];
 
@@ -155,7 +155,7 @@ const ReportL1AndL2 = (props) => {
   const getProductData = (data) => {
     scrollTop();
     console.log("Data==>", data);
-    setProductInfo(data);
+    setUpdateRow(data);
     setShowInfo(true);
     setSwitchEnable(false);
   };
@@ -203,16 +203,13 @@ const ReportL1AndL2 = (props) => {
       .post(`${HostManager.mainHostL3}/npim/update/responses`, productInfo)
       .then((response) => {
         if (response.data.code === "1000") {
-          swal({
-            title: "Success!",
-            text: "Your Data Has been Updated Successfully",
-            icon: "success",
-            buttons: "OK",
-          });
+          alert("Updated Successfully");
+          setLoading(false);
         }
       })
       .catch((error) => {
         console.log("error==>", error);
+        setLoading(false);
       });
   };
 
