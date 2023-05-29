@@ -35,6 +35,7 @@ export default function DisplayValidationComponent(props) {
     findingsResHandler,
     findingsOption,
   } = props;
+
   const finger = !feedShowState.childNodeF ? "" : "Only_FINGER_RING";
   const harm = !feedShowState.childNodeH ? "" : "Only_HARAM";
   const Tikka = !feedShowState.childNodeK ? "" : "Only_TIKKA";
@@ -75,7 +76,7 @@ export default function DisplayValidationComponent(props) {
     "Only_MANGALSUTRA",
   ];
   useEffect(() => {
-    if (digit === "0" || digit === "G") {
+    if (digit === "0") {
       setOption(optionForSet0);
     }
     if (digit === "1") {
@@ -104,7 +105,6 @@ export default function DisplayValidationComponent(props) {
       .then((res) => res)
       .then((response) => {
         if (response.data.code === "1000") {
-          console.log("response==>", response);
           setSizeState(response.data.value);
         } else {
           console.log("Data Not Found");
@@ -272,7 +272,6 @@ export default function DisplayValidationComponent(props) {
               feedShowState={feedShowState}
               findingsResHandler={findingsResHandler}
               findingsOptions={findingsOption}
-              //put props
             />
           </Grid>
         ) : null}
@@ -299,7 +298,6 @@ export default function DisplayValidationComponent(props) {
     digit === "5" ||
     digit === "6" ||
     digit === "7" ||
-    digit === "G" ||
     digit === "T"
   ) {
     let TypeSet2, tegSelect, setSelect, findings;
@@ -310,7 +308,6 @@ export default function DisplayValidationComponent(props) {
       digit === "5" ||
       digit === "6" ||
       digit === "7" ||
-      digit === "G" ||
       digit === "T"
     )
       if ((digit === "N" || digit === "E" || digit === "2") && !cond) {
@@ -325,7 +322,6 @@ export default function DisplayValidationComponent(props) {
       digit === "5" ||
       digit === "6" ||
       digit === "7" ||
-      digit === "G" ||
       digit === "T"
     ) {
       tegSelect = true;

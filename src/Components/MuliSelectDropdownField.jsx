@@ -65,14 +65,14 @@ const MuliSelectDropdownField = (props) => {
 
         <div className="drop_multi">
           <Multiselect
-            options={data}
-            displayValue="lableValue"
             onSelect={onInternalSelectChange}
             onRemove={onInternalRemoveChange}
+            options={data}
+            displayValue="lableValue"
             showCheckbox={true}
             closeOnSelect={true}
             selectionLimit={3}
-            placeholder="Click here to Choose reasons for no"
+            placeholder="Click here to Choose Reasons for No"
             disablePreSelectedValues={true}
           />
         </div>
@@ -84,16 +84,10 @@ export const MuliSelectDropdownFieldQualityFeedback = (props) => {
   console.log(props, "MuliSelectDropdownFieldQualityFeedback");
   const classes = useStyles();
   const multiselectRef = useRef();
-  // useEffect(() => {
-
-  //     multiselectRef.current.resetSelectedValues();
-  // }, [props]);
 
   const resetSelectField = () => {
     multiselectRef.current.resetSelectedValues();
   };
-  //console.log(props,"multiSelectDrop")
-  // const [multiSelectDrop, setMultiSelectDrop] = useState([]);
   const dataQlty = [
     {
       valueData: "Antique,Rhodium,Enamel Issues",

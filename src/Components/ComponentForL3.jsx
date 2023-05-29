@@ -1094,7 +1094,6 @@ function SmallDataTable(props) {
       digit == "6" ||
       digit == "7" ||
       digit == "T" ||
-      digit == "G" ||
       digit == "N"
     ) {
       if (props.childNodesE || props.childNodesN) {
@@ -1344,7 +1343,7 @@ function DynamicMultiSelectAndInput(props) {
           onRemove={onInternalRemoveChange}
           showCheckbox={true}
           closeOnSelect={true}
-          placeholder="Choose Tag"
+          placeholder="Choose Tag Here"
           disablePreSelectedValues={true}
         />
         <table className="w-100">
