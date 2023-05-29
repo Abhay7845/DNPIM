@@ -22,6 +22,7 @@ import NpimDataDisplay from "../Components/NpimDataDisplay";
 import HostManager from "../HostManager/HostManager";
 import StatusTabular from "../Components/StatusTabular";
 import Loading from "../Components/Loading";
+import swal from "sweetalert";
 
 const useStyles = makeStyles({
   root: {
@@ -57,9 +58,8 @@ const ReportL1AndL2 = (props) => {
   const [report, setReport] = useState([]);
   const [colum, setColumn] = useState([]);
   const [barOpener, setBarOpener] = useState(false);
-  const [editState, setEditState] = useState(false);
   const [productInfo, setProductInfo] = useState(NpimDataDisplay);
-  const [selectReport, setSelectReport] = useState("yet to submit");
+  const [selectReport, setSelectReport] = useState("submitted");
   const [showInfo, setShowInfo] = useState(false);
   const [switchEnable, setSwitchEnable] = useState(true);
   const [statusData, setStatusData] = useState({});
@@ -70,67 +70,59 @@ const ReportL1AndL2 = (props) => {
     setImmediate(() => {
       setLoading(true);
     });
+    let reportUrl = "/npim/unscanned/report/L1/";
+    switch (selectReport) {
+      case "yet to submit":
+        reportUrl = "/npim/unscanned/report/L1/";
+        break;
+      case "submitted":
+        reportUrl = "/npim/scanned/report/L1/";
+        break;
+      case "groupwise":
+        reportUrl = "/npim/groupwise/report/L1/";
+        break;
+      case "consumerbase":
+        reportUrl = "/npim/consumerbase/report/L1/";
+        break;
+      case "collection":
+        reportUrl = "/npim/collection/report/L1/";
+        break;
+      case "category":
+        reportUrl = "/npim/category/report/L1/";
+        break;
 
-    setTimeout(() => {
-      let reportUrl = "/npim/unscanned/report/L1/";
-      switch (selectReport) {
-        case "yet to submit":
-          reportUrl = "/npim/unscanned/report/L1/";
-          break;
-        case "submitted":
-          reportUrl = "/npim/scanned/report/L1/";
-          break;
-        case "groupwise":
-          reportUrl = "/npim/groupwise/report/L1/";
-          break;
-        case "consumerbase":
-          reportUrl = "/npim/consumerbase/report/L1/";
-          break;
-        case "collection":
-          reportUrl = "/npim/collection/report/L1/";
-          break;
-        case "category":
-          reportUrl = "/npim/category/report/L1/";
-          break;
-
-        default:
-          reportUrl = "/npim/unscanned/report/L1/";
-          break;
-      }
-
-      axios.get(`${HostManager.mainHost}${reportUrl}${storeCode}`).then(
-        (response) => {
-          if (response.data.code === "1000") {
-            let data = response.data;
-            setReport(data.value);
-            setColumn(data.coloum);
-          } else {
-            console.log(response.data.value);
-            alert(response.data.value);
-          }
-        },
-        (error) => {
-          console.log("error==>", error);
+      default:
+        reportUrl = "/npim/unscanned/report/L1/";
+        break;
+    }
+    axios
+      .get(`${HostManager.mainHost}${reportUrl}${storeCode}`)
+      .then((response) => {
+        if (response.data.code === "1000") {
+          setReport(response.data.value);
+          setColumn(response.data.coloum);
+        } else {
+          alert(response.data.value);
         }
-      );
-      axios.get(`${HostManager.mainHost}/npim/status/L1/${storeCode}`).then(
-        (response) => {
-          if (response.data.code === "1001") {
-            console.log("response.data.value==>", response.data.value);
-          } else if (response.data.code === "1000") {
-            setStatusData(response.data);
-          }
-        },
-        (error) => {
-          console.log("error==>", error);
+      })
+      .catch((error) => console.log("error=>", error));
+    setShowInfo(false);
+    setImmediate(() => {
+      setLoading(false);
+    });
+  }, [selectReport]);
+
+  useEffect(() => {
+    axios
+      .get(`${HostManager.mainHost}/npim/status/L1/${storeCode}`)
+      .then((response) => {
+        if (response.data.code === "1001") {
+        } else if (response.data.code === "1000") {
+          setStatusData(response.data);
         }
-      );
-      setShowInfo(false);
-      setImmediate(() => {
-        setLoading(false);
-      });
-    }, 1500);
-  }, [selectReport, editState]);
+      })
+      .catch((error) => console.log("error==>", error));
+  }, []);
 
   const navBarList = [
     {
@@ -173,9 +165,7 @@ const ReportL1AndL2 = (props) => {
   };
 
   const getResponseFormChild = (input) => {
-    setImmediate(() => {
-      setLoading(true);
-    });
+    setLoading(true);
     if (!input.switchData && input.multiSelectDrop.toString().length === 0) {
       alert("Please Select Reason for NO");
       return;
@@ -208,30 +198,22 @@ const ReportL1AndL2 = (props) => {
       old.quality_Rating = input.qualityRating.toString();
       return old;
     });
-    setTimeout(() => {
-      axios
-        .post(`${HostManager.mainHost}/npim/insert/responses`, productInfo)
-        .then((response) => {
-          console.log("responseReports==>", response.data);
-          setSelectReport(selectReport);
-          setShowInfo(false);
-          if (response.data.code === "1000") {
-            alert("Updated Successfully");
-          }
-        })
-        .catch((error) => {
-          console.log("error==>", error);
-        });
-      setImmediate(() => {
-        setLoading(false);
+    console.log("productInfo==>", productInfo);
+    axios
+      .post(`${HostManager.mainHostL3}/npim/update/responses`, productInfo)
+      .then((response) => {
+        if (response.data.code === "1000") {
+          swal({
+            title: "Success!",
+            text: "Your Data Has been Updated Successfully",
+            icon: "success",
+            buttons: "OK",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log("error==>", error);
       });
-      setImmediate(() => {
-        setSelectReport(selectReport);
-      });
-      setImmediate(() => {
-        setEditState(!editState);
-      });
-    }, 1000);
   };
 
   return (
@@ -307,7 +289,7 @@ const ReportL1AndL2 = (props) => {
           )}
         </Grid>
         <Grid item xs={12}>
-          {report.length > 0 && colum.length > 0 ? (
+          {report.length > 0 && (
             <TableComponent
               report={report}
               coloum={colum}
@@ -315,8 +297,6 @@ const ReportL1AndL2 = (props) => {
               getProdoctData={getProductData}
               reportName={selectReport}
             />
-          ) : (
-            "NO DATA"
           )}
         </Grid>
       </Grid>
