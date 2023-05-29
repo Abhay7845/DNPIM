@@ -62,7 +62,6 @@ const ReportL1AndL2 = (props) => {
   const [showInfo, setShowInfo] = useState(false);
   const [switchEnable, setSwitchEnable] = useState(true);
   const [statusData, setStatusData] = useState({});
-  const [updateRow, setUpdateRow] = useState({});
   const [statusCloserOpener, setStatusCloserOpener] = useState(false);
   const selectReportList = ["yet to submit", "submitted"];
 
@@ -155,7 +154,6 @@ const ReportL1AndL2 = (props) => {
   const getProductData = (data) => {
     scrollTop();
     console.log("Data==>", data);
-    setUpdateRow(data);
     setShowInfo(true);
     setSwitchEnable(false);
   };
