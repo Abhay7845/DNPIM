@@ -20,6 +20,7 @@ import ProductInfo from "../Components/ProductInfo";
 import NpimDataDisplay from "../Components/NpimDataDisplay";
 import HostManager from "../HostManager/HostManager";
 import StatusTabular from "../Components/StatusTabular";
+import gifLoading from "../images/Loading_icon.gif";
 import Loading from "../Components/Loading";
 
 const useStyles = makeStyles({
@@ -414,7 +415,6 @@ const ReportL1AndL2 = (props) => {
               <DropdownField
                 name="Select Report Type"
                 value={selectReport}
-                labelName="Select Report Type"
                 dropList={selectReportList}
                 myChangeHandler={onchangeHandler}
               />
@@ -459,8 +459,7 @@ const ReportL1AndL2 = (props) => {
             />
           ) : (
             <div className="text-center">
-              {/* <img src={gifLoading} alt="loading" /> */}
-              <p>No Data Available</p>
+              <img src={gifLoading} alt="loading" />
             </div>
           )}
         </Grid>
