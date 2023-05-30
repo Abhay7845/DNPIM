@@ -83,7 +83,7 @@ const TableComponent = (props) => {
   };
 
   const onEditChange = (event) => {
-    props.getProdoctData(event);
+    props.getProductData(event);
   };
 
   return (

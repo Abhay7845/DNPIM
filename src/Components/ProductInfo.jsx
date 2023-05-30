@@ -41,8 +41,16 @@ const ProductInfo = (props) => {
   const onMultiSelectQtyFeedback = (multiSelectQlty) => {
     setMultiSelectQtyFeedback(multiSelectQlty);
   };
-  const onClickSubmitBtnHandler = (event) => {
-    props.getResponseFormChild({
+  const onSubmitBtnHandler = (event) => {
+    props.getSubmitFormChild({
+      switchData: switchData,
+      multiSelectDrop: multiSelectDrop,
+      multiSelectQtyFeed: multiSelectQtyFeed,
+      qualityRating: value,
+    });
+  };
+  const onUpdateBtnHandler = (event) => {
+    props.getUpdateFormChild({
       switchData: switchData,
       multiSelectDrop: multiSelectDrop,
       multiSelectQtyFeed: multiSelectQtyFeed,
@@ -188,15 +196,27 @@ const ProductInfo = (props) => {
               </div>
             </div>
             <div className="row-cols-1 btn_feed_show">
-              <Button
-                onClick={onClickSubmitBtnHandler}
-                variant="outlined"
-                color="secondary"
-                fullWidth
-                className={classes.buttonStyle}
-              >
-                Submit
-              </Button>
+              {props.SelectReport === "submitted" ? (
+                <Button
+                  onClick={onUpdateBtnHandler}
+                  variant="outlined"
+                  color="secondary"
+                  fullWidth
+                  className={classes.buttonStyle}
+                >
+                  Update
+                </Button>
+              ) : (
+                <Button
+                  onClick={onSubmitBtnHandler}
+                  variant="outlined"
+                  color="secondary"
+                  fullWidth
+                  className={classes.buttonStyle}
+                >
+                  Submit
+                </Button>
+              )}
             </div>
           </div>
         </Grid>

@@ -90,7 +90,7 @@ export const MuliSelectDropdownFieldQualityFeedback = (props) => {
   };
   const dataQlty = [
     {
-      valueData: "Antique,Rhodium,Enamel Issues",
+      valueData: "Not Relevant To Market",
       lableValue: "Not Relevant To Market",
     },
     {

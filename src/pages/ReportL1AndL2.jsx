@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Grid,
   makeStyles,
@@ -6,11 +5,11 @@ import {
   IconButton,
   AppBar,
   Drawer,
-  FormGroup,
   FormControlLabel,
   Switch,
 } from "@material-ui/core";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import DropdownField from "../Components/DropdownField";
 import TableComponent from "../Components/TableComponent";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -33,6 +32,7 @@ const useStyles = makeStyles({
   },
   appBar: {
     flexGrow: 1,
+    border: "2px solid red",
   },
   menuButton: {
     marginRight: 2,
@@ -51,12 +51,13 @@ const useStyles = makeStyles({
 });
 
 const ReportL1AndL2 = (props) => {
-  const { storeCode, rsoName } = useParams();
   const classes = useStyles();
+  const { storeCode, rsoName } = useParams();
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState([]);
-  const [colum, setColumn] = useState([]);
+  const [column, setColumn] = useState([]);
   const [barOpener, setBarOpener] = useState(false);
+  const [editState, setEditState] = useState(false);
   const [productInfo, setProductInfo] = useState(NpimDataDisplay);
   const [selectReport, setSelectReport] = useState("submitted");
   const [showInfo, setShowInfo] = useState(false);
@@ -66,9 +67,7 @@ const ReportL1AndL2 = (props) => {
   const selectReportList = ["yet to submit", "submitted"];
 
   useEffect(() => {
-    setImmediate(() => {
-      setLoading(true);
-    });
+    setLoading(true);
     let reportUrl = "/npim/unscanned/report/L1/";
     switch (selectReport) {
       case "yet to submit":
@@ -94,30 +93,33 @@ const ReportL1AndL2 = (props) => {
         reportUrl = "/npim/unscanned/report/L1/";
         break;
     }
-    axios
-      .get(`${HostManager.mainHost}${reportUrl}${storeCode}`)
-      .then((response) => {
+
+    axios.get(`${HostManager.mainHost}${reportUrl}${storeCode}`).then(
+      (response) => {
         if (response.data.code === "1000") {
-          setReport(response.data.value);
-          setColumn(response.data.coloum);
+          let data = response.data;
+          setReport(data.value);
+          setColumn(data.coloum);
         } else {
-          alert(response.data.value);
+          console.log("response.data.value==>", response.data.value);
         }
-      })
-      .catch((error) => console.log("error=>", error));
+      },
+      (error) => {
+        console.log("error==>", error);
+      }
+    );
     setShowInfo(false);
-    setImmediate(() => {
-      setLoading(false);
-    });
-  }, [selectReport]);
+    setLoading(false);
+  }, [selectReport, editState, storeCode]);
 
   useEffect(() => {
     axios
       .get(`${HostManager.mainHost}/npim/status/L1/${storeCode}`)
       .then((response) => {
-        if (response.data.code === "1001") {
-        } else if (response.data.code === "1000") {
+        if (response.data.code === "1000") {
           setStatusData(response.data);
+        } else if ((response.data.code = "1001")) {
+          console.log("No Data Found");
         }
       })
       .catch((error) => console.log("error==>", error));
@@ -152,8 +154,9 @@ const ReportL1AndL2 = (props) => {
   };
 
   const getProductData = (data) => {
+    console.log("DATA==>", data);
     scrollTop();
-    console.log("Data==>", data);
+    setProductInfo(data);
     setShowInfo(true);
     setSwitchEnable(false);
   };
@@ -162,14 +165,15 @@ const ReportL1AndL2 = (props) => {
     setStatusCloserOpener(!statusCloserOpener);
   };
 
-  const getResponseFormChild = (input) => {
+  const getSubmitFormChild = (input) => {
+    console.log("input==>", input);
     setLoading(true);
     if (!input.switchData && input.multiSelectDrop.toString().length === 0) {
-      alert("Please Select Reason for NO");
+      alert("Please select Reason for NO");
       return;
     }
     if (input.qualityRating === 0) {
-      alert("Please Select Quality Rating");
+      alert("Please select Quality Rating");
       return;
     }
     if (
@@ -177,40 +181,213 @@ const ReportL1AndL2 = (props) => {
       input.qualityRating <= 4 &&
       input.multiSelectQtyFeed.toString().length === 0
     ) {
-      alert("Please Select Reason for QA");
+      alert("Please Select Reason For Low Quality Rating");
       return;
     }
-    setProductInfo((old) => {
-      if (!input.switchData) {
-        old.reasons = input.multiSelectDrop.toString();
-        old.saleable = "NO";
-        old.rsoName = rsoName;
-      } else {
-        old.reasons = "";
-        old.saleable = "YES";
-        old.rsoName = rsoName;
-      }
-      old.submitStatus = "report";
-      old.strCode = storeCode;
-      old.quality_Reasons = input.multiSelectQtyFeed.toString();
-      old.quality_Rating = input.qualityRating.toString();
-      return old;
-    });
-    console.log("productInfo==>", productInfo);
+
+    const InsertInput = {
+      activity: productInfo.activity,
+      adVariant: productInfo.adVariant,
+      btqCount: productInfo.btqCount,
+      catPB: productInfo.catPB,
+      category: productInfo.category,
+      childNodeF: productInfo.childNodeF,
+      childNodeH: productInfo.childNodeH,
+      childNodeK: productInfo.childNodeK,
+      childNodeO: productInfo.childNodeO,
+      childNodeV: productInfo.childNodeV,
+      childNodesE: productInfo.childNodesE,
+      childNodesN: productInfo.childNodesN,
+      collection: productInfo.collection,
+      colourWt: productInfo.colourWt,
+      complexity: productInfo.complexity,
+      consumerBase: productInfo.consumerBase,
+      diamondWt: productInfo.diamondWt,
+      doe: productInfo.doe,
+      findings: productInfo.findings,
+      gender: productInfo.gender,
+      i2Gh: productInfo.i2Gh,
+      id: productInfo.id,
+      indCategory: productInfo.indCategory,
+      indQty: productInfo.indQty,
+      indentLevelType: productInfo.indentLevelType,
+      itGroup: productInfo.itGroup,
+      itemCode: productInfo.itemCode,
+      itemLevelType: productInfo.itemLevelType,
+      karatageRange: productInfo.karatageRange,
+      metalColor: productInfo.metalColor,
+      metalWt: productInfo.metalWt,
+      npimEventNo: productInfo.npimEventNo,
+      parentItemCode: productInfo.parentItemCode,
+      quality_Rating: input.qualityRating,
+      quality_Reasons: input.multiSelectQtyFeed.toString(),
+      reasons: input.multiSelectDrop.toString(),
+      region: productInfo.region,
+      rsoName: rsoName,
+      saleable: input.switchData ? "YES" : "NO",
+      scannedCount: productInfo.scannedCount,
+      set2Type: productInfo.set2Type,
+      shape: productInfo.shape,
+      si2Gh: productInfo.si2Gh,
+      si2Ij: productInfo.si2Ij,
+      size: productInfo.size,
+      stdUCP: productInfo.stdUCP,
+      stdUcpE: productInfo.stdUCP,
+      stdUcpF: productInfo.stdUcpF,
+      stdUcpH: productInfo.stdUcpH,
+      stdUcpK: productInfo.stdUcpK,
+      stdUcpN: productInfo.stdUcpN,
+      stdUcpO: productInfo.stdUcpO,
+      stdUcpV: productInfo.stdUcpV,
+      stdWt: productInfo.stdWt,
+      stdWtE: productInfo.stdWtE,
+      stdWtF: productInfo.stdWtF,
+      stdWtH: productInfo.stdWtH,
+      stdWtK: productInfo.stdWtK,
+      stdWtN: productInfo.stdWtN,
+      stdWtO: productInfo.stdWtO,
+      stdWtV: productInfo.stdWtV,
+      stoneQuality: productInfo.stoneQuality,
+      stoneQualityVal: productInfo.stoneQualityVal,
+      strCode: storeCode,
+      submitStatus: productInfo.submitStatus,
+      unscannedCount: productInfo.unscannedCount,
+      uom: productInfo.uom,
+      videoLink: productInfo.videoLink,
+      vsGh: productInfo.vsGh,
+      vvs1: productInfo.vvs1,
+    };
+
+    console.log("InsertInput==>", InsertInput);
     axios
-      .post(`${HostManager.mainHostL3}/npim/update/responses`, productInfo)
+      .post(`${HostManager.mainHost}/npim/insert/responses`, InsertInput)
       .then((response) => {
+        console.log("response==>", response.data);
         if (response.data.code === "1000") {
-          alert("Updated Successfully");
-          setLoading(false);
+          alert("Data Has Been Inserted Successfully");
         }
       })
       .catch((error) => {
         console.log("error==>", error);
-        setLoading(false);
       });
+    setImmediate(() => {
+      setLoading(false);
+      setSelectReport(selectReport);
+      setEditState(!editState);
+    });
   };
 
+  const getUpdateFormChild = (input) => {
+    console.log("input==>", input);
+    setLoading(true);
+    if (!input.switchData && input.multiSelectDrop.toString().length === 0) {
+      alert("Please select Reason for NO");
+      return;
+    }
+    if (input.qualityRating === 0) {
+      alert("Please select Quality Rating");
+      return;
+    }
+    if (
+      input.qualityRating > 0 &&
+      input.qualityRating <= 4 &&
+      input.multiSelectQtyFeed.toString().length === 0
+    ) {
+      alert("Please Select Reason For Low Quality Rating");
+      return;
+    }
+
+    const UpdateInput = {
+      activity: productInfo.activity,
+      adVariant: productInfo.adVariant,
+      btqCount: productInfo.btqCount,
+      catPB: productInfo.catPB,
+      category: productInfo.category,
+      childNodeF: productInfo.childNodeF,
+      childNodeH: productInfo.childNodeH,
+      childNodeK: productInfo.childNodeK,
+      childNodeO: productInfo.childNodeO,
+      childNodeV: productInfo.childNodeV,
+      childNodesE: productInfo.childNodesE,
+      childNodesN: productInfo.childNodesN,
+      collection: productInfo.collection,
+      colourWt: productInfo.colourWt,
+      complexity: productInfo.complexity,
+      consumerBase: productInfo.consumerBase,
+      diamondWt: productInfo.diamondWt,
+      doe: productInfo.doe,
+      findings: productInfo.findings,
+      gender: productInfo.gender,
+      i2Gh: productInfo.i2Gh,
+      id: productInfo.id,
+      indCategory: productInfo.indCategory,
+      indQty: productInfo.indQty,
+      indentLevelType: productInfo.indentLevelType,
+      itGroup: productInfo.itGroup,
+      itemCode: productInfo.itemCode,
+      itemLevelType: productInfo.itemLevelType,
+      karatageRange: productInfo.karatageRange,
+      metalColor: productInfo.metalColor,
+      metalWt: productInfo.metalWt,
+      npimEventNo: productInfo.npimEventNo,
+      parentItemCode: productInfo.parentItemCode,
+      quality_Rating: input.qualityRating,
+      quality_Reasons: input.multiSelectQtyFeed.toString(),
+      reasons: input.multiSelectDrop.toString(),
+      region: productInfo.region,
+      rsoName: rsoName,
+      saleable: input.switchData ? "YES" : "NO",
+      scannedCount: productInfo.scannedCount,
+      set2Type: productInfo.set2Type,
+      shape: productInfo.shape,
+      si2Gh: productInfo.si2Gh,
+      si2Ij: productInfo.si2Ij,
+      size: productInfo.size,
+      stdUCP: productInfo.stdUCP,
+      stdUcpE: productInfo.stdUCP,
+      stdUcpF: productInfo.stdUcpF,
+      stdUcpH: productInfo.stdUcpH,
+      stdUcpK: productInfo.stdUcpK,
+      stdUcpN: productInfo.stdUcpN,
+      stdUcpO: productInfo.stdUcpO,
+      stdUcpV: productInfo.stdUcpV,
+      stdWt: productInfo.stdWt,
+      stdWtE: productInfo.stdWtE,
+      stdWtF: productInfo.stdWtF,
+      stdWtH: productInfo.stdWtH,
+      stdWtK: productInfo.stdWtK,
+      stdWtN: productInfo.stdWtN,
+      stdWtO: productInfo.stdWtO,
+      stdWtV: productInfo.stdWtV,
+      stoneQuality: productInfo.stoneQuality,
+      stoneQualityVal: productInfo.stoneQualityVal,
+      strCode: storeCode,
+      submitStatus: productInfo.submitStatus,
+      unscannedCount: productInfo.unscannedCount,
+      uom: productInfo.uom,
+      videoLink: productInfo.videoLink,
+      vsGh: productInfo.vsGh,
+      vvs1: productInfo.vvs1,
+    };
+
+    console.log("UpdateInput==>", UpdateInput);
+    axios
+      .post(`${HostManager.mainHostL3}/npim/update/responses`, UpdateInput)
+      .then((response) => {
+        console.log("response==>", response.data);
+        if (response.data.code === "1000") {
+          alert("Data Updated Successfully");
+        }
+      })
+      .catch((error) => {
+        console.log("error==>", error);
+      });
+    setImmediate(() => {
+      setLoading(false);
+      setSelectReport(selectReport);
+      setEditState(!editState);
+    });
+  };
   return (
     <>
       <Drawer anchor="left" open={barOpener} onClose={myBarClickHandler}>
@@ -223,75 +400,68 @@ const ReportL1AndL2 = (props) => {
         <Grid item xs={12}>
           <UpperHeader storeCode={storeCode} />
           <Loading flag={loading} />
-          <div className={classes.appBar}>
-            <AppBar position="static" color="default">
-              <Toolbar>
-                <div className={classes.menuButton}>
-                  <IconButton
-                    onClick={myBarClickHandler}
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                </div>
-                <Grid container>
-                  <Grid item xs={12} sm={8}>
-                    <div className={classes.title}>
-                      <div className={classes.reportDrop}>
-                        <DropdownField
-                          name="Select Report Type"
-                          value={selectReport}
-                          lableName="Select Report Type"
-                          bigSmall={false}
-                          dropList={selectReportList}
-                          myChangeHandler={onchangeHandler}
-                        />
-                      </div>
-                    </div>
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <FormGroup row className={classes.feedbackSwitch}>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={showInfo}
-                            onChange={() => setShowInfo(!showInfo)}
-                            name="feedbackSwitch"
-                            color="secondary"
-                            disabled={switchEnable}
-                          />
-                        }
-                        label="Product Description"
-                      />
-                    </FormGroup>
-                  </Grid>
-                </Grid>
-              </Toolbar>
-            </AppBar>
-          </div>
+          <AppBar position="static" color="inherit">
+            <Toolbar>
+              <IconButton
+                onClick={myBarClickHandler}
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                className="mr-2"
+              >
+                <MenuIcon />
+              </IconButton>
+              <DropdownField
+                name="Select Report Type"
+                value={selectReport}
+                labelName="Select Report Type"
+                dropList={selectReportList}
+                myChangeHandler={onchangeHandler}
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={showInfo}
+                    onChange={() => setShowInfo(!showInfo)}
+                    name="feedbackSwitch"
+                    color="secondary"
+                    disabled={switchEnable}
+                  />
+                }
+                label="Product Description"
+                className="mx-5"
+              />
+            </Toolbar>
+          </AppBar>
         </Grid>
+
         <Grid item xs={12} className={showInfo ? classes.show : classes.hidden}>
-          {report.length > 0 && colum.length > 0 ? (
+          {report.length > 0 && column.length > 0 ? (
             <ProductInfo
               productInfo={productInfo}
-              getResponseFormChild={getResponseFormChild}
-              showinfo={showInfo}
+              getSubmitFormChild={getSubmitFormChild}
+              getUpdateFormChild={getUpdateFormChild}
+              showInfo={showInfo}
+              SelectReport={selectReport}
             />
           ) : (
-            <p className="text-center">No Date</p>
+            "NO DATA"
           )}
         </Grid>
         <Grid item xs={12}>
-          {report.length > 0 && (
+          {report.length > 0 && column.length > 0 ? (
             <TableComponent
               report={report}
-              coloum={colum}
+              coloum={column}
               reportType={selectReport}
-              getProdoctData={getProductData}
+              getProductData={getProductData}
               reportName={selectReport}
             />
+          ) : (
+            <div className="text-center">
+              {/* <img src={gifLoading} alt="loading" /> */}
+              <p>No Data Available</p>
+            </div>
           )}
         </Grid>
       </Grid>
