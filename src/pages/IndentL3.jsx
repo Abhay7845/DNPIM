@@ -788,7 +788,7 @@ const IndentL3 = () => {
             <Grid item xs={12} sm={5}>
               <ImgShow
                 itemCode={feedShowState.itemCode}
-                imgLink="https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName="
+                imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
                 videoLink={feedShowState.videoLink || ""}
               />
             </Grid>

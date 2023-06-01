@@ -833,7 +833,7 @@ const ReportL3 = () => {
                   <div className={classes.imgShow}>
                     <ImgShow
                       itemCode={dataRowInformation.itemCode}
-                      imgLink="https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName="
+                      imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
                       videoLink=""
                     />
                   </div>

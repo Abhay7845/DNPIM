@@ -5,7 +5,7 @@ const SingleImgCreator = (props) => {
   const { itemCode } = props;
   const [img, setImg] = useState([]);
   const imageCode = itemCode.substring(2, 9);
-  let ImageURL = `https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName=${imageCode}.jpg`;
+  let ImageURL = `https://tanishqdigitalnpim.titan.in/NpimImages/${imageCode}.jpg`;
   // console.log("ImageURL==>", ImageURL);
   const getImages = async () => {
     try {

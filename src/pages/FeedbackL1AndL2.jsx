@@ -466,7 +466,7 @@ const FeedbackL1AndL2 = () => {
                     <ImgShow
                       className="img_show"
                       itemCode={feedShowState.itemCode}
-                      imgLink="https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName="
+                      imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
                       videoLink={feedShowState.videoLink || ""}
                     />
                   ) : (

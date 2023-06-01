@@ -54,7 +54,7 @@ const ImgShow = (props) => {
 
   const imageCode = props.itemCode !== "" && props.itemCode.substring(2, 9);
   const combineImage = `${props.imgLink}${imageCode}`;
-  // console.log("combineImage==>", combineImage);
+  console.log("combineImage==>", combineImage);
   return (
     <>
       <section className={classes.root}>
@@ -113,7 +113,7 @@ const ImgShow = (props) => {
             <Tab style={{ minWidth: "1%" }} icon={<PlayCircleOutlineIcon />} />
             <Tab
               style={{ minWidth: "1%" }}
-              icon={<Avatar variant="square" src={`${combineImage}.jpg`} />}
+              icon={<Avatar variant="square" src={`${combineImage}_1.jpg`} />}
             />
             <Tab
               style={{ minWidth: "1%" }}

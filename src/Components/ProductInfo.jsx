@@ -65,7 +65,7 @@ const ProductInfo = (props) => {
           <div className="col-md-5">
             <ImgShow
               itemCode={props.productInfo.itemCode}
-              imgLink="https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName="
+              imgLink="https://tanishqdigitalnpim.titan.in/NpimImages/"
               videoLink=""
             />
           </div>

@@ -65,7 +65,7 @@ function DataGridReport(props) {
               itemCode={
                 params.row.itemCode ? params.row.itemCode : "502783VWQR1A02"
               }
-              link="https://jewbridge.titanjew.in/CatalogImages/api/ImageFetch/?Type=ProductImages&ImageName="
+              link="https://tanishqdigitalnpim.titan.in/NpimImages/"
             />
           );
         },
