@@ -71,7 +71,7 @@ const ImgShow = (props) => {
               <ReactImageMagnify
                 {...{
                   smallImage: {
-                    src: ImgLoad ? loadingGif : `${combineImage}.jpg`,
+                    src: ImgLoad ? loadingGif : `${combineImage}_1.jpg`,
                     height: 472,
                     width: window.innerWidth * (40.41145833 / 100),
                     alt: "Image is not available",
@@ -82,7 +82,7 @@ const ImgShow = (props) => {
                     },
                   },
                   largeImage: {
-                    src: ImgLoad ? loadingGif : `${combineImage}.jpg`,
+                    src: ImgLoad ? loadingGif : `${combineImage}_1.jpg`,
                     width: 1000,
                     height: 900,
                     alt: "Image is not available",
