@@ -50,7 +50,7 @@ function AdminHome() {
     alertSeverity: "",
     alertMessage: "",
   });
-  console.log("alertState==>", alertState);
+  console.log("masterFile==>", masterFile);
   const [loading, setLoading] = useState(false);
   const [storeList, setStoreList] = useState([]);
   const [toStoreList, setToStoreList] = useState([]);
@@ -300,6 +300,7 @@ function AdminHome() {
         },
       })
         .then((response) => {
+          console.log("response==>", response.data);
           if (response.data.code === "1000") {
             setAlertState({
               alertFlag2: true,

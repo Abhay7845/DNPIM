@@ -45,7 +45,6 @@ const ImgShow = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (event.target.src) {
-      console.log(imgLink);
       setImgLink(event.target.src);
     } else {
       setImgLink(props.videoLink);
@@ -54,7 +53,6 @@ const ImgShow = (props) => {
 
   const imageCode = props.itemCode !== "" && props.itemCode.substring(2, 9);
   const combineImage = `${props.imgLink}${imageCode}`;
-  console.log("combineImage==>", combineImage);
   return (
     <>
       <section className={classes.root}>
